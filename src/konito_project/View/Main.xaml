@@ -1,0 +1,97 @@
+﻿<Window
+        x:Name="window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:konito_project.View"
+        xmlns:commands="clr-namespace:konito_project.Utils.Command"
+        xmlns:ViewModel="clr-namespace:konito_project.ViewModel" x:Class="konito_project.View.Main"
+        mc:Ignorable="d" 
+        Title="KONITO" Height="500" Width="1250"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
+
+    <Window.DataContext>
+        <ViewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid Background="{StaticResource DisabledBackground}">
+        
+        <!--<Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontWeight" Value="Normal"/>
+            </Style>
+        </Grid.Resources>-->
+        
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="1000" Height="400"
+                Background="White" BorderBrush="Gray" BorderThickness="1">
+
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                     
+                    <GroupBox Grid.Column="0" Margin="20" Header="기초 자료 등록">
+                        <StackPanel>
+                            <Button Command="{Binding MoldDataRegisterCommand}" Content="신규 금형 정보 등록"/>
+                            <Button Command="{Binding ClientRegisterCommand}" Content="신규 거래처 등록"/>
+                            <Button Command="{Binding EmployeeRegisterCommand}" Content="신규 직원 등록"/>
+                            <Button Command="{Binding AccountRegisterCommand}" Content="계정 관리"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" Header="기초 자료 현황">
+                        <StackPanel>
+                            <Button Content="금형 목록"/>
+                            <Button Content="거래처 목록"/>
+                            <Button Content="직원 목록"/>
+                        </StackPanel>
+                    </GroupBox>
+                    
+                    <GroupBox Grid.Column="2" Header="실적 입력">
+                        <StackPanel>
+                            <Button Content="매입 입력"/>
+                            <Button Content="매출 입력"/>
+                            <Button Content="출근 대장 입력"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="3" Header="자료 생성">
+                        <StackPanel>
+                            <Button Content="월별 매입 금액"/>
+                            <Button Content="업체별 누적 잔액"/>
+                            <Button Content="제번별 원가합계표"/>
+                            <Button Content="월별 매출 현황"/>
+                            <Button Content="급여 대장"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Margin="5" Width="200" Command="{x:Static commands:Commands.OpenDbDirCommand}">저장된 Excel 폴더 열기</Button>
+                        <Button Margin="5" Width="150" Command="{x:Static commands:Commands.CloseCommand}" CommandParameter="{Binding ElementName=window}">프로그램 종료</Button>
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
