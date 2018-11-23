@@ -35,7 +35,7 @@ namespace konito_project.ViewModel {
                 return;
 
             // Spreadsheet Init
-            ExcelManager.CreateWorkBooks();
+            ExcelManager.CreateAllWorkBooks();
         }
 
         private void ClickMoldDataRegister() {

@@ -10,9 +10,9 @@ namespace konito_project.Excel {
 
     public static class ExcelManager {
 
-        public static void CreateWorkBooks() {
-            CreateWorkBook(ClientWorkBook.WORKBOOK_NAME, ClientWorkBook.COLUMNS);
-            CreateWorkBook(AccountWorkBook.WORKBOOK_NAME, AccountWorkBook.COLUMNS);
+        public static void CreateAllWorkBooks() {
+            CreateClientWorkBook();
+            CreateAccountWorkBook();
         }
 
         public static void RemoveAllWorkBooks() {
@@ -20,6 +20,8 @@ namespace konito_project.Excel {
             RemoveAccountWorkBook();
         }
 
+        public static void CreateClientWorkBook() => CreateWorkBook(ClientWorkBook.WORKBOOK_NAME, ClientWorkBook.COLUMNS);
+        public static void CreateAccountWorkBook() => CreateWorkBook(AccountWorkBook.WORKBOOK_NAME, AccountWorkBook.COLUMNS);
         public static bool RemoveClientWorkBook() => RemoveWorkBook(ClientWorkBook.WORKBOOK_NAME);
         public static bool RemoveAccountWorkBook() => RemoveWorkBook(AccountWorkBook.WORKBOOK_NAME);
 

@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WorkbookAPI\AccountWorkBookTest.cs" />
     <Compile Include="WorkbookAPI\ClientWorkBookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

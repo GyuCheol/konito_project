@@ -13,14 +13,12 @@ namespace konito_project.Model {
             Sales
         }
 
-        public int Id { get; set; }
-
         public Type AccountType { get; set;  }
 
         public string Name { get; set; }
 
         public DateTime CreatedTime { get; set; }
         
-        public DateTime UpdatedTime { get; set; }
+        public DateTime LastestUpdatedTime { get; set; }
     }
 }
