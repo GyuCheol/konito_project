@@ -21,13 +21,11 @@ namespace konito_project.Excel {
 
         public static int GetRecordCount() => WorkBookHelperMethods.GetWorksheetCount(WORKBOOK_NAME, SHEET_NAME);
         public static IEnumerable<Account> GetAllRecords() => WorkBookHelperMethods.GetConvertedWorkSheetRow(WORKBOOK_NAME, SHEET_NAME, RecordToData);
-
-
+        
         public static void AddAccountRecord(Account account) {
             WorkBookHelperMethods.InsertRow(WORKBOOK_NAME, SHEET_NAME, InsertRow, account);
         }
-
-
+        
         private static void InsertRow(IXLRow row, Account account) {
             if (account == null)
                 throw new NullReferenceException();

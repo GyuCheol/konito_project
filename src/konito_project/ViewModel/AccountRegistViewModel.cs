@@ -1,4 +1,5 @@
-﻿using konito_project.Model;
+﻿using konito_project.Excel;
+using konito_project.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,18 @@ namespace konito_project.ViewModel {
         public ObservableCollection<Account> SalesList { get; private set; } = new ObservableCollection<Account>();
 
         public AccountRegistViewModel() {
+            foreach (var account in AccountWorkBook.GetAllRecords()) {
 
+                switch (account.AccountType) {
+                    case Account.Type.Purchase:
+                        PurchaseList.Add(account);
+                        break;
+                    case Account.Type.Sales:
+                        SalesList.Add(account);
+                        break;
+                }
+
+            }
         }
 
     }

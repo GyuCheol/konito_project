@@ -18,21 +18,19 @@ namespace konito_project.Tests.WorkbookAPI {
         }
 
         [TestMethod]
-        public void Test_AddRecord() {
+        public void Test_GetRecords() {
 
             AccountWorkBook.AddAccountRecord(new Model.Account() {
                 AccountType = Model.Account.Type.Purchase,
                 Name = "A"
             });
 
-            Assert.AreEqual(AccountWorkBook.GetRecordCount(), 1);
-
             AccountWorkBook.AddAccountRecord(new Model.Account() {
                 AccountType = Model.Account.Type.Sales,
                 Name = "B"
             });
 
-            Assert.AreEqual(AccountWorkBook.GetRecordCount(), 2);
+            //var enumerator = AccountWorkBook
         }
 
     }
