@@ -80,6 +80,7 @@
     <Compile Include="Utils\Command\Commands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
     <Compile Include="Utils\WorkBookHelperMethods.cs" />
+    <Compile Include="ViewModel\AccountRegistViewModel.cs" />
     <Compile Include="ViewModel\ClientRegistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\AccountRegister.xaml.cs">
