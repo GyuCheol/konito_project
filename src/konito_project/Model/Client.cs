@@ -8,6 +8,7 @@ namespace konito_project.Model {
 
     public class Client {
         public int Id { get; set; }
+        public AccountType AccountType { get; set; }
         public String CompanyName { get; set; }
         public String OwnerName { get; set; }
         public String CompanyCode { get; set; }

@@ -4,114 +4,96 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:konito_project.View"
+        xmlns:commds="clr-namespace:konito_project.Utils.Command"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" 
         x:Name="window"
         x:Class="konito_project.View.AccountRegister"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance ViewModel:AccountRegistViewModel}"
         Title="매입/매출 계정" Height="550" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
-    <Grid>
-        <Grid.DataContext>
-            <ViewModel:AccountRegistViewModel/>
-        </Grid.DataContext>
 
-
-        <Grid Background="{StaticResource DisabledBackground}">
-            <Border VerticalAlignment="Center" HorizontalAlignment="Center"
+    <Grid Background="{StaticResource DisabledBackground}">
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center"
                 Width="600" Height="450"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="40"/>
-                    </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
+                <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
 
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
-                        </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
 
-                        <GroupBox Grid.Column="0" Margin="5" Header="매입 계정">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="40"/>
-                                </Grid.RowDefinitions>
+                    <GroupBox Grid.Column="0" Margin="5" Header="매입 계정">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
 
-                                <ListBox Grid.Row="0" Margin="0,0,0,5">
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                </ListBox>
+                            <ListBox Grid.Row="0" Margin="0,0,0,5"
+                                         ItemsSource="{Binding PurchaseList}"
+                                         DisplayMemberPath="Text"
+                                         SelectedItem="{Binding SelectedPurchase, Mode=OneWayToSource}"
+                                         SelectedValuePath="Text"
+                                         SelectedValue="{Binding PurchaseText, Mode=OneWayToSource}"/>
 
-                                <TextBox Grid.Row="1"/>
 
-                                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button Content="추가"/>
-                                    <Button Content="변경"/>
-                                    <Button Content="삭제"/>
-                                </StackPanel>
-                            </Grid>
+                            <TextBox Style="{StaticResource placeHolder}" Tag="계정 명을 입력해주세요." Grid.Row="1" Text="{Binding PurchaseText}"/>
 
-                        </GroupBox>
+                            <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button Command="{Binding PurchaseAddCommand}" Content="추가"/>
+                                <Button Command="{Binding PurchaseEditCommand}" Content="변경"/>
+                                <Button Command="{Binding PurchaseDeleteCommand}" Content="삭제"/>
+                            </StackPanel>
+                        </Grid>
 
-                        <GroupBox Grid.Column="1" Margin="5" Header="매출 계정">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="40"/>
-                                </Grid.RowDefinitions>
+                    </GroupBox>
 
-                                <ListBox Grid.Row="0" Margin="0,0,0,5">
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                    <ListBoxItem Content="asda"/>
-                                </ListBox>
+                    <GroupBox Grid.Column="1" Margin="5" Header="매출 계정">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
 
-                                <TextBox Grid.Row="1"/>
+                            <ListBox Grid.Row="0" Margin="0,0,0,5"
+                                         ItemsSource="{Binding SalesList}"
+                                         DisplayMemberPath="Text"
+                                         SelectedItem="{Binding SelectedSales, Mode=OneWayToSource}"
+                                         SelectedValuePath="Text"
+                                         SelectedValue="{Binding SalesText, Mode=OneWayToSource}"/>
 
-                                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <Button Content="추가"/>
-                                    <Button Content="변경"/>
-                                    <Button Content="삭제"/>
-                                </StackPanel>
-                            </Grid>
-                        </GroupBox>
+                            <TextBox Style="{StaticResource placeHolder}" Tag="계정 명을 입력해주세요." Grid.Row="1" Text="{Binding SalesText}"/>
 
-                    </Grid>
+                            <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button Command="{Binding SalesAddCommand}" Content="추가"/>
+                                <Button Command="{Binding SalesEditCommand}" Content="변경"/>
+                                <Button Command="{Binding SalesDeleteCommand}" Content="삭제"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
 
-                    <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Content="변경 내용 저장"/>
-                        <Button Content="닫기"/>
-                    </StackPanel>
                 </Grid>
-            </Border>
 
-        </Grid>
+                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Command="{Binding SaveCommand}" Content="변경 내용 저장"/>
+                    <Button Command="{x:Static commds:Commands.CloseCommand}" Content="닫기"/>
+                </StackPanel>
+            </Grid>
+        </Border>
 
     </Grid>
 </Window>

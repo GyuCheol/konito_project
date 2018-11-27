@@ -47,5 +47,14 @@ namespace konito_project.Utils {
             return new ValidateErrorHandler(false, string.Empty);
         }
 
+        public static Account CreateAccount(AccountType type, String text) {
+            DateTime now = DateTime.Now;
+
+            return new Account() {
+                AccountType = type,
+                Name = text
+            };
+        }
+
     }
 }

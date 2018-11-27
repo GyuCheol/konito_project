@@ -1,4 +1,5 @@
 ﻿using konito_project.Excel;
+using konito_project.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,14 @@ namespace konito_project.Tests.WorkbookAPI {
         public void Test_GetRecords() {
 
             AccountWorkBook.AddAccountRecord(new Model.Account() {
-                AccountType = Model.Account.Type.Purchase,
+                AccountType = AccountType.Purchase,
                 Name = "A"
             });
 
             AccountWorkBook.AddAccountRecord(new Model.Account() {
-                AccountType = Model.Account.Type.Sales,
+                AccountType = AccountType.Sales,
                 Name = "B"
             });
-
-            //var enumerator = AccountWorkBook
         }
 
     }

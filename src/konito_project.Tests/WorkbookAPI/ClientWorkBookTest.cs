@@ -52,6 +52,22 @@ namespace konito_project.Tests.WorkbookAPI {
         }
 
         [TestMethod]
+        public void Test_EditClientById() {
+
+            ClientWorkBook.AddClientRecord(new Model.Client() {
+                Id = 1,
+                CompanyName = "Test1"
+            });
+
+            ClientWorkBook.AddClientRecord(new Model.Client() {
+                Id = 2,
+                CompanyName = "Test2"
+            });
+
+            Assert.Fail("Not Improvement");
+        }
+
+        [TestMethod]
         public void Test_RemoveClientById() {
 
             ClientWorkBook.AddClientRecord(new Model.Client() {

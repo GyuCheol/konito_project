@@ -6,8 +6,15 @@
         xmlns:local="clr-namespace:konito_project.View"
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="금형 정보 등록" Height="450" Width="800">
-    <Grid>
-        
+        Title="금형 정보 등록" Height="850" Width="900">
+    
+    <Grid Background="{StaticResource DisabledBackground}">
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center"
+            Width="800" Height="680"
+        Background="White" BorderBrush="Gray" BorderThickness="1">
+
+
+        </Border>
     </Grid>
+    
 </Window>

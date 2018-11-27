@@ -1,5 +1,6 @@
 ﻿using konito_project.Classess;
 using konito_project.Excel;
+using konito_project.Exceptions;
 using konito_project.Model;
 using konito_project.Utils;
 using System;
@@ -13,7 +14,7 @@ using static konito_project.Utils.HelperMethods;
 
 namespace konito_project.ViewModel {
 
-    public class ClientRegistViewModel {
+    public class ClientRegistViewModel: ViewModelBase {
 
         public enum Mode {
             Appending,
@@ -26,27 +27,27 @@ namespace konito_project.ViewModel {
 
         public Client Client { get; private set; }
 
-        public ClientRegistViewModel() {
-            InitCmd();
-            CurrentMode = Mode.Appending;
-            Client = new Client();
-        }
+        public string ClientId => $"{Client?.Id ?? 0:00000}";
+        public bool Purchase { get; set; }
+        public bool Sales { get; set; }
 
-        
+        public ClientRegistViewModel(): base() {}
 
-        public ClientRegistViewModel(int clientId) : this() {
+        public ClientRegistViewModel(int clientId) {
             InitCmd();
             CurrentMode = Mode.Editing;
             // Find client data
-            // Client = new Client();
+            Client = ClientWorkBook.GetClientByIdOrNull(clientId);
+
+            if (Client == null)
+                throw new NotFoundClientException();
         }
 
-        private void InitCmd() {
-            SaveCommand = new WindowHandlerCommand(ClickSaveCommand);
-        }
 
         private void ClickSaveCommand(Window w) {
             ValidateErrorHandler validate = Client.Validate();
+
+            Client.AccountType = Purchase ? AccountType.Purchase : AccountType.Sales;
 
             if(validate.HasError) {
                 MessageBox.Show(validate.ErrMsg, "에러", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -67,6 +68,19 @@ namespace konito_project.ViewModel {
             w.Close();
         }
 
+        protected override void InitWorkbook() {
+            CurrentMode = Mode.Appending;
+
+            Client = new Client() {
+                Id = ClientWorkBook.GetNewClientId()
+            };
+            Purchase = true;
+            Sales = false;
+        }
+
+        protected override void InitCmd() {
+            SaveCommand = new WindowHandlerCommand(ClickSaveCommand);
+        }
     }
 
 }

@@ -15,6 +15,7 @@ namespace konito_project.Excel
         public const string SHEET_NAME = "data";
 
         public static readonly string[] COLUMNS = {
+            "거래처 구분",
             "거래처 코드",
             "거래처명",
             "대표자명",
@@ -38,6 +39,32 @@ namespace konito_project.Excel
         /// <param name="client"></param>
         public static void AddClientRecord(Client client) {
             WorkBookHelperMethods.InsertRow(WORKBOOK_NAME, SHEET_NAME, InsertRow, client);
+        }
+
+        public static int GetNewClientId() {
+            using (var workBook = new XLWorkbook(WORKBOOK_NAME)) {
+
+                var sheet = workBook.Worksheet(SHEET_NAME);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return 1;
+
+                int maxValue = 0;
+
+                for (int r = 2; r <= lastRow; r++) {
+                    int id = sheet.Cell(r, 1).GetValue<int>();
+
+                    maxValue = Math.Max(maxValue, id);
+                }
+
+                return maxValue + 1;
+
+            }
         }
 
         public static int GetRecordCount() => WorkBookHelperMethods.GetWorksheetCount(WORKBOOK_NAME, SHEET_NAME);

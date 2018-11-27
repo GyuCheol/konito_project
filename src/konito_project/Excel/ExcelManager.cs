@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using konito_project.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,8 +21,21 @@ namespace konito_project.Excel {
             RemoveAccountWorkBook();
         }
 
-        public static void CreateClientWorkBook() => CreateWorkBook(ClientWorkBook.WORKBOOK_NAME, ClientWorkBook.COLUMNS);
-        public static void CreateAccountWorkBook() => CreateWorkBook(AccountWorkBook.WORKBOOK_NAME, AccountWorkBook.COLUMNS);
+        public static void CreateClientWorkBook() => CreateWorkBook(ClientWorkBook.WORKBOOK_NAME, ClientWorkBook.SHEET_NAME, ClientWorkBook.COLUMNS);
+        public static void CreateAccountWorkBook() {
+
+            if(CreateWorkBook(AccountWorkBook.WORKBOOK_NAME, AccountWorkBook.SHEET_NAME, AccountWorkBook.COLUMNS)) {
+                // Add default records
+                foreach (var text in AccountWorkBook.DEFAULT_PURCHASE) {
+                    AccountWorkBook.AddAccountRecord(HelperMethods.CreateAccount(Model.AccountType.Purchase, text));
+                }
+
+                foreach (var text in AccountWorkBook.DEFAULT_SALES) {
+                    AccountWorkBook.AddAccountRecord(HelperMethods.CreateAccount(Model.AccountType.Sales, text));
+                }
+            }
+
+        }
         public static bool RemoveClientWorkBook() => RemoveWorkBook(ClientWorkBook.WORKBOOK_NAME);
         public static bool RemoveAccountWorkBook() => RemoveWorkBook(AccountWorkBook.WORKBOOK_NAME);
 
@@ -35,13 +49,13 @@ namespace konito_project.Excel {
             return false;
         }
 
-        private static bool CreateWorkBook(string fileName, string[] columns) {
+        private static bool CreateWorkBook(string fileName, string sheetName, string[] columns) {
 
-            if (File.Exists(ClientWorkBook.WORKBOOK_NAME))
+            if (File.Exists(fileName))
                 return false;
 
             using (var workbook = new XLWorkbook()) {
-                var worksheet = workbook.Worksheets.Add("data");
+                var worksheet = workbook.Worksheets.Add(sheetName);
 
                 for (int col = 0; col < columns.Length; col++) {
                     worksheet.Cell(1, col + 1).Value = columns[col];

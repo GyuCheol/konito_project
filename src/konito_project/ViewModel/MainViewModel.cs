@@ -13,7 +13,7 @@ using static konito_project.ViewModel.ClientRegistViewModel;
 
 namespace konito_project.ViewModel {
 
-    public class MainViewModel {
+    public class MainViewModel: ViewModelBase {
 
         public ICommand MoldDataRegisterCommand { get; private set; }
 
@@ -23,36 +23,15 @@ namespace konito_project.ViewModel {
 
         public ICommand EmployeeRegisterCommand { get; private set; }
 
-        public MainViewModel() {
-            MoldDataRegisterCommand = new ButtonCommand(ClickMoldDataRegister);
-            AccountRegisterCommand = new ButtonCommand(ClickAccountRegister);
-            ClientRegisterCommand = new ButtonCommand(ClickClientRegister);
-            EmployeeRegisterCommand = new ButtonCommand(ClickEmployeeRegister);
-
-
-            // In designer mode, not working
-            if(DesignerProperties.GetIsInDesignMode(new DependencyObject()))
-                return;
-
-            // Spreadsheet Init
+        protected override void InitWorkbook() {
             ExcelManager.CreateAllWorkBooks();
         }
 
-        private void ClickMoldDataRegister() {
-            new MoldDataRegister().ShowDialog();
+        protected override void InitCmd() {
+            MoldDataRegisterCommand = new ActionCommand(() => new MoldDataRegister().ShowDialog());
+            AccountRegisterCommand = new ActionCommand(() => new AccountRegister().ShowDialog());
+            ClientRegisterCommand = new ActionCommand(() => new ClientRegister().ShowDialog());
+            EmployeeRegisterCommand = new ActionCommand(() => new EmployeeRegister().ShowDialog());
         }
-
-        private void ClickAccountRegister() {
-            new AccountRegister().ShowDialog();
-        }
-
-        private void ClickClientRegister() {
-            new ClientRegister().ShowDialog();
-        }
-
-        private void ClickEmployeeRegister() {
-
-        }
-
     }
 }

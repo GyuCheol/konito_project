@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace konito_project.Classess {
 
-    public class ButtonCommand : ICommand {
+    public class ActionCommand : ICommand {
         public event EventHandler CanExecuteChanged;
 
         private Action action;
@@ -16,7 +16,7 @@ namespace konito_project.Classess {
             return true;
         }
 
-        public ButtonCommand(Action action) {
+        public ActionCommand(Action action) {
             this.action = action;
         }
 

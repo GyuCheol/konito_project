@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -68,21 +69,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classess\ButtonCommand.cs" />
+    <Compile Include="Classess\ActionCommand.cs" />
+    <Compile Include="Classess\NotifyWrapper.cs" />
     <Compile Include="Classess\WindowHandlerCommand.cs" />
     <Compile Include="Excel\AccountWorkBook.cs" />
     <Compile Include="Excel\ClientWorkBook.cs" />
     <Compile Include="Excel\ExcelManager.cs" />
     <Compile Include="Exceptions\NotFoundClientException.cs" />
     <Compile Include="Exceptions\WrongExcelFormatException.cs" />
+    <Compile Include="Images\ImageManager.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\AccountType.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\Mold.cs" />
     <Compile Include="Utils\Command\Commands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
     <Compile Include="Utils\WorkBookHelperMethods.cs" />
     <Compile Include="ViewModel\AccountRegistViewModel.cs" />
     <Compile Include="ViewModel\ClientRegistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AccountRegister.xaml.cs">
       <DependentUpon>AccountRegister.xaml</DependentUpon>
     </Compile>

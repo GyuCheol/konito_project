@@ -27,7 +27,6 @@ namespace konito_project.View
         public ClientRegister()
         {
             InitializeComponent();
-            DataContext = new ClientRegistViewModel();
         }
 
         /// <summary>
