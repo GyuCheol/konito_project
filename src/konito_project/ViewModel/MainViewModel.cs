@@ -23,6 +23,8 @@ namespace konito_project.ViewModel {
 
         public ICommand EmployeeRegisterCommand { get; private set; }
 
+        public MainViewModel(): base() {}
+
         protected override void InitWorkbook() {
             ExcelManager.CreateAllWorkBooks();
         }

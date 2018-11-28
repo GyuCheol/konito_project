@@ -16,7 +16,7 @@ namespace konito_project.ViewModel {
     public class AccountRegistViewModel: ViewModelBase {
         public ObservableCollection<NotifyWrapper<Account>> PurchaseList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
         public ObservableCollection<NotifyWrapper<Account>> SalesList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
-
+        
         public ICommand SaveCommand { get; private set; }
 
         public ICommand PurchaseAddCommand { get; private set; }
@@ -32,6 +32,8 @@ namespace konito_project.ViewModel {
 
         public NotifyWrapper<Account> SelectedPurchase { get; set; }
         public NotifyWrapper<Account> SelectedSales { get; set; }
+
+        public AccountRegistViewModel(): base() {}
 
         private void SaveAllRecords() {
             var accounts = PurchaseList.Concat(SalesList);

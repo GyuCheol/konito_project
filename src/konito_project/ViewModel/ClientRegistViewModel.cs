@@ -16,14 +16,9 @@ namespace konito_project.ViewModel {
 
     public class ClientRegistViewModel: ViewModelBase {
 
-        public enum Mode {
-            Appending,
-            Editing
-        }
-
         public ICommand SaveCommand { get; private set; }
 
-        private Mode CurrentMode = Mode.Appending;
+        private RegistMode CurrentMode;
 
         public Client Client { get; private set; }
 
@@ -31,18 +26,22 @@ namespace konito_project.ViewModel {
         public bool Purchase { get; set; }
         public bool Sales { get; set; }
 
-        public ClientRegistViewModel(): base() {}
+        public ClientRegistViewModel(): base() {
+            CurrentMode = RegistMode.Append;
+            Client = new Client() {
+                Id = ClientWorkBook.GetNewClientId()
+            };
+        }
 
         public ClientRegistViewModel(int clientId) {
             InitCmd();
-            CurrentMode = Mode.Editing;
+            CurrentMode = RegistMode.Edit;
             // Find client data
             Client = ClientWorkBook.GetClientByIdOrNull(clientId);
 
             if (Client == null)
                 throw new NotFoundClientException();
         }
-
 
         private void ClickSaveCommand(Window w) {
             ValidateErrorHandler validate = Client.Validate();
@@ -55,11 +54,11 @@ namespace konito_project.ViewModel {
             }
 
             switch (CurrentMode) {
-                case Mode.Appending:
+                case RegistMode.Append:
                     ClientWorkBook.AddClientRecord(Client);
                     MessageBox.Show("신규 거래처 정보가 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
-                case Mode.Editing:
+                case RegistMode.Edit:
 
                     MessageBox.Show("거래처 정보가 수정되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
@@ -69,7 +68,7 @@ namespace konito_project.ViewModel {
         }
 
         protected override void InitWorkbook() {
-            CurrentMode = Mode.Appending;
+            CurrentMode = RegistMode.Append;
 
             Client = new Client() {
                 Id = ClientWorkBook.GetNewClientId()

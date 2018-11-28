@@ -10,8 +10,19 @@ namespace konito_project.Excel {
         public const string SHEET_NAME = "data";
 
         public static readonly string[] COLUMNS = {
-            "구분",
-            "계정명"
+            "순번",
+            "이미지ID",
+            "사번",
+            "성",
+            "이름",
+            "직책",
+            "연락처",
+            "주소",
+            "급여",
+            "생년월일",
+            "입사일",
+            "생성일",
+            "최근 수정일"
         };
 
     }

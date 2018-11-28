@@ -8,20 +8,11 @@
         xmlns:commands="clr-namespace:konito_project.Utils.Command"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" x:Class="konito_project.View.Main"
         mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance ViewModel:MainViewModel}"
         Title="KONITO" Height="500" Width="1250"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 
-    <Window.DataContext>
-        <ViewModel:MainViewModel/>
-    </Window.DataContext>
-
     <Grid Background="{StaticResource DisabledBackground}">
-        
-        <!--<Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="FontWeight" Value="Normal"/>
-            </Style>
-        </Grid.Resources>-->
         
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
                 Width="1000" Height="400"

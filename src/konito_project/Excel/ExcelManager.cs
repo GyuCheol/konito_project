@@ -14,14 +14,17 @@ namespace konito_project.Excel {
         public static void CreateAllWorkBooks() {
             CreateClientWorkBook();
             CreateAccountWorkBook();
+            CreateEmployeeWorkBook();
         }
 
         public static void RemoveAllWorkBooks() {
             RemoveClientWorkBook();
             RemoveAccountWorkBook();
+            RemoveEmployeeWorkBook();
         }
 
         public static void CreateClientWorkBook() => CreateWorkBook(ClientWorkBook.WORKBOOK_NAME, ClientWorkBook.SHEET_NAME, ClientWorkBook.COLUMNS);
+        public static void CreateEmployeeWorkBook() => CreateWorkBook(EmployeeWorkBook.WORKBOOK_NAME, EmployeeWorkBook.SHEET_NAME, EmployeeWorkBook.COLUMNS);
         public static void CreateAccountWorkBook() {
 
             if(CreateWorkBook(AccountWorkBook.WORKBOOK_NAME, AccountWorkBook.SHEET_NAME, AccountWorkBook.COLUMNS)) {
@@ -38,6 +41,7 @@ namespace konito_project.Excel {
         }
         public static bool RemoveClientWorkBook() => RemoveWorkBook(ClientWorkBook.WORKBOOK_NAME);
         public static bool RemoveAccountWorkBook() => RemoveWorkBook(AccountWorkBook.WORKBOOK_NAME);
+        public static bool RemoveEmployeeWorkBook() => RemoveWorkBook(EmployeeWorkBook.WORKBOOK_NAME);
 
         private static bool RemoveWorkBook(string fileName) {
 
@@ -65,7 +69,5 @@ namespace konito_project.Excel {
                 return true;
             }
         }
-
-
     }
 }

@@ -21,22 +21,10 @@ namespace konito_project.View
     /// </summary>
     public partial class ClientRegister : Window
     {
-        /// <summary>
-        /// Appending Mode for new client
-        /// </summary>
         public ClientRegister()
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Editing Mode
-        /// </summary>
-        /// <param name="id">The client id for editing</param>
-        public ClientRegister(int id) {
-            InitializeComponent();
-            DataContext = new ClientRegistViewModel(id);
-        }
-
+        
     }
 }

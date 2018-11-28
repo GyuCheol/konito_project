@@ -4,15 +4,133 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:konito_project.View"
+        xmlns:vm="clr-namespace:konito_project.ViewModel"
+        xmlns:commands="clr-namespace:konito_project.Utils.Command"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:EmployeeRegistViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="직원 등록" Height="850" Width="900">
+        Title="임직원 정보" Height="850" Width="900">
     
     <Grid Background="{StaticResource DisabledBackground}">
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
             Width="800" Height="680"
-        Background="White" BorderBrush="Gray" BorderThickness="1">
-            
+            Background="White" BorderBrush="Gray" BorderThickness="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type GroupBox}}">
+                            <Setter Property="Margin" Value="20,10,20,0"/>
+                            <Setter Property="Padding" Value="10,10,10,0"/>
+                        </Style>
+
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Width" Value="150"/>
+                        </Style>
+
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Width" Value="450"/>
+                        </Style>
+
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Margin" Value="0,0,0,10"/>
+                        </Style>
+
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Width" Value="150"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <StackPanel>
+                        <GroupBox Grid.Column="0" Header="필수 정보*   ">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="사 번 : "/>
+                                    <TextBox Text="{Binding Client.CompanyName}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="대표자명 : "/>
+                                    <TextBox Text="{Binding Client.OwnerName}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="사업자번호 : "/>
+                                    <TextBox Text="{Binding Client.CompanyCode}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="계좌은행 : "/>
+                                    <TextBox Text="{Binding Client.BankName}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="계좌번호 : "/>
+                                    <TextBox Text="{Binding Client.BankAccountCode}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="예금주명 : "/>
+                                    <TextBox Text="{Binding Client.BankAccountOwnerName}"/>
+                                </StackPanel>
+
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="0" Header="생략 가능 정보">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="전화번호 : "/>
+                                    <TextBox Text="{Binding Client.ContactNumber}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="팩스번호 : "/>
+                                    <TextBox Text="{Binding Client.FaxNumber}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="업태 : "/>
+                                    <TextBox Text="{Binding Client.Business}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="종목 : "/>
+                                    <TextBox Text="{Binding Client.BusinessClassification}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="주소 : "/>
+                                    <TextBox Text="{Binding Client.Address1}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="상세 주소 : "/>
+                                    <TextBox Text="{Binding Client.Address2}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                            <Button Content="저장 하기" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
+                            <Button Command="{x:Static commands:Commands.CloseCommand}" CommandParameter="{Binding ElementName=window}"  Content="닫기"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
         </Border>
     </Grid>
 

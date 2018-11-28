@@ -89,7 +89,9 @@
     <Compile Include="Utils\WorkBookHelperMethods.cs" />
     <Compile Include="ViewModel\AccountRegistViewModel.cs" />
     <Compile Include="ViewModel\ClientRegistViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeRegistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RegistMode.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AccountRegister.xaml.cs">
       <DependentUpon>AccountRegister.xaml</DependentUpon>

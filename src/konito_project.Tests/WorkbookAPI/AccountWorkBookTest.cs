@@ -19,7 +19,7 @@ namespace konito_project.Tests.WorkbookAPI {
         }
 
         [TestMethod]
-        public void Test_GetRecords() {
+        public void Test_AddRecords() {
 
             AccountWorkBook.AddAccountRecord(new Model.Account() {
                 AccountType = AccountType.Purchase,
@@ -30,6 +30,11 @@ namespace konito_project.Tests.WorkbookAPI {
                 AccountType = AccountType.Sales,
                 Name = "B"
             });
+        }
+
+        [TestMethod]
+        public void Test_GetRecords() {
+
         }
 
     }
