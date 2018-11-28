@@ -74,6 +74,7 @@
     <Compile Include="Classess\WindowHandlerCommand.cs" />
     <Compile Include="Excel\AccountWorkBook.cs" />
     <Compile Include="Excel\ClientWorkBook.cs" />
+    <Compile Include="Excel\EmployeeWorkBook.cs" />
     <Compile Include="Excel\ExcelManager.cs" />
     <Compile Include="Exceptions\NotFoundClientException.cs" />
     <Compile Include="Exceptions\WrongExcelFormatException.cs" />

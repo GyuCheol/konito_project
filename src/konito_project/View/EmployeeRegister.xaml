@@ -12,8 +12,7 @@
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
             Width="800" Height="680"
         Background="White" BorderBrush="Gray" BorderThickness="1">
-                
-
+            
         </Border>
     </Grid>
 
