@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,7 @@ namespace konito_project.View
     /// <summary>
     /// Interaction logic for MoldDataRegister.xaml
     /// </summary>
-    public partial class MoldDataRegister : Window
-    {
+    public partial class MoldDataRegister : MetroWindow {
         public MoldDataRegister()
         {
             InitializeComponent();

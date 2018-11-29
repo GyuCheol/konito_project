@@ -7,28 +7,26 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace konito_project.Classess {
+namespace konito_project.Commands {
     public class NotifyWrapper<T> : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
-        private T data;
+        public T Data { get; private set; }
+
         private string propertyName;
         private Type type;
 
-        public string Text => type.GetProperty(propertyName).GetMethod.Invoke(data, null).ToString();
+        public string Text => type.GetProperty(propertyName).GetMethod.Invoke(Data, null).ToString();
 
         public NotifyWrapper(T data, string propertyName) {
-            this.data = data;
+            Data = data;
             this.propertyName = propertyName;
 
             type = data.GetType();
         }
 
         public void ChangeValue(object value) {
-            type.GetProperty(propertyName).SetMethod.Invoke(data, new object[] { value });
+            type.GetProperty(propertyName).SetMethod.Invoke(Data, new object[] { value });
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Text)));
         }
-
-        public T GetSourceData => data;
-
     }
 }

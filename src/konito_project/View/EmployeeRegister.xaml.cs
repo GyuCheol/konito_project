@@ -1,4 +1,6 @@
-﻿using System;
+﻿using konito_project.ViewModel;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +19,12 @@ namespace konito_project.View
     /// <summary>
     /// Interaction logic for EmployeeRegister.xaml
     /// </summary>
-    public partial class EmployeeRegister : Window
+    public partial class EmployeeRegister : MetroWindow
     {
         public EmployeeRegister()
         {
             InitializeComponent();
+            DataContext = new EmployeeRegistViewModel();
         }
     }
 }

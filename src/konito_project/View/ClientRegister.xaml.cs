@@ -1,4 +1,5 @@
 ﻿using konito_project.ViewModel;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,18 @@ namespace konito_project.View
     /// <summary>
     /// Interaction logic for ClientRegister.xaml
     /// </summary>
-    public partial class ClientRegister : Window
+    public partial class ClientRegister : MetroWindow
     {
         public ClientRegister()
         {
             InitializeComponent();
+            DataContext = new ClientRegistViewModel();
         }
-        
+
+        public ClientRegister(int clientId) {
+            InitializeComponent();
+            DataContext = new ClientRegistViewModel(clientId);
+        }
+
     }
 }

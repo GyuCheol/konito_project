@@ -1,4 +1,6 @@
-﻿using System;
+﻿using konito_project.ViewModel;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +18,10 @@ namespace konito_project.View {
     /// <summary>
     /// Interaction logic for AccountRegister.xaml
     /// </summary>
-    public partial class AccountRegister : Window {
+    public partial class AccountRegister : MetroWindow {
         public AccountRegister() {
             InitializeComponent();
+            DataContext = new AccountRegistViewModel();
         }
     }
 }

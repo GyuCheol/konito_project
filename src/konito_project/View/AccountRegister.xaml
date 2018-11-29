@@ -1,10 +1,11 @@
-﻿<Window
+﻿<controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:konito_project.View"
-        xmlns:commds="clr-namespace:konito_project.Utils.Command"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:commds="clr-namespace:konito_project.Commands"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" 
         x:Name="window"
         x:Class="konito_project.View.AccountRegister"
@@ -50,7 +51,7 @@
                                          SelectedValue="{Binding PurchaseText, Mode=OneWayToSource}"/>
 
 
-                            <TextBox Style="{StaticResource placeHolder}" Tag="계정 명을 입력해주세요." Grid.Row="1" Text="{Binding PurchaseText}"/>
+                            <TextBox Grid.Row="1" Text="{Binding PurchaseText}"/>
 
                             <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
                                 <Button Command="{Binding PurchaseAddCommand}" Content="추가"/>
@@ -76,7 +77,7 @@
                                          SelectedValuePath="Text"
                                          SelectedValue="{Binding SalesText, Mode=OneWayToSource}"/>
 
-                            <TextBox Style="{StaticResource placeHolder}" Tag="계정 명을 입력해주세요." Grid.Row="1" Text="{Binding SalesText}"/>
+                            <TextBox Grid.Row="1" Text="{Binding SalesText}"/>
 
                             <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
                                 <Button Command="{Binding SalesAddCommand}" Content="추가"/>
@@ -90,10 +91,10 @@
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Command="{Binding SaveCommand}" Content="변경 내용 저장"/>
-                    <Button Command="{x:Static commds:Commands.CloseCommand}" Content="닫기"/>
+                    <Button Command="{x:Static commds:UtilCommands.CloseCommand}" Content="닫기"/>
                 </StackPanel>
             </Grid>
         </Border>
 
     </Grid>
-</Window>
+</controls:MetroWindow>

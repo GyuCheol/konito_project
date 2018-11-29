@@ -1,4 +1,4 @@
-﻿using konito_project.Classess;
+﻿using konito_project.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace konito_project.Utils.Command {
-    public static class Commands {
+namespace konito_project.Commands {
+    public static class UtilCommands {
         public static readonly WindowHandlerCommand CloseCommand = new WindowHandlerCommand(CloseWindowOrCurWnd);
         public static readonly ActionCommand OpenDbDirCommand = new ActionCommand(() => Process.Start($"{AppDomain.CurrentDomain.BaseDirectory}/db/"));
 

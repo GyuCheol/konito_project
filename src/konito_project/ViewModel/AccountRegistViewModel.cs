@@ -1,4 +1,4 @@
-﻿using konito_project.Classess;
+﻿using konito_project.Commands;
 using konito_project.Excel;
 using konito_project.Model;
 using konito_project.Utils;
@@ -38,7 +38,7 @@ namespace konito_project.ViewModel {
         private void SaveAllRecords() {
             var accounts = PurchaseList.Concat(SalesList);
 
-            AccountWorkBook.AddReocrds(accounts.Select(x => x.GetSourceData));
+            AccountWorkBook.AddReocrds(accounts.Select(x => x.Data));
 
             MessageBox.Show("저장되었습니다.", "성공", MessageBoxButton.OK, MessageBoxImage.Information);
         }

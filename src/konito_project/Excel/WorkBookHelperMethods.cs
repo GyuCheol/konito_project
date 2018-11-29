@@ -2,15 +2,16 @@
 using konito_project.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace konito_project.Utils {
+namespace konito_project.Excel {
     public static class WorkBookHelperMethods {
 
         public static int GetWorksheetCount(string workbookPath, string sheetName) {
-            using (var workBook = new XLWorkbook(workbookPath)) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -21,9 +22,18 @@ namespace konito_project.Utils {
             }
         }
 
-        public static IEnumerable<T> GetConvertedWorkSheetRow<T>(string workbookPath, string sheetName, Func<IXLRow, T> converting) {
-            using (var workBook = new XLWorkbook(workbookPath)) {
+        public static bool CanUseWorkBook(string filePath) {
+            try {
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None)) {
+                    return true;
+                }
+            } catch (IOException) {
+                return false;
+            }
+        }
 
+        public static IEnumerable<T> GetConvertedWorkSheetRow<T>(string workbookPath, string sheetName, Func<IXLRow, T> converting) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
                 var sheet = workBook.Worksheet(sheetName);
 
                 if (sheet == null)
@@ -41,7 +51,7 @@ namespace konito_project.Utils {
         }
 
         public static void InsertRow<T>(string workbookPath, string sheetName, Action<IXLRow, T> insertAction, T data) {
-            using (var workBook = new XLWorkbook(workbookPath)) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Write))) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -57,7 +67,7 @@ namespace konito_project.Utils {
         }
 
         public static T FindConvertedWorkSheetRowOrDefault<T>(string workbookPath, string sheetName, Func<IXLRangeRow, bool> predicate, Func<IXLRow, T> converting) {
-            using (var workBook = new XLWorkbook(workbookPath)) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -80,7 +90,7 @@ namespace konito_project.Utils {
 
         public static void RemoveSheetRow(string workbookPath, string sheetName, Func<IXLRangeRow, bool> predicate) {
 
-            using (var workBook = new XLWorkbook(workbookPath)) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Write))) {
 
                 var sheet = workBook.Worksheet(sheetName);
 

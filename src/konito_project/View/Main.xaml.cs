@@ -1,4 +1,6 @@
-﻿using System;
+﻿using konito_project.ViewModel;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -18,9 +20,10 @@ namespace konito_project.View
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : Window {
+    public partial class Main : MetroWindow {
         public Main() {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }
