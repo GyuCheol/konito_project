@@ -7,15 +7,16 @@
         xmlns:local="clr-namespace:konito_project.View"
         xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" x:Class="konito_project.View.ClientRegister"
+        xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance ViewModel:ClientRegistViewModel}"
-        Title="거래처" Height="800" Width="900"
+        Title="거래처" Height="850" Width="800"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 
     <Grid Background="{StaticResource DisabledBackground}">
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="800" Height="680"
+                Width="650" Height="730"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -33,16 +34,16 @@
                             <Setter Property="Padding" Value="10,10,10,0"/>
                         </Style>
 
-                        <Style TargetType="{x:Type TextBlock}">
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="Width" Value="150"/>
                         </Style>
 
-                        <Style TargetType="{x:Type TextBox}">
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Normal"/>
-                            <Setter Property="Width" Value="450"/>
+                            <Setter Property="Width" Value="390"/>
                         </Style>
 
                         <Style TargetType="{x:Type StackPanel}">
@@ -51,6 +52,8 @@
 
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                             <Setter Property="Width" Value="150"/>
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="FontSize" Value="14"/>
                         </Style>
                     </Grid.Resources>
 
@@ -68,67 +71,67 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="거래처명 : "/>
-                                    <TextBox Text="{Binding Client.CompanyName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*거래처명을 반드시 입력하셔야 합니다." Text="{Binding Client.CompanyName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="대표자명 : "/>
-                                    <TextBox Text="{Binding Client.OwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*대표자명을 반드시 입력하셔야 합니다." Text="{Binding Client.OwnerName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="사업자번호 : "/>
-                                    <TextBox Text="{Binding Client.CompanyCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*사업자번호를 반드시 입력하셔야 합니다." Text="{Binding Client.CompanyCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌은행 : "/>
-                                    <TextBox Text="{Binding Client.BankName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌은행을 반드시 입력하셔야 합니다." Text="{Binding Client.BankName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌번호 : "/>
-                                    <TextBox Text="{Binding Client.BankAccountCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌번호를 반드시 입력하셔야 합니다." Text="{Binding Client.BankAccountCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="예금주명 : "/>
-                                    <TextBox Text="{Binding Client.BankAccountOwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*예금주명을 반드시 입력하셔야 합니다." Text="{Binding Client.BankAccountOwnerName}"/>
                                 </StackPanel>
 
                             </StackPanel>
                         </GroupBox>
 
-                        <GroupBox Grid.Column="0" Header="생략 가능 정보">
+                        <GroupBox Grid.Column="0" Header="생략 가능">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="전화번호 : "/>
-                                    <TextBox Text="{Binding Client.ContactNumber}"/>
+                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding Client.ContactNumber}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="팩스번호 : "/>
-                                    <TextBox Text="{Binding Client.FaxNumber}"/>
+                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding Client.FaxNumber}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="업태 : "/>
-                                    <TextBox Text="{Binding Client.Business}"/>
+                                    <TextBox ex:PlaceHolder.Text="업태 입력" Text="{Binding Client.Business}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="종목 : "/>
-                                    <TextBox Text="{Binding Client.BusinessClassification}"/>
+                                    <TextBox ex:PlaceHolder.Text="종목 입력" Text="{Binding Client.BusinessClassification}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="주소 : "/>
-                                    <TextBox Text="{Binding Client.Address1}"/>
+                                    <TextBox ex:PlaceHolder.Text="주소 입력" Text="{Binding Client.Address1}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="상세 주소 : "/>
-                                    <TextBox Text="{Binding Client.Address2}"/>
+                                    <TextBox ex:PlaceHolder.Text="상세 주소 입력" Text="{Binding Client.Address2}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>

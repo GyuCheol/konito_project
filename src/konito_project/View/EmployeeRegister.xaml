@@ -12,11 +12,19 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:EmployeeRegistViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="임직원 정보" Height="700" Width="800">
+        Title="임직원 정보" Height="650" Width="800">
     
     <Grid Background="{StaticResource DisabledBackground}">
+
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+        </Grid.Resources>
+
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-            Width="700" Height="500"
+            Width="700" Height="530"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -34,16 +42,21 @@
                             <Setter Property="Padding" Value="10,10,10,0"/>
                         </Style>
 
-                        <Style TargetType="{x:Type TextBlock}" x:Key="column">
+                        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="Width" Value="150"/>
                         </Style>
 
-                        <Style TargetType="{x:Type TextBox}">
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+
+                        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Normal"/>
-                            <Setter Property="Width" Value="340"/>
                         </Style>
 
                         <Style TargetType="{x:Type ComboBox}">
@@ -51,11 +64,6 @@
                             <Setter Property="FontWeight" Value="Normal"/>
                             <Setter Property="Width" Value="340"/>
                         </Style>
-
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Margin" Value="0,0,0,10"/>
-                        </Style>
-
                     </Grid.Resources>
 
                     <StackPanel>
@@ -65,51 +73,60 @@
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="130"/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="사 번 : " Style="{StaticResource column}"/>
-                                        <TextBox Width="200" Text="" />
+                                <StackPanel Grid.Column="0" Orientation="Vertical">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type StackPanel}">
+                                            <Setter Property="Margin" Value="0,0,0,10"/>
+                                            <Setter Property="Orientation" Value="Horizontal"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+
+                                    <StackPanel>
+                                        <Label Content="사 번 :"/>
+                                        <TextBox ex:PlaceHolder.Text="*KNT000 형식 입력" Width="200" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="성(이름) : " Style="{StaticResource column}"/>
-                                        <TextBox Width="100" Text="{Binding Client.CompanyName}" />
-                                        <TextBox Margin="10,0,0,0" Width="200" Text="{Binding Client.CompanyName}" />
+                                    <StackPanel>
+                                        <Label Content="성(이름) : "/>
+                                        <TextBox ex:PlaceHolder.Text="*성 입력"  Width="100" />
+                                        <TextBox ex:PlaceHolder.Text="*이름 입력" Margin="10,0,0,0" Width="200" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="생년월일 : " Style="{StaticResource column}"/>
-                                        <DatePicker Width="200"/>
+                                    <StackPanel>
+                                        <Label Content="생년월일 :"/>
+                                        <DatePicker Width="200" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="입사일 : " Style="{StaticResource column}"/>
+                                    <StackPanel>
+                                        <Label Content="입사일 :"/>
                                         <DatePicker Width="200"/>
                                     </StackPanel>
                                     
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="직 책 : " Style="{StaticResource column}"/>
-                                        <ComboBox Width="200" ItemsSource="{Binding Position}"/>
+                                    <StackPanel>
+                                        <Label Content="직 책 : "/>
+                                        <ComboBox Width="200" 
+                                                  ItemsSource="{Binding Position}"
+                                                  />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="연락처 : " Style="{StaticResource column}"/>
+                                    <StackPanel>
+                                        <Label Content="연락처 : "/>
                                         <TextBox Width="200" Text="" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="주 소 : " Style="{StaticResource column}"/>
-                                        <TextBox/>
+                                    <StackPanel>
+                                        <Label Content="주 소 : "/>
+                                        <TextBox Width="330"/>
                                     </StackPanel>
                                     
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="상세 주소 : " Style="{StaticResource column}"/>
-                                        <TextBox/>
+                                    <StackPanel>
+                                        <Label Content="상세 주소 : "/>
+                                        <TextBox Width="330"/>
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="급 여 : " Style="{StaticResource column}"/>
-                                        <TextBox Width="150" TextAlignment="Right" Text="" ex:Numeric.IsNumeric="true"/>
+                                    <StackPanel>
+                                        <Label Content="급 여 : "/>
+                                        <TextBox Width="150" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
                                         <TextBlock Text=" (원)"/>
                                     </StackPanel>
 
@@ -117,17 +134,22 @@
 
                                 <StackPanel Grid.Column="1">
                                     <Border Width="120" Height="140" BorderBrush="Gray" BorderThickness="1">
-                                        <Image/>
+                                        <Image />
                                     </Border>
-                                    <Button Width="120" Command="{Binding ImageRegisterCommand}">사진 등록</Button>
+                                    <Button Margin="0,5,0,0" Width="120" Command="{Binding ImageRegisterCommand}">사진 등록</Button>
                                 </StackPanel>
 
                             </Grid>
                         </GroupBox>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                            <Button Width="150" Content="저장 하기" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
-                            <Button Width="150" Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}"  Content="닫기"/>
+                            <StackPanel.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="Width" Value="150"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button Content="저장 하기" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
+                            <Button Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}"  Content="닫기"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

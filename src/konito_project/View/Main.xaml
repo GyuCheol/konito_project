@@ -8,23 +8,46 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" x:Class="konito_project.View.Main"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance ViewModel:MainViewModel}"
         Title="KONITO" Height="500" Width="1250"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 
     <Grid Background="{StaticResource DisabledBackground}">
+
+        <Grid.Resources>
+            <Style TargetType="GroupBox" BasedOn="{StaticResource {x:Type GroupBox}}">
+                <Setter Property="Margin" Value="10,10,10,0"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock FontSize="16" TextAlignment="Center" Text="{Binding}"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+        </Grid.Resources>
         
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
                 Width="1000" Height="400"
                 Background="White" BorderBrush="Gray" BorderThickness="1">
-
             <Grid>
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
@@ -42,8 +65,14 @@
                         <StackPanel>
                             <Button Command="{Binding MoldDataRegisterCommand}" Content="신규 금형 정보 등록"/>
                             <Button Command="{Binding ClientRegisterCommand}" Content="신규 거래처 등록"/>
-                            <Button Command="{Binding EmployeeRegisterCommand}" Content="신규 직원 등록"/>
-                            <Button Command="{Binding AccountRegisterCommand}" Content="계정 관리"/>
+                            <Button Command="{Binding EmployeeRegisterCommand}">
+                                신규 임직원 등록
+                                <!--<StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial VerticalAlignment="Center" Kind="Account" Width="15" Height="15"/>
+                                    <TextBlock Margin="10,0,0,0">신규 임직원 등록</TextBlock>
+                                </StackPanel>-->
+                            </Button>
+                            <Button Command="{Binding AccountRegisterCommand}" Content="매입/매출 계정 관리"/>
                         </StackPanel>
                     </GroupBox>
 
@@ -77,8 +106,8 @@
 
                 <Grid Grid.Row="2">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Margin="5" Width="200" Command="{x:Static commands:UtilCommands.OpenDbDirCommand}">저장된 Excel 폴더 열기</Button>
-                        <Button Margin="5" Width="150" Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}">프로그램 종료</Button>
+                        <Button Margin="10" Width="200" Command="{x:Static commands:UtilCommands.OpenDbDirCommand}">저장된 Excel 폴더 열기</Button>
+                        <Button Margin="10" Width="150" Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}">프로그램 종료</Button>
                     </StackPanel>
                 </Grid>
                 

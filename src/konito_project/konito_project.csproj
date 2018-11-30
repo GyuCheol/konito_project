@@ -86,6 +86,8 @@
     <Compile Include="Commands\NotifyWrapper.cs" />
     <Compile Include="Commands\WindowHandlerCommand.cs" />
     <Compile Include="Controls\Extension\Numeric.cs" />
+    <Compile Include="Controls\Extension\PlaceHolder.cs" />
+    <Compile Include="Converters\ImgIdToImageConverter.cs" />
     <Compile Include="Excel\AccountWorkBook.cs" />
     <Compile Include="Excel\ClientWorkBook.cs" />
     <Compile Include="Excel\EmployeeWorkBook.cs" />
@@ -180,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Attributes\" />
-    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\konito_icon.png" />

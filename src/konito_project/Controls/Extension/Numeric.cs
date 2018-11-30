@@ -27,12 +27,12 @@ namespace konito_project.Controls.Extension {
             }
         }
 
-        public static string GetIsNumericMask(TextBox textBox) {
+        public static bool GetIsNumeric(TextBox textBox) {
             if (textBox == null) {
                 throw new ArgumentNullException("textBox");
             }
 
-            return textBox.GetValue(IsNumericProperty) as string;
+            return (bool) textBox.GetValue(IsNumericProperty);
         }
 
         public static void SetIsNumeric(TextBox textBox, bool isNumeric) {
@@ -65,6 +65,7 @@ namespace konito_project.Controls.Extension {
                 case Key.D7:
                 case Key.D8:
                 case Key.D9:
+                case Key.Tab:
                 case Key.NumPad0:
                 case Key.NumPad1:
                 case Key.NumPad2:

@@ -7,6 +7,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:commds="clr-namespace:konito_project.Commands"
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" 
+        xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         x:Name="window"
         x:Class="konito_project.View.AccountRegister"
         mc:Ignorable="d"
@@ -15,6 +16,14 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 
     <Grid Background="{StaticResource DisabledBackground}">
+
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </Grid.Resources>
+        
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
                 Width="600" Height="450"
             Background="White" BorderBrush="Gray" BorderThickness="1">
@@ -51,7 +60,7 @@
                                          SelectedValue="{Binding PurchaseText, Mode=OneWayToSource}"/>
 
 
-                            <TextBox Grid.Row="1" Text="{Binding PurchaseText}"/>
+                            <TextBox ex:PlaceHolder.Text="*매입 계정명을 입력해주세요." Grid.Row="1" Text="{Binding PurchaseText}"/>
 
                             <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
                                 <Button Command="{Binding PurchaseAddCommand}" Content="추가"/>
@@ -77,7 +86,7 @@
                                          SelectedValuePath="Text"
                                          SelectedValue="{Binding SalesText, Mode=OneWayToSource}"/>
 
-                            <TextBox Grid.Row="1" Text="{Binding SalesText}"/>
+                            <TextBox ex:PlaceHolder.Text="*매출 계정명을 입력해주세요." Grid.Row="1" Text="{Binding SalesText}"/>
 
                             <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
                                 <Button Command="{Binding SalesAddCommand}" Content="추가"/>

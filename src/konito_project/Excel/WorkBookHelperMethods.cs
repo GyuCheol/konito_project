@@ -51,7 +51,7 @@ namespace konito_project.Excel {
         }
 
         public static void InsertRow<T>(string workbookPath, string sheetName, Action<IXLRow, T> insertAction, T data) {
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Write))) {
+            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.ReadWrite))) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
