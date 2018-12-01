@@ -41,12 +41,15 @@ namespace konito_project.Controls.Extension {
 
         private class PlaceHolderTemplate: ControlTemplate {
             private static readonly string SOURCE_NAME = "textSource";
-            
-            public PlaceHolderTemplate(string placeHoldText): base(typeof(TextBox)) {
+            private string placeHoldText;
+
+            public PlaceHolderTemplate(string placeHoldText) : base(typeof(TextBox)) {
                 var elemFactory = new FrameworkElementFactory(typeof(Grid));
-                
+
+                this.placeHoldText = placeHoldText;
+
                 elemFactory.AppendChild(CreateInputTextBox());
-                elemFactory.AppendChild(CreateHoldPlaceTextBox(placeHoldText));
+                elemFactory.AppendChild(CreateHoldPlaceTextBox());
                 
                 VisualTree = elemFactory;
             }
@@ -54,9 +57,24 @@ namespace konito_project.Controls.Extension {
             private FrameworkElementFactory CreateInputTextBox() {
                 var inputTextBox = new FrameworkElementFactory(typeof(TextBox));
                 var textBinding = new Binding(nameof(TextBox.Text));
+                var style = new Style(typeof(TextBox));
 
-                inputTextBox.SetValue(TextBox.BackgroundProperty, Brushes.Transparent);
-                inputTextBox.SetValue(Grid.ZIndexProperty, 2);
+                style.Setters.Add(new Setter(TextBox.BackgroundProperty, Brushes.Transparent));
+                style.Setters.Add(new Setter(Grid.ZIndexProperty, 2));
+
+                if(placeHoldText[0] == '*') {
+                    var dataTrigger = new DataTrigger();
+                    var binding = new Binding(nameof(TextBox.Text));
+                    binding.RelativeSource = RelativeSource.TemplatedParent;
+
+                    dataTrigger.Value = "";
+                    dataTrigger.Binding = binding;
+                    dataTrigger.Setters.Add(new Setter(TextBox.BorderBrushProperty, Brushes.OrangeRed));
+
+                    style.Triggers.Add(dataTrigger);
+                }
+
+                inputTextBox.SetValue(TextBox.StyleProperty, style);
 
                 textBinding.Mode = BindingMode.TwoWay;
                 textBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
@@ -67,7 +85,7 @@ namespace konito_project.Controls.Extension {
                 return inputTextBox;
             }
 
-            private FrameworkElementFactory CreateHoldPlaceTextBox(string placeHoldText) {
+            private FrameworkElementFactory CreateHoldPlaceTextBox() {
                 var placeHoldTextBox = new FrameworkElementFactory(typeof(TextBox));
 
                 placeHoldTextBox.SetValue(TextBox.TextProperty, placeHoldText);

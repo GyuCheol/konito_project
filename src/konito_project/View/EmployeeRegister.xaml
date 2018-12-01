@@ -111,22 +111,22 @@
 
                                     <StackPanel>
                                         <Label Content="연락처 : "/>
-                                        <TextBox Width="200" Text="" />
+                                        <TextBox ex:PlaceHolder.Text="연락처를 입력해주세요." Width="200" Text="" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="주 소 : "/>
-                                        <TextBox Width="330"/>
+                                        <TextBox ex:PlaceHolder.Text="주소를 입력해주세요." Width="330"/>
                                     </StackPanel>
                                     
                                     <StackPanel>
                                         <Label Content="상세 주소 : "/>
-                                        <TextBox Width="330"/>
+                                        <TextBox ex:PlaceHolder.Text="상세 주소를 입력해주세요." Width="330"/>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="급 여 : "/>
-                                        <TextBox Width="150" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
+                                        <TextBox ex:PlaceHolder.Text="*급여를 입력하셔야 합니다." Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
                                         <TextBlock Text=" (원)"/>
                                     </StackPanel>
 
