@@ -126,7 +126,7 @@
 
                                     <StackPanel>
                                         <Label Content="급 여 : "/>
-                                        <TextBox ex:PlaceHolder.Text="*급여를 입력하셔야 합니다." Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
+                                        <TextBox ex:PlaceHolder.Text="*급여 입력" Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
                                         <TextBlock Text=" (원)"/>
                                     </StackPanel>
 

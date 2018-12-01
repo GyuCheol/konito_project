@@ -71,32 +71,32 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="거래처명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*거래처명을 반드시 입력하셔야 합니다." Text="{Binding Client.CompanyName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*거래처명 입력" Text="{Binding Client.CompanyName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="대표자명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*대표자명을 반드시 입력하셔야 합니다." Text="{Binding Client.OwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*대표자명 입력" Text="{Binding Client.OwnerName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="사업자번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*사업자번호를 반드시 입력하셔야 합니다." Text="{Binding Client.CompanyCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*사업자번호 입력" Text="{Binding Client.CompanyCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌은행 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*계좌은행을 반드시 입력하셔야 합니다." Text="{Binding Client.BankName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌은행 입력" Text="{Binding Client.BankName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*계좌번호를 반드시 입력하셔야 합니다." Text="{Binding Client.BankAccountCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌번호 입력" Text="{Binding Client.BankAccountCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="예금주명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*예금주명을 반드시 입력하셔야 합니다." Text="{Binding Client.BankAccountOwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*예금주명 입력" Text="{Binding Client.BankAccountOwnerName}"/>
                                 </StackPanel>
 
                             </StackPanel>

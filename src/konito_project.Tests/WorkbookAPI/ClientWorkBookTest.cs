@@ -17,17 +17,22 @@ namespace konito_project.Tests.WorkbookAPI {
 
             ClientWorkBook.AddClientRecord(new Model.Client() {
                 Id = 1,
-                CompanyName = "Test"
+                CompanyName = "Test",
+                AccountType = Model.AccountType.Purchase
             });
 
             Assert.AreEqual(ClientWorkBook.GetRecordCount(), 1);
 
             ClientWorkBook.AddClientRecord(new Model.Client() {
                 Id = 2,
-                CompanyName = "Test"
+                CompanyName = "Test",
+                AccountType = Model.AccountType.Sales
             });
 
             Assert.AreEqual(ClientWorkBook.GetRecordCount(), 2);
+
+            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(1).AccountType, Model.AccountType.Purchase);
+            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(2).AccountType, Model.AccountType.Sales);
         }
 
         [TestMethod]

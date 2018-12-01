@@ -11,7 +11,8 @@ namespace konito_project.Excel {
     public static class WorkBookHelperMethods {
 
         public static int GetWorksheetCount(string workbookPath, string sheetName) {
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
+            using (var stream = new FileStream(workbookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -33,7 +34,8 @@ namespace konito_project.Excel {
         }
 
         public static IEnumerable<T> GetConvertedWorkSheetRow<T>(string workbookPath, string sheetName, Func<IXLRow, T> converting) {
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
+            using (var stream = new FileStream(workbookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
                 var sheet = workBook.Worksheet(sheetName);
 
                 if (sheet == null)
@@ -51,7 +53,8 @@ namespace konito_project.Excel {
         }
 
         public static void InsertRow<T>(string workbookPath, string sheetName, Action<IXLRow, T> insertAction, T data) {
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.ReadWrite))) {
+            using (var stream = new FileStream(workbookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -67,7 +70,8 @@ namespace konito_project.Excel {
         }
 
         public static T FindConvertedWorkSheetRowOrDefault<T>(string workbookPath, string sheetName, Func<IXLRangeRow, bool> predicate, Func<IXLRow, T> converting) {
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Read))) {
+            using (var stream = new FileStream(workbookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
 
                 var sheet = workBook.Worksheet(sheetName);
 
@@ -89,8 +93,8 @@ namespace konito_project.Excel {
         }
 
         public static void RemoveSheetRow(string workbookPath, string sheetName, Func<IXLRangeRow, bool> predicate) {
-
-            using (var workBook = new XLWorkbook(new FileStream(workbookPath, FileMode.Open, FileAccess.Write))) {
+            using (var stream = new FileStream(workbookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
 
                 var sheet = workBook.Worksheet(sheetName);
 

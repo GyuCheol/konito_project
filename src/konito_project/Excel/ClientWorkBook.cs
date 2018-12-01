@@ -15,6 +15,7 @@ namespace konito_project.Excel
         public const string SHEET_NAME = "data";
 
         public static readonly string[] COLUMNS = {
+            "순번",
             "거래처 구분",
             "거래처 코드",
             "거래처명",
@@ -87,20 +88,21 @@ namespace konito_project.Excel
             var now = DateTime.Now;
 
             row.Cell(1).Value = client.Id;
-            row.Cell(2).Value = client.CompanyName;
-            row.Cell(3).Value = client.OwnerName;
-            row.Cell(4).Value = client.CompanyCode;
-            row.Cell(5).Value = client.BankName;
-            row.Cell(6).Value = client.BankAccountCode;
-            row.Cell(7).Value = client.BankAccountOwnerName;
-            row.Cell(8).Value = client.ContactNumber;
-            row.Cell(9).Value = client.FaxNumber;
-            row.Cell(10).Value = client.Business;
-            row.Cell(11).Value = client.BusinessClassification;
-            row.Cell(12).Value = client.Address1;
-            row.Cell(13).Value = client.Address2;
-            row.Cell(14).Value = now;
+            row.Cell(2).Value = client.AccountType.ToString();
+            row.Cell(3).Value = client.CompanyName;
+            row.Cell(4).Value = client.OwnerName;
+            row.Cell(5).Value = client.CompanyCode;
+            row.Cell(6).Value = client.BankName;
+            row.Cell(7).Value = client.BankAccountCode;
+            row.Cell(8).Value = client.BankAccountOwnerName;
+            row.Cell(9).Value = client.ContactNumber;
+            row.Cell(10).Value = client.FaxNumber;
+            row.Cell(11).Value = client.Business;
+            row.Cell(12).Value = client.BusinessClassification;
+            row.Cell(13).Value = client.Address1;
+            row.Cell(14).Value = client.Address2;
             row.Cell(15).Value = now;
+            row.Cell(16).Value = now;
         }
 
         private static Client RecordToData(IXLRow row) {
@@ -110,20 +112,21 @@ namespace konito_project.Excel
 
             return new Client() {
                 Id = row.Cell(1).GetValue<int>(),
-                CompanyName = row.Cell(2).GetValue<string>(),
-                OwnerName = row.Cell(3).GetValue<string>(),
-                CompanyCode = row.Cell(4).GetValue<string>(),
-                BankName = row.Cell(5).GetValue<string>(),
-                BankAccountCode = row.Cell(6).GetValue<string>(),
-                BankAccountOwnerName = row.Cell(7).GetValue<string>(),
-                ContactNumber = row.Cell(8).GetValue<string>(),
-                FaxNumber = row.Cell(9).GetValue<string>(),
-                Business = row.Cell(10).GetValue<string>(),
-                BusinessClassification = row.Cell(11).GetValue<string>(),
-                Address1 = row.Cell(12).GetValue<string>(),
-                Address2 = row.Cell(13).GetValue<string>(),
-                CreatedTime = row.Cell(14).GetValue<DateTime>(),
-                LastestUpdatedTime = row.Cell(15).GetValue<DateTime>()
+                AccountType = (AccountType) Enum.Parse(typeof(AccountType), row.Cell(2).GetValue<string>()),
+                CompanyName = row.Cell(3).GetValue<string>(),
+                OwnerName = row.Cell(4).GetValue<string>(),
+                CompanyCode = row.Cell(5).GetValue<string>(),
+                BankName = row.Cell(6).GetValue<string>(),
+                BankAccountCode = row.Cell(7).GetValue<string>(),
+                BankAccountOwnerName = row.Cell(8).GetValue<string>(),
+                ContactNumber = row.Cell(9).GetValue<string>(),
+                FaxNumber = row.Cell(10).GetValue<string>(),
+                Business = row.Cell(11).GetValue<string>(),
+                BusinessClassification = row.Cell(12).GetValue<string>(),
+                Address1 = row.Cell(13).GetValue<string>(),
+                Address2 = row.Cell(14).GetValue<string>(),
+                CreatedTime = row.Cell(15).GetValue<DateTime>(),
+                LastestUpdatedTime = row.Cell(16).GetValue<DateTime>()
             };
         }
 
