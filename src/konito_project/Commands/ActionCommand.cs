@@ -8,6 +8,8 @@ using System.Windows.Input;
 namespace konito_project.Commands {
 
     public class ActionCommand : ICommand {
+        // Because this event not use. but must be implemented.
+        #pragma warning disable 67
         public event EventHandler CanExecuteChanged;
 
         private Action action;

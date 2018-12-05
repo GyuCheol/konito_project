@@ -40,7 +40,6 @@ namespace konito_project.Controls.Extension {
         }
 
         private class PlaceHolderTemplate: ControlTemplate {
-            private static readonly string SOURCE_NAME = "textSource";
             private string placeHoldText;
 
             public PlaceHolderTemplate(string placeHoldText) : base(typeof(TextBox)) {

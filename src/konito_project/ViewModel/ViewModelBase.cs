@@ -9,6 +9,8 @@ using System.Windows;
 
 namespace konito_project.ViewModel {
     public abstract class ViewModelBase: INotifyPropertyChanged {
+        // Child class may use this event.
+        #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ViewModelBase() {

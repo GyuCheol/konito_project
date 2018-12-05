@@ -9,6 +9,8 @@ using System.Windows.Input;
 namespace konito_project.Commands {
 
     public class WindowHandlerCommand : ICommand {
+        
+        #pragma warning disable 67
         public event EventHandler CanExecuteChanged;
 
         private Action<Window> action;
