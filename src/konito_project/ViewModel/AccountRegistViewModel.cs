@@ -1,5 +1,5 @@
 ﻿using konito_project.Commands;
-using konito_project.Excel;
+using konito_project.WorkBook;
 using konito_project.Model;
 using konito_project.Utils;
 using System;
@@ -33,12 +33,12 @@ namespace konito_project.ViewModel {
         public NotifyWrapper<Account> SelectedPurchase { get; set; }
         public NotifyWrapper<Account> SelectedSales { get; set; }
 
+        private AccountWorkBook workBook = new AccountWorkBook();
+
         public AccountRegistViewModel(): base() {}
 
         private void SaveAllRecords() {
-            var accounts = PurchaseList.Concat(SalesList);
-
-            AccountWorkBook.AddReocrds(accounts.Select(x => x.Data));
+            workBook.AddRows(PurchaseList.Concat(SalesList).Select(x => x.Data));
 
             MessageBox.Show("저장되었습니다.", "성공", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -75,7 +75,7 @@ namespace konito_project.ViewModel {
         }
 
         private void InitList() {
-            foreach (var account in AccountWorkBook.GetAllRecords()) {
+            foreach (var account in workBook.GetAllRecords()) {
                 (account.AccountType == AccountType.Purchase ? PurchaseList : SalesList)
                     .Add(new NotifyWrapper<Account>(account, nameof(Account.Name)));
             }

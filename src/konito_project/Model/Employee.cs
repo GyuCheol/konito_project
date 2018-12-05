@@ -1,4 +1,5 @@
-﻿using System;
+﻿using konito_project.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,16 @@ namespace konito_project.Model {
 
         public int ImgId { get; set; }
 
+        [Required("사원번호")]
         public string EmployeeCode { get; set; }
 
+        [Required("성")]
         public string LastName { get; set; }
 
+        [Required("이름")]
         public string FirstName { get; set; }
 
+        [Required("직책")]
         public string Position { get; set; }
 
         public string Phone { get; set; }
@@ -25,6 +30,7 @@ namespace konito_project.Model {
 
         public string Address2 { get; set; }
 
+        [Required("급여")]
         public int Salary { get; set; }
 
         public DateTime BirthDate { get; set; }

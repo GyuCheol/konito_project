@@ -1,70 +1,71 @@
 ﻿using System;
-using konito_project.Excel;
+using konito_project.WorkBook;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace konito_project.Tests.WorkbookAPI {
     [TestClass]
     public class ClientWorkBookTest {
+        private ClientWorkBook workbook = new ClientWorkBook();
 
         [TestInitialize]
         public void Init() {
-            ExcelManager.RemoveClientWorkBook();
-            ExcelManager.CreateClientWorkBook();
+            workbook.RemoveWorkBook();
+            workbook.InitWorkBook();
         }
 
         [TestMethod]
         public void Test_AddRecord() {
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 1,
                 CompanyName = "Test",
                 AccountType = Model.AccountType.Purchase
             });
 
-            Assert.AreEqual(ClientWorkBook.GetRecordCount(), 1);
+            Assert.AreEqual(workbook.GetRecordCount(), 1);
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 2,
                 CompanyName = "Test",
                 AccountType = Model.AccountType.Sales
             });
 
-            Assert.AreEqual(ClientWorkBook.GetRecordCount(), 2);
+            Assert.AreEqual(workbook.GetRecordCount(), 2);
 
-            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(1).AccountType, Model.AccountType.Purchase);
-            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(2).AccountType, Model.AccountType.Sales);
+            Assert.AreEqual(workbook.GetDataByIdOrNull(1).AccountType, Model.AccountType.Purchase);
+            Assert.AreEqual(workbook.GetDataByIdOrNull(2).AccountType, Model.AccountType.Sales);
         }
 
         [TestMethod]
         public void Test_GetClientById() {
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 1,
                 CompanyName = "Test1"
             });
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 2,
                 CompanyName = "Test2"
             });
 
-            Assert.IsNull(ClientWorkBook.GetClientByIdOrNull(3));
-            Assert.IsNotNull(ClientWorkBook.GetClientByIdOrNull(1));
-            Assert.IsNotNull(ClientWorkBook.GetClientByIdOrNull(2));
+            Assert.IsNull(workbook.GetDataByIdOrNull(3));
+            Assert.IsNotNull(workbook.GetDataByIdOrNull(1));
+            Assert.IsNotNull(workbook.GetDataByIdOrNull(2));
 
-            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(1).CompanyName, "Test1");
-            Assert.AreEqual(ClientWorkBook.GetClientByIdOrNull(2).CompanyName, "Test2");
+            Assert.AreEqual(workbook.GetDataByIdOrNull(1).CompanyName, "Test1");
+            Assert.AreEqual(workbook.GetDataByIdOrNull(2).CompanyName, "Test2");
         }
 
         [TestMethod]
         public void Test_EditClientById() {
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 1,
                 CompanyName = "Test1"
             });
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 2,
                 CompanyName = "Test2"
             });
@@ -75,41 +76,41 @@ namespace konito_project.Tests.WorkbookAPI {
         [TestMethod]
         public void Test_RemoveClientById() {
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 1,
                 CompanyName = "Test"
             });
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 2,
                 CompanyName = "Test"
             });
 
-            Assert.AreEqual(ClientWorkBook.GetRecordCount(), 2);
+            Assert.AreEqual(workbook.GetRecordCount(), 2);
 
-            ClientWorkBook.RemoveRecordById(1);
+            workbook.RemoveRecordById(1);
 
-            Assert.AreEqual(ClientWorkBook.GetRecordCount(), 1);
+            Assert.AreEqual(workbook.GetRecordCount(), 1);
 
-            ClientWorkBook.RemoveRecordById(2);
+            workbook.RemoveRecordById(2);
 
-            Assert.AreEqual(ClientWorkBook.GetRecordCount(), 0);
+            Assert.AreEqual(workbook.GetRecordCount(), 0);
         }
 
         [TestMethod]
         public void Test_GetAllClients() {
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 1,
                 CompanyName = "Test1"
             });
 
-            ClientWorkBook.AddClientRecord(new Model.Client() {
+            workbook.AddRow(new Model.Client() {
                 Id = 2,
                 CompanyName = "Test2"
             });
 
-            var enumerator = ClientWorkBook.GetAllRecords().GetEnumerator();
+            var enumerator = workbook.GetAllRecords().GetEnumerator();
 
             enumerator.MoveNext();
             Assert.AreEqual(enumerator.Current.CompanyName, "Test1");

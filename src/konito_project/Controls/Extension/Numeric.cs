@@ -13,9 +13,7 @@ namespace konito_project.Controls.Extension {
         public static readonly DependencyProperty IsNumericProperty = DependencyProperty.RegisterAttached("IsNumeric",
             typeof(bool), typeof(Numeric),
             new FrameworkPropertyMetadata(OnMaskChanged));
-
-        private static readonly Regex REGEXP = new Regex(@"[^0123456789]");
-
+        
         private static void OnMaskChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e) {
             var textBox = dependencyObject as TextBox;
             bool isNumeric = (bool) e.NewValue;

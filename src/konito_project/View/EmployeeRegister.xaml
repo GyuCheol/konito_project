@@ -94,18 +94,19 @@
 
                                     <StackPanel>
                                         <Label Content="생년월일 :"/>
-                                        <DatePicker Width="200" />
+                                        <DatePicker ex:DatePickerPlaceHolder.Text="생년월일 선택" Width="200" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="입사일 :"/>
-                                        <DatePicker Width="200"/>
+                                        <DatePicker ex:DatePickerPlaceHolder.Text="입사일 선택" Width="200"/>
                                     </StackPanel>
                                     
                                     <StackPanel>
                                         <Label Content="직 책 : "/>
                                         <ComboBox Width="200" 
                                                   ItemsSource="{Binding Position}"
+                                                  SelectedItem="{Binding SelectedPosition}"
                                                   />
                                     </StackPanel>
 

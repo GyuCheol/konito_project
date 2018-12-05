@@ -1,5 +1,5 @@
 ﻿using konito_project.Commands;
-using konito_project.Excel;
+using konito_project.WorkBook;
 using konito_project.Images;
 using konito_project.Model;
 using System;
@@ -12,9 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace konito_project.ViewModel {
-    public class EmployeeRegistViewModel : ViewModelBase, INotifyPropertyChanged {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+    public class EmployeeRegistViewModel : ViewModelBase {
         private RegistMode CurrentMode;
         private OpenFileDialog dialog;
 
@@ -29,7 +27,11 @@ namespace konito_project.ViewModel {
             CurrentEmployee = new Employee() {
                 Id = 0
             };
+
+            SelectedPosition = Position.First();
         }
+
+        public string SelectedPosition { get; set; }
 
         private void RegistNewImage() {
             dialog.ShowDialog();

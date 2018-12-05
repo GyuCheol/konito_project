@@ -83,16 +83,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\NotifyWrapper.cs" />
     <Compile Include="Commands\WindowHandlerCommand.cs" />
+    <Compile Include="Controls\Extension\DatePickerPlaceHolder.cs" />
     <Compile Include="Controls\Extension\Numeric.cs" />
     <Compile Include="Controls\Extension\PlaceHolder.cs" />
     <Compile Include="Converters\ImgIdToImageConverter.cs" />
-    <Compile Include="Excel\AccountWorkBook.cs" />
-    <Compile Include="Excel\ClientWorkBook.cs" />
-    <Compile Include="Excel\EmployeeWorkBook.cs" />
-    <Compile Include="Excel\ExcelManager.cs" />
+    <Compile Include="WorkBook\AccountWorkBook.cs" />
+    <Compile Include="WorkBook\ClientWorkBook.cs" />
+    <Compile Include="WorkBook\EmployeeWorkBook.cs" />
+    <Compile Include="WorkBook\ExcelManager.cs" />
     <Compile Include="Exceptions\NotFoundClientException.cs" />
     <Compile Include="Exceptions\WrongExcelFormatException.cs" />
     <Compile Include="Images\ImageManager.cs" />
@@ -103,7 +105,9 @@
     <Compile Include="Model\Mold.cs" />
     <Compile Include="Commands\UtilCommands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
-    <Compile Include="Excel\WorkBookHelperMethods.cs" />
+    <Compile Include="WorkBook\IWorkBookInitializer.cs" />
+    <Compile Include="WorkBook\WorkBookBase.cs" />
+    <Compile Include="Utils\ValidateErrorHandler.cs" />
     <Compile Include="ViewModel\AccountRegistViewModel.cs" />
     <Compile Include="ViewModel\ClientRegistViewModel.cs" />
     <Compile Include="ViewModel\EmployeeRegistViewModel.cs" />
@@ -185,9 +189,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\konito_icon.png" />
     <Resource Include="Assets\konito_logo.png" />

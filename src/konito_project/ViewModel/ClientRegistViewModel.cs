@@ -1,5 +1,5 @@
 ﻿using konito_project.Commands;
-using konito_project.Excel;
+using konito_project.WorkBook;
 using konito_project.Exceptions;
 using konito_project.Model;
 using konito_project.Utils;
@@ -26,10 +26,12 @@ namespace konito_project.ViewModel {
         public bool Purchase { get; set; }
         public bool Sales { get; set; }
 
+        private ClientWorkBook workbook = new ClientWorkBook();
+
         public ClientRegistViewModel(): base() {
             CurrentMode = RegistMode.Append;
             Client = new Client() {
-                Id = ClientWorkBook.GetNewClientId()
+                Id = workbook.GetNewRecordId()
             };
         }
 
@@ -37,25 +39,25 @@ namespace konito_project.ViewModel {
             InitCmd();
             CurrentMode = RegistMode.Edit;
             // Find client data
-            Client = ClientWorkBook.GetClientByIdOrNull(clientId);
+            Client = workbook.GetDataByIdOrNull(clientId);
 
             if (Client == null)
                 throw new NotFoundClientException();
         }
 
         private void ClickSaveCommand(Window w) {
-            ValidateErrorHandler validate = Client.Validate();
+            ValidateErrorHandler validate = Client.ClientValidate();
 
             Client.AccountType = Purchase ? AccountType.Purchase : AccountType.Sales;
 
-            if(validate.HasError) {
-                MessageBox.Show(validate.ErrMsg, "에러", MessageBoxButton.OK, MessageBoxImage.Error);
+            if(validate.HasProblem) {
+                MessageBox.Show($"{validate.ErrMsg}를(을) 입력해주세요!", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             switch (CurrentMode) {
                 case RegistMode.Append:
-                    ClientWorkBook.AddClientRecord(Client);
+                    workbook.AddRow(Client);
                     MessageBox.Show("신규 거래처 정보가 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case RegistMode.Edit:
@@ -71,7 +73,7 @@ namespace konito_project.ViewModel {
             CurrentMode = RegistMode.Append;
 
             Client = new Client() {
-                Id = ClientWorkBook.GetNewClientId()
+                Id = workbook.GetNewRecordId()
             };
             Purchase = true;
             Sales = false;

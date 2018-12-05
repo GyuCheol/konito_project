@@ -1,4 +1,4 @@
-﻿using konito_project.Excel;
+﻿using konito_project.WorkBook;
 using konito_project.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -11,30 +11,35 @@ namespace konito_project.Tests.WorkbookAPI {
 
     [TestClass]
     public class AccountWorkBookTest {
+        private AccountWorkBook workbook = new AccountWorkBook();
 
         [TestInitialize]
         public void Init() {
-            ExcelManager.RemoveAccountWorkBook();
-            ExcelManager.CreateAccountWorkBook();
+            workbook.RemoveWorkBook();
+            workbook.InitWorkBook();
         }
 
         [TestMethod]
         public void Test_AddRecords() {
 
-            AccountWorkBook.AddAccountRecord(new Model.Account() {
+            workbook.AddRow(new Account() {
                 AccountType = AccountType.Purchase,
                 Name = "A"
             });
 
-            AccountWorkBook.AddAccountRecord(new Model.Account() {
+            Assert.AreEqual(workbook.GetRecordCount(), 1);
+
+            workbook.AddRow(new Account() {
                 AccountType = AccountType.Sales,
                 Name = "B"
             });
+
+            Assert.AreEqual(workbook.GetRecordCount(), 2);
         }
 
         [TestMethod]
         public void Test_GetRecords() {
-
+            Assert.Fail();
         }
 
     }

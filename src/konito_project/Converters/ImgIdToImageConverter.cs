@@ -1,4 +1,5 @@
-﻿using System;
+﻿using konito_project.Images;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -17,10 +18,8 @@ namespace konito_project.Converters {
 
             if (imgId == null)
                 throw new ArgumentException();
-
-
-            return null;
-            //return new BitmapImage(new Uri(path, UriKind.Relative));
+            
+            return ImageManager.GetImage(imgId.Value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

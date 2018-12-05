@@ -1,4 +1,4 @@
-﻿using konito_project.Excel;
+﻿using konito_project.WorkBook;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace konito_project.ViewModel {
-    public abstract class ViewModelBase {
+    public abstract class ViewModelBase: INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ViewModelBase() {
             InitWorkbook();
             InitCmd();
         }
+
 
         protected abstract void InitWorkbook();
 
