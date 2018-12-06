@@ -16,7 +16,8 @@ namespace konito_project.WorkBook {
 
         public override string WorkBookPath => "./db/계정_정보.xlsx";
         public override string[] InitColumns => COLUMNS;
-        
+        public override int KeyColumn => 2;
+
         protected override Account CovertToDataFromRow(IXLRow row) {
             if (row == null)
                 return null;
@@ -34,5 +35,18 @@ namespace konito_project.WorkBook {
             row.Cell(1).Value = account.AccountType;
             row.Cell(2).Value = account.Name;
         }
+
+        protected override void InitExcel(XLWorkbook workbook) {
+            var initValues = DEFAULT_PURCHASE.Select(x => new Account() {
+                AccountType = AccountType.Purchase,
+                Name = x
+            }).Concat(DEFAULT_SALES.Select(x => new Account() {
+                AccountType = AccountType.Sales,
+                Name = x
+            }));
+
+            AddRecords(initValues);
+        }
+
     }
 }

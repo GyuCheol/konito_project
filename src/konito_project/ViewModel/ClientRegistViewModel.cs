@@ -35,8 +35,7 @@ namespace konito_project.ViewModel {
             };
         }
 
-        public ClientRegistViewModel(int clientId) {
-            InitCmd();
+        public ClientRegistViewModel(int clientId): base() {
             CurrentMode = RegistMode.Edit;
             // Find client data
             Client = workbook.GetDataByIdOrNull(clientId);
@@ -57,7 +56,7 @@ namespace konito_project.ViewModel {
 
             switch (CurrentMode) {
                 case RegistMode.Append:
-                    workbook.AddRow(Client);
+                    workbook.AddRecord(Client);
                     MessageBox.Show("신규 거래처 정보가 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case RegistMode.Edit:

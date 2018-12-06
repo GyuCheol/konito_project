@@ -38,7 +38,7 @@ namespace konito_project.ViewModel {
         public AccountRegistViewModel(): base() {}
 
         private void SaveAllRecords() {
-            workBook.AddRows(PurchaseList.Concat(SalesList).Select(x => x.Data));
+            workBook.AddRecords(PurchaseList.Concat(SalesList).Select(x => x.Data));
 
             MessageBox.Show("저장되었습니다.", "성공", MessageBoxButton.OK, MessageBoxImage.Information);
         }

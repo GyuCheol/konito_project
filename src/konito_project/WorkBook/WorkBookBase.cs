@@ -13,6 +13,7 @@ namespace konito_project.WorkBook {
     public abstract class WorkBookBase<T>: IWorkBookInitializer where T: class {
         public abstract string WorkBookPath { get; }
         public abstract string[] InitColumns { get; }
+        public virtual int KeyColumn => 1;
 
         public string MainSheetName => "data";
 
@@ -87,12 +88,37 @@ namespace konito_project.WorkBook {
             }
         }
 
+        private void EditByPredicate(Func<IXLRangeRow, bool> pred, T data) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return;
+
+                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
+
+                if (foundRow == null)
+                    return;
+
+                InsertRow(sheet.Row(foundRow.RowNumber()), data);
+
+                workBook.Save();
+            }
+        }
+
         public T GetDataByIdOrNull(int id) {
-            return GetDataByPredicate(r => r.FirstCell().GetValue<int>() == id);
+            return GetDataByPredicate(r => r.Cell(KeyColumn).GetValue<int>() == id);
         }
 
         public T GetDataByStrKeyOrNull(string key) {
-            return GetDataByPredicate(r => r.FirstCell().GetValue<string>() == key);
+            return GetDataByPredicate(r => r.Cell(KeyColumn).GetValue<string>() == key);
         }
 
         public int GetRecordCount() {
@@ -128,15 +154,24 @@ namespace konito_project.WorkBook {
         }
 
         public void RemoveRecordById(int id) {
-            RemoveByPredicate(r => r.FirstCell().GetValue<int>() == id);
+            RemoveByPredicate(r => r.Cell(KeyColumn).GetValue<int>() == id);
         }
 
         public void RemoveRecordByStrKey(string key) {
-            RemoveByPredicate(r => r.FirstCell().GetValue<string>() == key);
+            RemoveByPredicate(r => r.Cell(KeyColumn).GetValue<string>() == key);
+        }
+
+        public void EditRecordById(T data, int id) {
+            EditByPredicate(r => r.Cell(KeyColumn).GetValue<int>() == id, data);
+        }
+
+        public void EditRecordByStrKey(T data, string key) {
+            EditByPredicate(r => r.Cell(KeyColumn).GetValue<string>() == key, data);
         }
 
         public int GetNewRecordId() {
-            using (var workBook = new XLWorkbook(WorkBookPath)) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
 
                 var sheet = workBook.Worksheet(MainSheetName);
 
@@ -169,7 +204,7 @@ namespace konito_project.WorkBook {
             return FindDataByPredicate(r => r.FirstCell().GetValue<string>() == key);
         }
 
-        public void AddRow(T data) {
+        public void AddRecord(T data) {
             using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
             using (var workBook = new XLWorkbook(stream)) {
 
@@ -186,7 +221,7 @@ namespace konito_project.WorkBook {
             }
         }
 
-        public void AddRows(IEnumerable<T> enumerableData) {
+        public void AddRecords(IEnumerable<T> enumerableData) {
             using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
             using (var workBook = new XLWorkbook(stream)) {
 
@@ -199,14 +234,13 @@ namespace konito_project.WorkBook {
 
                 foreach (var data in enumerableData) {
                     InsertRow(sheet.Row(row), data);
+                    row++;
                 }
 
                 workBook.Save();
             }
         }
-
-
-
+        
         public bool CanUseWorkBook() {
             try {
                 using (var stream = File.Open(WorkBookPath, FileMode.Open, FileAccess.Read, FileShare.None)) {
@@ -217,17 +251,19 @@ namespace konito_project.WorkBook {
             }
         }
 
-        protected virtual void InitExcel(XLWorkbook workbook) {
-
-        }
-        protected abstract T CovertToDataFromRow(IXLRow row);
-        protected abstract void InsertRow(IXLRow row, T data);
+        protected virtual void InitExcel(XLWorkbook workbook) { }
 
         public void InitWorkBook() {
+            
+            if (File.Exists(WorkBookPath)) {
 
-            if (File.Exists(WorkBookPath))
+                if(CanUseWorkBook() == false) {
+                    throw new CouldNotOpenWorkBookException(WorkBookPath);
+                }
+
                 return;
-
+            }
+            
             using (var workbook = new XLWorkbook()) {
                 var worksheet = workbook.Worksheets.Add(MainSheetName);
 
@@ -235,8 +271,8 @@ namespace konito_project.WorkBook {
                     worksheet.Cell(1, col + 1).Value = InitColumns[col];
                 }
 
-                InitExcel(workbook);
                 workbook.SaveAs(WorkBookPath);
+                InitExcel(workbook);
                 return;
             }
 
@@ -250,5 +286,8 @@ namespace konito_project.WorkBook {
 
             return false;
         }
+
+        protected abstract T CovertToDataFromRow(IXLRow row);
+        protected abstract void InsertRow(IXLRow row, T data);
     }
 }

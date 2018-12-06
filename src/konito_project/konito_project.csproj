@@ -91,6 +91,7 @@
     <Compile Include="Controls\Extension\Numeric.cs" />
     <Compile Include="Controls\Extension\PlaceHolder.cs" />
     <Compile Include="Converters\ImgIdToImageConverter.cs" />
+    <Compile Include="Exceptions\CouldNotOpenWorkBookException.cs" />
     <Compile Include="WorkBook\AccountWorkBook.cs" />
     <Compile Include="WorkBook\ClientWorkBook.cs" />
     <Compile Include="WorkBook\EmployeeWorkBook.cs" />

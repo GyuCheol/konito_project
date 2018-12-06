@@ -22,14 +22,14 @@ namespace konito_project.Tests.WorkbookAPI {
         [TestMethod]
         public void Test_AddRecords() {
 
-            workbook.AddRow(new Account() {
+            workbook.AddRecord(new Account() {
                 AccountType = AccountType.Purchase,
                 Name = "A"
             });
 
             Assert.AreEqual(workbook.GetRecordCount(), 1);
 
-            workbook.AddRow(new Account() {
+            workbook.AddRecord(new Account() {
                 AccountType = AccountType.Sales,
                 Name = "B"
             });
@@ -39,7 +39,40 @@ namespace konito_project.Tests.WorkbookAPI {
 
         [TestMethod]
         public void Test_GetRecords() {
-            Assert.Fail();
+            workbook.AddRecord(new Account() {
+                AccountType = AccountType.Purchase,
+                Name = "A"
+            });
+
+            workbook.AddRecord(new Account() {
+                AccountType = AccountType.Sales,
+                Name = "B"
+            });
+
+            Assert.AreEqual(workbook.GetDataByStrKeyOrNull("A").AccountType, AccountType.Purchase);
+            Assert.AreEqual(workbook.GetDataByStrKeyOrNull("B").AccountType, AccountType.Sales);
+
+        }
+
+        [TestMethod]
+        public void Test_RemoveRecords() {
+            workbook.AddRecord(new Account() {
+                AccountType = AccountType.Purchase,
+                Name = "A"
+            });
+
+            workbook.AddRecord(new Account() {
+                AccountType = AccountType.Sales,
+                Name = "B"
+            });
+
+            Assert.AreEqual(workbook.GetRecordCount(), 2);
+
+            workbook.RemoveRecordByStrKey("A");
+            Assert.AreEqual(workbook.GetRecordCount(), 1);
+
+            workbook.RemoveRecordByStrKey("B");
+            Assert.AreEqual(workbook.GetRecordCount(), 0);
         }
 
     }
