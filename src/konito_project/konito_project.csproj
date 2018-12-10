@@ -190,7 +190,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\no_image.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\konito_icon.png" />
     <Resource Include="Assets\konito_logo.png" />

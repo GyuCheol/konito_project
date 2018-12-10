@@ -106,7 +106,7 @@
                                         <Label Content="직 책 : "/>
                                         <ComboBox Width="200" 
                                                   ItemsSource="{Binding Position}"
-                                                  SelectedItem="{Binding SelectedPosition}"
+                                                  SelectedItem="{Binding CurrentEmployee.Position}"
                                                   />
                                     </StackPanel>
 
@@ -135,7 +135,7 @@
 
                                 <StackPanel Grid.Column="1">
                                     <Border Width="120" Height="140" BorderBrush="Gray" BorderThickness="1">
-                                        <Image />
+                                        <Image Source="{Binding Image}" />
                                     </Border>
                                     <Button Margin="0,5,0,0" Width="120" Command="{Binding ImageRegisterCommand}">사진 등록</Button>
                                 </StackPanel>

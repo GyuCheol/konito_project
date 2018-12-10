@@ -17,13 +17,12 @@ namespace konito_project.Images {
         }
 
         public static BitmapSource GetImage(int id) {
-
             string path = Directory.GetFiles(IMG_DIR_NAME, $"{id}.*").FirstOrDefault();
 
             if (path == null)
                 throw new FileNotFoundException();
-
-            return new BitmapImage(new Uri(path, UriKind.Relative));
+            
+            return new BitmapImage(new Uri("pack://siteoforigin:,,,/" + path));
         }
 
         private static int GetNewImageId() {
@@ -43,10 +42,13 @@ namespace konito_project.Images {
             }
         }
 
-        public static void AddImage(string path) {
+        public static int AddImage(string path) {
             string fileExtension = Path.GetExtension(path);
+            int newImgId = GetNewImageId();
 
-            File.Copy(path, $"{IMG_DIR_NAME}{GetNewImageId()}{fileExtension}");
+            File.Copy(path, $"{IMG_DIR_NAME}{newImgId}{fileExtension}");
+
+            return newImgId;
         }
 
 

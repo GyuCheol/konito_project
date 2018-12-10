@@ -16,8 +16,12 @@ namespace konito_project.ViewModel {
         public ViewModelBase() {
             InitWorkbook();
             InitCmd();
+            
         }
 
+        protected void NotifyChanged(string propName) {
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
 
         protected abstract void InitWorkbook();
 

@@ -18,7 +18,7 @@ namespace konito_project.Tests.WorkbookAPI {
         [TestMethod]
         public void Test_AddRecord() {
 
-            workbook.AddRecord(new Model.Client() {
+            workbook.AddRecord(new Client() {
                 Id = 1,
                 CompanyName = "Test",
                 AccountType = Model.AccountType.Purchase
@@ -26,10 +26,10 @@ namespace konito_project.Tests.WorkbookAPI {
 
             Assert.AreEqual(workbook.GetRecordCount(), 1);
 
-            workbook.AddRecord(new Model.Client() {
+            workbook.AddRecord(new Client() {
                 Id = 2,
                 CompanyName = "Test",
-                AccountType = Model.AccountType.Sales
+                AccountType = AccountType.Sales
             });
 
             Assert.AreEqual(workbook.GetRecordCount(), 2);
