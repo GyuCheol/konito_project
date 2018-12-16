@@ -27,14 +27,14 @@ namespace konito_project.Tests.WorkbookAPI {
                 Name = "A"
             });
 
-            Assert.AreEqual(workbook.GetRecordCount(), 1);
+            Assert.AreEqual(workbook.GetRecordCount(), 9);
 
             workbook.AddRecord(new Account() {
                 AccountType = AccountType.Sales,
                 Name = "B"
             });
 
-            Assert.AreEqual(workbook.GetRecordCount(), 2);
+            Assert.AreEqual(workbook.GetRecordCount(), 10);
         }
 
         [TestMethod]
@@ -66,13 +66,13 @@ namespace konito_project.Tests.WorkbookAPI {
                 Name = "B"
             });
 
-            Assert.AreEqual(workbook.GetRecordCount(), 2);
+            Assert.AreEqual(workbook.GetRecordCount(), 10);
 
             workbook.RemoveRecordByStrKey("A");
-            Assert.AreEqual(workbook.GetRecordCount(), 1);
+            Assert.AreEqual(workbook.GetRecordCount(), 9);
 
             workbook.RemoveRecordByStrKey("B");
-            Assert.AreEqual(workbook.GetRecordCount(), 0);
+            Assert.AreEqual(workbook.GetRecordCount(), 8);
         }
 
     }

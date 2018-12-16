@@ -24,7 +24,7 @@ namespace konito_project.Utils {
                     if(propType.Name == typeof(string).Name) {
                         string value = prop.GetValue(data) as string;
 
-                        if (String.IsNullOrWhiteSpace(value))
+                        if (string.IsNullOrWhiteSpace(value))
                             return new ValidateErrorHandler(true, reqAttr.Name);
 
                     } else if (propType.Name == typeof(int).Name) {

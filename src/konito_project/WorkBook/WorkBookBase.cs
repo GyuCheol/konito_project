@@ -1,10 +1,12 @@
 ﻿using ClosedXML.Excel;
+using konito_project.Attributes;
 using konito_project.Exceptions;
 using konito_project.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +14,7 @@ namespace konito_project.WorkBook {
 
     public abstract class WorkBookBase<T>: IWorkBookInitializer where T: class {
         public abstract string WorkBookPath { get; }
-        public abstract string[] InitColumns { get; }
+        public abstract Type ModelType { get; }
         public virtual int KeyColumn => 1;
 
         public string MainSheetName => "data";
@@ -265,17 +267,22 @@ namespace konito_project.WorkBook {
             }
             
             using (var workbook = new XLWorkbook()) {
-                var worksheet = workbook.Worksheets.Add(MainSheetName);
 
-                for (int col = 0; col < InitColumns.Length; col++) {
-                    worksheet.Cell(1, col + 1).Value = InitColumns[col];
+                var properties = from prop in ModelType.GetProperties()
+                                 orderby prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First().Order
+                                 select prop;
+
+                var worksheet = workbook.Worksheets.Add(MainSheetName);
+                
+                foreach (var prop in properties) {
+                    var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
+
+                    worksheet.Cell(1, excelColumn.Order).SetValue(excelColumn.HeaderName);
                 }
 
                 workbook.SaveAs(WorkBookPath);
                 InitExcel(workbook);
-                return;
             }
-
         }
 
         public bool RemoveWorkBook() {
@@ -287,7 +294,73 @@ namespace konito_project.WorkBook {
             return false;
         }
 
-        protected abstract T CovertToDataFromRow(IXLRow row);
-        protected abstract void InsertRow(IXLRow row, T data);
+        protected virtual T CovertToDataFromRow(IXLRow row) {
+            var instance = Activator.CreateInstance(ModelType) as T;
+
+            if (instance == null)
+                throw new CouldNotCreateModelInstanceException();
+
+            var properties = ModelType.GetProperties();
+
+            foreach (var prop in properties) {
+                var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
+                var value = row.Cell(excelColumn.Order).GetValue<object>();
+
+                if (prop.PropertyType == typeof(AccountType)) {
+                    var str = value.ToString();
+
+                    Enum.TryParse(str, out AccountType accountType);
+
+                    prop.SetValue(instance, accountType);
+                } else if(prop.PropertyType == typeof(int)) {
+                    prop.SetValue(instance, (int) ((double) value));
+                } else {
+                    prop.SetValue(instance, value);
+                    break;
+                }
+            }
+
+            return instance;
+
+        }
+        protected virtual void InsertRow(IXLRow row, T data) {
+            var properties = ModelType.GetProperties();
+
+            foreach (var prop in properties) {
+                var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
+                Object value = prop.GetValue(data);
+
+                switch (value) {
+                    case string str:
+                        row.Cell(excelColumn.Order).SetValue(str);
+                        break;
+                    case int number:
+                        row.Cell(excelColumn.Order).SetValue(number);
+                        break;
+                    case double db:
+                        row.Cell(excelColumn.Order).SetValue(db);
+                        break;
+                    case DateTime dt:
+
+                        if(dt != DateTime.MinValue) {
+                            row.Cell(excelColumn.Order).SetValue(dt);
+                        }
+
+                        break;
+                    case AccountType accountType:
+                        row.Cell(excelColumn.Order).SetValue(accountType.ToString());
+                        break;
+                    default:
+
+                        if(value == null) {
+                            row.Cell(excelColumn.Order).SetValue(value);
+                            continue;
+                        }
+
+                        throw new UnknownColumnTypeException();
+                }
+
+            }
+        }
     }
 }
