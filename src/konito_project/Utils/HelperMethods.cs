@@ -39,8 +39,7 @@ namespace konito_project.Utils {
             return new ValidateErrorHandler(false, string.Empty);
         }
 
-        public static ValidateErrorHandler ClientValidate(this Client client) => Validate(client);
-        public static ValidateErrorHandler EmpValidate(this Employee emp) => Validate(emp);
+        public static ValidateErrorHandler ValidateRequired<T>(this T data) => Validate(data);
 
         public static Account CreateAccount(AccountType type, String text) {
             DateTime now = DateTime.Now;

@@ -15,8 +15,6 @@ namespace konito_project.ViewModel {
 
         public ViewModelBase() {
             InitWorkbook();
-            InitCmd();
-            
         }
 
         protected void NotifyChanged(string propName) {
@@ -24,8 +22,6 @@ namespace konito_project.ViewModel {
         }
 
         protected abstract void InitWorkbook();
-
-        protected abstract void InitCmd();
 
     }
 }

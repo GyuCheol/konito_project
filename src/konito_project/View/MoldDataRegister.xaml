@@ -4,16 +4,219 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:local="clr-namespace:konito_project.View"
+        xmlns:ex="clr-namespace:konito_project.Controls.Extension" 
+        xmlns:vm="clr-namespace:konito_project.ViewModel"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:MoldRegistViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         Title="금형 정보 등록" Height="850" Width="900">
     
     <Grid Background="{StaticResource DisabledBackground}">
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-            Width="800" Height="680"
-        Background="White" BorderBrush="Gray" BorderThickness="1">
+            Width="770" Height="730"
+            Background="White" BorderBrush="Gray" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="0 0 5 0"/>
+                        <Setter Property="Background" Value="#f0f0f0"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Width" Value="135"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+
+                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="Width" Value="220"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+
+                    <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                        <Setter Property="Width" Value="220"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="120"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+
+                    <Style TargetType="DatePicker" BasedOn="{StaticResource {x:Type DatePicker}}">
+                        <Setter Property="Width" Value="220"/>
+                        <Setter Property="FontSize" Value="14"/>
+                    </Style>
+
+                </Grid.Resources>
+                
+                <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label>제 번 :</Label>
+                                <TextBox ex:PlaceHolder.Text="*제번 입력"></TextBox>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal" Margin="5 0 5 5">
+                                <Label Background="Transparent"/>
+                                <TextBlock Text="* 매출처 코드를 마지막 영문으로 제번"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label>수주처 :</Label>
+                                <ComboBox></ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label>설계 임직원 :</Label>
+                                <ComboBox></ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label>금형비 (원화):</Label>
+                                <TextBox ex:Numeric.IsNumeric="True"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label>금형비 (외화):</Label>
+                                <TextBox ex:Numeric.IsNumeric="True"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label>모델 코드 :</Label>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="수축율 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="재 질 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="구 조 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="CA :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="제품 크기 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="상코어 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="설계일 :"/>
+                                <DatePicker ex:DatePickerPlaceHolder.Text="설계일 선택"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="초춤일 :"/>
+                                <DatePicker ex:DatePickerPlaceHolder.Text="초품일 선택"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <StackPanel Orientation="Vertical" Margin="0 0 5 0">
+                                <Label Margin="5" Width="auto" HorizontalContentAlignment="Center" Content="제품 이미지"/>
+                                <Border Margin="5 0 5 0" BorderBrush="Gray" BorderThickness="1">
+                                    <Image Height="155"/>
+                                </Border>
+                                <Button Margin="5 5 5 0" Width="auto" Content="이미지 선택"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="품 명 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="품 번 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="확정도 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="사출기 : "/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="금형 크기 : "/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="하코어 :"/>
+                                <TextBox/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="출항일 :"/>
+                                <DatePicker ex:DatePickerPlaceHolder.Text="출항일 선택"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                                <Label Content="수정 초품일 :"/>
+                                <DatePicker ex:DatePickerPlaceHolder.Text="수정 초품일 선택"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Orientation="Vertical" Margin="5 0 5 5">
+                        <StackPanel Orientation="Horizontal" Margin="5 0 5 5">
+                            <Label Height="30" VerticalAlignment="Top" Content="이슈 :"/>
+                            <RichTextBox Height="90" Width="605"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button>저장</Button>
+                        <Button Command="{x:Static commands:UtilCommands.CloseCommand}">닫기</Button>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
 
         </Border>
     </Grid>

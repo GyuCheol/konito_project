@@ -15,7 +15,6 @@ namespace konito_project.WorkBook {
 
         public override string WorkBookPath => "./db/계정_정보.xlsx";
         public override int KeyColumn => 2;
-        public override Type ModelType => typeof(Account);
 
         protected override void InitExcel(XLWorkbook workbook) {
             var initValues = DEFAULT_PURCHASE.Select(x => new Account() {

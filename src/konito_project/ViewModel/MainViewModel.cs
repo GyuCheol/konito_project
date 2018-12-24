@@ -15,25 +15,16 @@ namespace konito_project.ViewModel {
 
     public class MainViewModel: ViewModelBase {
 
-        public ICommand MoldDataRegisterCommand { get; private set; }
-
-        public ICommand AccountRegisterCommand { get; private set; }
-
-        public ICommand ClientRegisterCommand { get; private set; }
-
-        public ICommand EmployeeRegisterCommand { get; private set; }
+        public ICommand MoldDataRegisterCommand => new ActionCommand(() => new MoldDataRegister().ShowDialog());
+        public ICommand AccountRegisterCommand => new ActionCommand(() => new AccountRegister().ShowDialog());
+        public ICommand ClientRegisterCommand => new ActionCommand(() => new ClientRegister().ShowDialog());
+        public ICommand EmployeeRegisterCommand => new ActionCommand(() => new EmployeeRegister().ShowDialog());
 
         public MainViewModel(): base() {}
 
         protected override void InitWorkbook() {
             ExcelManager.CreateAllWorkBooks();
         }
-
-        protected override void InitCmd() {
-            MoldDataRegisterCommand = new ActionCommand(() => new MoldDataRegister().ShowDialog());
-            AccountRegisterCommand = new ActionCommand(() => new AccountRegister().ShowDialog());
-            ClientRegisterCommand = new ActionCommand(() => new ClientRegister().ShowDialog());
-            EmployeeRegisterCommand = new ActionCommand(() => new EmployeeRegister().ShowDialog());
-        }
+        
     }
 }

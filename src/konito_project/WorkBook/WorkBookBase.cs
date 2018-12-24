@@ -14,106 +14,9 @@ namespace konito_project.WorkBook {
 
     public abstract class WorkBookBase<T>: IWorkBookInitializer where T: class {
         public abstract string WorkBookPath { get; }
-        public abstract Type ModelType { get; }
+        public Type ModelType { get; } = typeof(T);
         public virtual int KeyColumn => 1;
-
         public string MainSheetName => "data";
-
-        private T GetDataByPredicate(Func<IXLRangeRow, bool> pred) {
-            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
-            using (var workBook = new XLWorkbook(stream)) {
-
-                var sheet = workBook.Worksheet(MainSheetName);
-
-                if (sheet == null)
-                    throw new WrongExcelFormatException();
-
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
-
-                if (lastRow == 1)
-                    return default(T);
-
-                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
-
-                if (foundRow == null)
-                    return default(T);
-
-                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
-            }
-        }
-
-        private void RemoveByPredicate(Func<IXLRangeRow, bool> pred) {
-            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
-            using (var workBook = new XLWorkbook(stream)) {
-
-                var sheet = workBook.Worksheet(MainSheetName);
-
-                if (sheet == null)
-                    throw new WrongExcelFormatException();
-
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
-
-                if (lastRow == 1)
-                    return;
-
-                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
-
-                if (foundRow == null)
-                    return;
-
-                sheet.Row(foundRow.RowNumber()).Delete();
-
-                workBook.Save();
-            }
-        }
-
-        private T FindDataByPredicate(Func<IXLRangeRow, bool> pred) {
-            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
-            using (var workBook = new XLWorkbook(stream)) {
-
-                var sheet = workBook.Worksheet(MainSheetName);
-
-                if (sheet == null)
-                    throw new WrongExcelFormatException();
-
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
-
-                if (lastRow == 1)
-                    return default(T);
-
-                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
-
-                if (foundRow == null)
-                    return default(T);
-
-                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
-            }
-        }
-
-        private void EditByPredicate(Func<IXLRangeRow, bool> pred, T data) {
-            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
-            using (var workBook = new XLWorkbook(stream)) {
-
-                var sheet = workBook.Worksheet(MainSheetName);
-
-                if (sheet == null)
-                    throw new WrongExcelFormatException();
-
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
-
-                if (lastRow == 1)
-                    return;
-
-                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
-
-                if (foundRow == null)
-                    return;
-
-                InsertRow(sheet.Row(foundRow.RowNumber()), data);
-
-                workBook.Save();
-            }
-        }
 
         public T GetDataByIdOrNull(int id) {
             return GetDataByPredicate(r => r.Cell(KeyColumn).GetValue<int>() == id);
@@ -253,8 +156,6 @@ namespace konito_project.WorkBook {
             }
         }
 
-        protected virtual void InitExcel(XLWorkbook workbook) { }
-
         public void InitWorkBook() {
             
             if (File.Exists(WorkBookPath)) {
@@ -294,6 +195,25 @@ namespace konito_project.WorkBook {
             return false;
         }
 
+        public void ClearAllRecords() {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int row = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                sheet.Rows(2, row).Clear(XLClearOptions.Contents);
+
+                workBook.Save();
+            }
+        }
+
+        protected virtual void InitExcel(XLWorkbook workbook) { }
+
         protected virtual T CovertToDataFromRow(IXLRow row) {
             var instance = Activator.CreateInstance(ModelType) as T;
 
@@ -323,6 +243,7 @@ namespace konito_project.WorkBook {
             return instance;
 
         }
+
         protected virtual void InsertRow(IXLRow row, T data) {
             var properties = ModelType.GetProperties();
 
@@ -362,5 +283,102 @@ namespace konito_project.WorkBook {
 
             }
         }
+
+        private T GetDataByPredicate(Func<IXLRangeRow, bool> pred) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return default(T);
+
+                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
+
+                if (foundRow == null)
+                    return default(T);
+
+                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
+            }
+        }
+
+        private void RemoveByPredicate(Func<IXLRangeRow, bool> pred) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return;
+
+                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
+
+                if (foundRow == null)
+                    return;
+
+                sheet.Row(foundRow.RowNumber()).Delete();
+
+                workBook.Save();
+            }
+        }
+
+        private T FindDataByPredicate(Func<IXLRangeRow, bool> pred) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return default(T);
+
+                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
+
+                if (foundRow == null)
+                    return default(T);
+
+                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
+            }
+        }
+
+        private void EditByPredicate(Func<IXLRangeRow, bool> pred, T data) {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.ReadWrite))
+            using (var workBook = new XLWorkbook(stream)) {
+
+                var sheet = workBook.Worksheet(MainSheetName);
+
+                if (sheet == null)
+                    throw new WrongExcelFormatException();
+
+                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+
+                if (lastRow == 1)
+                    return;
+
+                IXLRangeRow foundRow = sheet.Range(2, 1, lastRow, 1).FindRow(pred);
+
+                if (foundRow == null)
+                    return;
+
+                InsertRow(sheet.Row(foundRow.RowNumber()), data);
+
+                workBook.Save();
+            }
+        }
+
     }
 }

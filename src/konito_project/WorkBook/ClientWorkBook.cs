@@ -12,6 +12,5 @@ namespace konito_project.WorkBook
 {
     public class ClientWorkBook: WorkBookBase<Client> {
         public override string WorkBookPath => "./db/거래처_정보.xlsx";
-        public override Type ModelType => typeof(Client);
     }
 }

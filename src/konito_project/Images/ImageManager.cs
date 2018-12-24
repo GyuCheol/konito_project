@@ -17,12 +17,14 @@ namespace konito_project.Images {
         }
 
         public static BitmapSource GetImage(int id) {
-            string path = Directory.GetFiles(IMG_DIR_NAME, $"{id}.*").FirstOrDefault();
+            string filePath = Directory.GetFiles(IMG_DIR_NAME, $"{id}.*").FirstOrDefault();
 
-            if (path == null)
+            if (filePath == null)
                 throw new FileNotFoundException();
-            
-            return new BitmapImage(new Uri("pack://siteoforigin:,,,/" + path));
+
+            var uri = new Uri("file://" + AppDomain.CurrentDomain.BaseDirectory + filePath);
+
+            return new BitmapImage(uri);
         }
 
         private static int GetNewImageId() {

@@ -8,6 +8,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:vm="clr-namespace:konito_project.ViewModel"
         xmlns:commands="clr-namespace:konito_project.Commands"
+        xmlns:converters="clr-namespace:konito_project.Converters"
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:EmployeeRegistViewModel}"
@@ -59,7 +60,7 @@
                             <Setter Property="FontWeight" Value="Normal"/>
                         </Style>
 
-                        <Style TargetType="{x:Type ComboBox}">
+                        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Normal"/>
                             <Setter Property="Width" Value="340"/>
@@ -83,23 +84,23 @@
 
                                     <StackPanel>
                                         <Label Content="사 번 :"/>
-                                        <TextBox ex:PlaceHolder.Text="*KNT000 형식 입력" Width="200" />
+                                        <TextBox ex:PlaceHolder.Text="*KNT000 형식 입력" Width="200" Text="{Binding CurrentEmployee.EmployeeCode}"/>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="성(이름) : "/>
-                                        <TextBox ex:PlaceHolder.Text="*성 입력"  Width="100" />
-                                        <TextBox ex:PlaceHolder.Text="*이름 입력" Margin="10,0,0,0" Width="200" />
+                                        <TextBox ex:PlaceHolder.Text="*성 입력"  Width="100" Text="{Binding CurrentEmployee.FirstName}" />
+                                        <TextBox ex:PlaceHolder.Text="*이름 입력" Margin="10,0,0,0" Width="200" Text="{Binding CurrentEmployee.LastName}" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="생년월일 :"/>
-                                        <DatePicker ex:DatePickerPlaceHolder.Text="생년월일 선택" Width="200" />
+                                        <DatePicker ex:DatePickerPlaceHolder.Text="생년월일 선택" Width="200" SelectedDate="{Binding CurrentEmployee.BirthDate}" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="입사일 :"/>
-                                        <DatePicker ex:DatePickerPlaceHolder.Text="입사일 선택" Width="200"/>
+                                        <DatePicker ex:DatePickerPlaceHolder.Text="입사일 선택" Width="200" SelectedDate="{Binding CurrentEmployee.EnteredDate}"/>
                                     </StackPanel>
                                     
                                     <StackPanel>
@@ -112,22 +113,22 @@
 
                                     <StackPanel>
                                         <Label Content="연락처 : "/>
-                                        <TextBox ex:PlaceHolder.Text="연락처를 입력해주세요." Width="200" Text="" />
+                                        <TextBox ex:PlaceHolder.Text="연락처를 입력해주세요." Width="200" Text="{Binding CurrentEmployee.Phone}" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="주 소 : "/>
-                                        <TextBox ex:PlaceHolder.Text="주소를 입력해주세요." Width="330"/>
+                                        <TextBox ex:PlaceHolder.Text="주소를 입력해주세요." Width="330" Text="{Binding CurrentEmployee.Address1}"/>
                                     </StackPanel>
                                     
                                     <StackPanel>
                                         <Label Content="상세 주소 : "/>
-                                        <TextBox ex:PlaceHolder.Text="상세 주소를 입력해주세요." Width="330"/>
+                                        <TextBox ex:PlaceHolder.Text="상세 주소를 입력해주세요." Width="330" Text="{Binding CurrentEmployee.Address2}"/>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="급 여 : "/>
-                                        <TextBox ex:PlaceHolder.Text="*급여 입력" Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9"/>
+                                        <TextBox ex:PlaceHolder.Text="*급여 입력" Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.Salary}"/>
                                         <TextBlock Text=" (원)"/>
                                     </StackPanel>
 

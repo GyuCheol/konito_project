@@ -14,30 +14,44 @@ using System.Windows.Input;
 
 namespace konito_project.ViewModel {
     public class AccountRegistViewModel: ViewModelBase {
+        private AccountWorkBook workBook = new AccountWorkBook();
+
         public ObservableCollection<NotifyWrapper<Account>> PurchaseList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
         public ObservableCollection<NotifyWrapper<Account>> SalesList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
         
-        public ICommand SaveCommand { get; private set; }
+        public ICommand SaveCommand => new ActionCommand(SaveAllRecords);
+        public ICommand PurchaseAddCommand => new ActionCommand(() => AddAccount(AccountType.Purchase));
+        public ICommand PurchaseDeleteCommand => new ActionCommand(() => RemoveAccount(AccountType.Purchase));
+        public ICommand PurchaseEditCommand => new ActionCommand(() => EditRecord(AccountType.Purchase));
+        public ICommand SalesAddCommand => new ActionCommand(() => AddAccount(AccountType.Sales));
+        public ICommand SalesDeleteCommand => new ActionCommand(() => RemoveAccount(AccountType.Sales));
+        public ICommand SalesEditCommand => new ActionCommand(() => EditRecord(AccountType.Sales));
 
-        public ICommand PurchaseAddCommand { get; private set; }
-        public ICommand PurchaseDeleteCommand { get; private set; }
-        public ICommand PurchaseEditCommand { get; private set; }
-
-        public ICommand SalesAddCommand { get; private set; }
-        public ICommand SalesDeleteCommand { get; private set; }
-        public ICommand SalesEditCommand { get; private set; }
-
-        public string PurchaseText { get; set; }
-        public string SalesText { get; set; }
+        public string PurchaseText { get => purchaseText; set {
+                purchaseText = value;
+                NotifyChanged(nameof(PurchaseText));
+            }
+        }
+        public string SalesText { get => salesText; set {
+                salesText = value;
+                NotifyChanged(nameof(SalesText));
+            }
+        }
 
         public NotifyWrapper<Account> SelectedPurchase { get; set; }
         public NotifyWrapper<Account> SelectedSales { get; set; }
 
-        private AccountWorkBook workBook = new AccountWorkBook();
+        private string purchaseText { get; set; }
+        private string salesText { get; set; }
 
         public AccountRegistViewModel(): base() {}
 
+        protected override void InitWorkbook() {
+            InitList();
+        }
+
         private void SaveAllRecords() {
+            workBook.ClearAllRecords();
             workBook.AddRecords(PurchaseList.Concat(SalesList).Select(x => x.Data));
 
             MessageBox.Show("저장되었습니다.", "성공", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -81,20 +95,5 @@ namespace konito_project.ViewModel {
             }
         }
 
-        protected override void InitWorkbook() {
-            InitList();
-        }
-
-        protected override void InitCmd() {
-            PurchaseAddCommand = new ActionCommand(() => AddAccount(AccountType.Purchase));
-            PurchaseDeleteCommand = new ActionCommand(() => RemoveAccount(AccountType.Purchase));
-            PurchaseEditCommand = new ActionCommand(() => EditRecord(AccountType.Purchase));
-
-            SalesAddCommand = new ActionCommand(() => AddAccount(AccountType.Sales));
-            SalesDeleteCommand = new ActionCommand(() => RemoveAccount(AccountType.Sales));
-            SalesEditCommand = new ActionCommand(() => EditRecord(AccountType.Sales));
-
-            SaveCommand = new ActionCommand(SaveAllRecords);
-        }
     }
 }

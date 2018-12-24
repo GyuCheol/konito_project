@@ -13,7 +13,8 @@ namespace konito_project.WorkBook {
         private static List<IWorkBookInitializer> workBookList = new List<IWorkBookInitializer>() {
             new AccountWorkBook(),
             new EmployeeWorkBook(),
-            new ClientWorkBook()
+            new ClientWorkBook(),
+            new MoldWorkBook()
         };
         
         public static void CreateAllWorkBooks() {

@@ -105,6 +105,8 @@ namespace konito_project.Tests.WorkbookAPI {
 
             enumerator.MoveNext();
             Assert.AreEqual(enumerator.Current.CompanyName, "Test2");
+
+            enumerator.Dispose();
         }
 
         private IEnumerable<Client> GetRecords() {

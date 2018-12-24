@@ -92,9 +92,11 @@
     <Compile Include="Controls\Extension\Numeric.cs" />
     <Compile Include="Controls\Extension\PlaceHolder.cs" />
     <Compile Include="Converters\ImgIdToImageConverter.cs" />
+    <Compile Include="Converters\StrToIntConverter.cs" />
     <Compile Include="Exceptions\CouldNotCreateModelInstanceException.cs" />
     <Compile Include="Exceptions\CouldNotOpenWorkBookException.cs" />
     <Compile Include="Exceptions\UnknownColumnTypeException.cs" />
+    <Compile Include="ViewModel\MoldRegistViewModel.cs" />
     <Compile Include="WorkBook\AccountWorkBook.cs" />
     <Compile Include="WorkBook\ClientWorkBook.cs" />
     <Compile Include="WorkBook\EmployeeWorkBook.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Commands\UtilCommands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
     <Compile Include="WorkBook\IWorkBookInitializer.cs" />
+    <Compile Include="WorkBook\MoldWorkBook.cs" />
     <Compile Include="WorkBook\WorkBookBase.cs" />
     <Compile Include="Utils\ValidateErrorHandler.cs" />
     <Compile Include="ViewModel\AccountRegistViewModel.cs" />

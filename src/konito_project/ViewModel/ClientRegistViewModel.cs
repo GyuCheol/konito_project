@@ -15,48 +15,54 @@ using static konito_project.Utils.HelperMethods;
 namespace konito_project.ViewModel {
 
     public class ClientRegistViewModel: ViewModelBase {
-
-        public ICommand SaveCommand { get; private set; }
-
         private RegistMode CurrentMode;
+        private ClientWorkBook workBook = new ClientWorkBook();
 
+        public ICommand SaveCommand => new ActionCommand(ClickSaveCommand);
         public Client Client { get; private set; }
-
         public string ClientId => $"{Client?.Id ?? 0:00000}";
         public bool Purchase { get; set; }
         public bool Sales { get; set; }
 
-        private ClientWorkBook workbook = new ClientWorkBook();
-
         public ClientRegistViewModel(): base() {
             CurrentMode = RegistMode.Append;
             Client = new Client() {
-                Id = workbook.GetNewRecordId()
+                Id = workBook.GetNewRecordId()
             };
         }
 
         public ClientRegistViewModel(int clientId): base() {
             CurrentMode = RegistMode.Edit;
             // Find client data
-            Client = workbook.GetDataByIdOrNull(clientId);
+            Client = workBook.GetDataByIdOrNull(clientId);
 
             if (Client == null)
                 throw new NotFoundClientException();
         }
 
-        private void ClickSaveCommand(Window w) {
-            ValidateErrorHandler validate = Client.ClientValidate();
+        protected override void InitWorkbook() {
+            CurrentMode = RegistMode.Append;
+
+            Client = new Client() {
+                Id = workBook.GetNewRecordId()
+            };
+            Purchase = true;
+            Sales = false;
+        }
+        
+        private void ClickSaveCommand() {
+            ValidateErrorHandler validate = Client.ValidateRequired();
 
             Client.AccountType = Purchase ? AccountType.Purchase : AccountType.Sales;
 
-            if(validate.HasProblem) {
+            if (validate.HasProblem) {
                 MessageBox.Show($"{validate.ErrMsg}를(을) 입력해주세요!", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             switch (CurrentMode) {
                 case RegistMode.Append:
-                    workbook.AddRecord(Client);
+                    workBook.AddRecord(Client);
                     MessageBox.Show("신규 거래처 정보가 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case RegistMode.Edit:
@@ -65,21 +71,7 @@ namespace konito_project.ViewModel {
                     break;
             }
 
-            w.Close();
-        }
-
-        protected override void InitWorkbook() {
-            CurrentMode = RegistMode.Append;
-
-            Client = new Client() {
-                Id = workbook.GetNewRecordId()
-            };
-            Purchase = true;
-            Sales = false;
-        }
-
-        protected override void InitCmd() {
-            SaveCommand = new WindowHandlerCommand(ClickSaveCommand);
+            UtilCommands.CloseCommand.Execute(null);
         }
     }
 
