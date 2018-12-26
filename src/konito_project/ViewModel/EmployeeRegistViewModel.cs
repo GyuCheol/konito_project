@@ -17,17 +17,15 @@ using System.Windows;
 
 namespace konito_project.ViewModel {
     public class EmployeeRegistViewModel : ViewModelBase {
-        private static readonly ImageSource DEFAULT_IMAGE = new BitmapImage(new Uri("/konito_project;component/Assets/no_image.png", UriKind.RelativeOrAbsolute));
-
         private RegistMode CurrentMode;
-        private OpenFileDialog dialog;
+        private OpenFileDialog dialog = Dialogs.OpenDialogImage_JpgPng;
         private EmployeeWorkBook workbook = new EmployeeWorkBook();
         
         public IEnumerable<string> Position => new string[] { "인턴", "사원", "대리", "과장", "차장", "부장", "팀장", "대표" };
-
         public Employee CurrentEmployee { get; private set; }
-
-        public ImageSource Image { get; private set; }
+        public ImageSource Image { get; private set; } = ImageManager.DEFAULT_IMAGE;
+        public bool WorkHourly { get; set; } = true;
+        public bool AnuualSalary { get; set; } = false;
 
         public ICommand ImageRegisterCommand => new ActionCommand(RegistNewImage);
         public ICommand SaveCommand => new ActionCommand(ClickSaveCommand);
@@ -40,8 +38,6 @@ namespace konito_project.ViewModel {
                 BirthDate = DateTime.Now,
                 EnteredDate = DateTime.Now
             };
-
-            Image = DEFAULT_IMAGE;
         }
         
         public EmployeeRegistViewModel(int empId): base() {
@@ -50,17 +46,8 @@ namespace konito_project.ViewModel {
             throw new NotImplementedException();
         }
         
-        protected override void InitWorkbook() {
-            dialog = new OpenFileDialog();
-
-            dialog.Multiselect = false;
-            dialog.Filter = "Image files|*.jpg;*.png";
-        }
-
         private void RegistNewImage() {
-            dialog.ShowDialog();
-
-            if (string.IsNullOrEmpty(dialog.FileName))
+            if (dialog.ShowDialog() != DialogResult.OK)
                 return;
 
             int imgId = ImageManager.AddImage(dialog.FileName);
@@ -72,6 +59,8 @@ namespace konito_project.ViewModel {
 
         private void ClickSaveCommand() {
             ValidateErrorHandler validate = CurrentEmployee.ValidateRequired();
+
+            CurrentEmployee.ContractType = WorkHourly ? ContractType.WorkHourly : ContractType.AnuualSalary;
 
             if (validate.HasProblem) {
                 System.Windows.MessageBox.Show($"{validate.ErrMsg}를(을) 입력해주세요!", "에러", MessageBoxButton.OK, MessageBoxImage.Error);

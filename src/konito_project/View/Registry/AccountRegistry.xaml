@@ -1,4 +1,5 @@
 ﻿<controls:MetroWindow
+        x:Class="konito_project.View.Registry.AccountRegistry"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +10,6 @@
         xmlns:ViewModel="clr-namespace:konito_project.ViewModel" 
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         x:Name="window"
-        x:Class="konito_project.View.AccountRegister"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance ViewModel:AccountRegistViewModel}"
         Title="매입/매출 계정" Height="550" Width="700"

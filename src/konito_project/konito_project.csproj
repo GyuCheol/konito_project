@@ -96,6 +96,8 @@
     <Compile Include="Exceptions\CouldNotCreateModelInstanceException.cs" />
     <Compile Include="Exceptions\CouldNotOpenWorkBookException.cs" />
     <Compile Include="Exceptions\UnknownColumnTypeException.cs" />
+    <Compile Include="Model\ContractType.cs" />
+    <Compile Include="Utils\Dialogs.cs" />
     <Compile Include="ViewModel\MoldRegistViewModel.cs" />
     <Compile Include="WorkBook\AccountWorkBook.cs" />
     <Compile Include="WorkBook\ClientWorkBook.cs" />
@@ -121,14 +123,14 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegistMode.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="View\AccountRegister.xaml.cs">
-      <DependentUpon>AccountRegister.xaml</DependentUpon>
+    <Compile Include="View\Registry\AccountRegistry.xaml.cs">
+      <DependentUpon>AccountRegistry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ClientRegister.xaml.cs">
-      <DependentUpon>ClientRegister.xaml</DependentUpon>
+    <Compile Include="View\Registry\ClientRegistry.xaml.cs">
+      <DependentUpon>ClientRegistry.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EmployeeRegister.xaml.cs">
-      <DependentUpon>EmployeeRegister.xaml</DependentUpon>
+    <Compile Include="View\Registry\EmployeeRegistry.xaml.cs">
+      <DependentUpon>EmployeeRegistry.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
@@ -137,22 +139,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MoldDataRegister.xaml.cs">
-      <DependentUpon>MoldDataRegister.xaml</DependentUpon>
+    <Compile Include="View\Registry\MoldDataRegistry.xaml.cs">
+      <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
     <Page Include="Resource\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AccountRegister.xaml">
+    <Page Include="View\Registry\AccountRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ClientRegister.xaml">
+    <Page Include="View\Registry\ClientRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EmployeeRegister.xaml">
+    <Page Include="View\Registry\EmployeeRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +162,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MoldDataRegister.xaml">
+    <Page Include="View\Registry\MoldDataRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +204,9 @@
   <ItemGroup>
     <Resource Include="Assets\konito_icon.png" />
     <Resource Include="Assets\konito_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Query\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

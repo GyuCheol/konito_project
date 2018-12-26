@@ -51,6 +51,21 @@ namespace konito_project.Tests.Validation {
             Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
 
             emp.Salary = 1;
+            Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
+
+            emp.IncomeTax = 1;
+            Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
+
+            emp.EmploymentInsurance = 1;
+            Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
+
+            emp.HealthInsurance = 1;
+            Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
+
+            emp.ResidenceTax = 1;
+            Assert.AreEqual(emp.ValidateRequired().HasProblem, true);
+
+            emp.NationalPension = 1;
             Assert.AreEqual(emp.ValidateRequired().HasProblem, false);
         }
     }

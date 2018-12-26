@@ -21,7 +21,7 @@ namespace konito_project.ViewModel {
             PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
-        protected abstract void InitWorkbook();
+        protected virtual void InitWorkbook() { }
 
     }
 }

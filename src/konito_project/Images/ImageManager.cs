@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace konito_project.Images {
     public static class ImageManager {
+        public static readonly ImageSource DEFAULT_IMAGE = new BitmapImage(new Uri("/konito_project;component/Assets/no_image.png", UriKind.RelativeOrAbsolute));
         public static readonly string IMG_DIR_NAME = "./img/";
 
         static ImageManager() {

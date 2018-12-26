@@ -35,7 +35,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                return sheet.Cell("A1").CurrentRegion.RowCount() - 1;
+                return sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber() - 1;
             }
         }
 
@@ -47,7 +47,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     yield break;
@@ -83,21 +83,12 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     return 1;
 
-                int maxValue = 0;
-
-                for (int r = 2; r <= lastRow; r++) {
-                    int id = sheet.Cell(r, 1).GetValue<int>();
-
-                    maxValue = Math.Max(maxValue, id);
-                }
-
-                return maxValue + 1;
-
+                return sheet.Column(1).LastCellUsed().GetValue<int>() + 1;
             }
         }
 
@@ -118,7 +109,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int row = sheet.Cell("A1").CurrentRegion.RowCount() + 1;
+                int row = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber() + 1;
 
                 InsertRow(sheet.Row(row), data);
 
@@ -135,7 +126,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int row = sheet.Cell("A1").CurrentRegion.RowCount() + 1;
+                int row = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber() + 1;
 
                 foreach (var data in enumerableData) {
                     InsertRow(sheet.Row(row), data);
@@ -169,16 +160,15 @@ namespace konito_project.WorkBook {
             
             using (var workbook = new XLWorkbook()) {
 
-                var properties = from prop in ModelType.GetProperties()
-                                 orderby prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First().Order
-                                 select prop;
+                var attributes = from prop in ModelType.GetProperties()
+                                 select prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().FirstOrDefault() into attr
+                                 where attr != null
+                                 select attr;
 
                 var worksheet = workbook.Worksheets.Add(MainSheetName);
                 
-                foreach (var prop in properties) {
-                    var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
-
-                    worksheet.Cell(1, excelColumn.Order).SetValue(excelColumn.HeaderName);
+                foreach (var attr in attributes) {
+                    worksheet.Cell(1, attr.Order).SetValue(attr.HeaderName);
                 }
 
                 workbook.SaveAs(WorkBookPath);
@@ -204,7 +194,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int row = sheet.Cell("A1").CurrentRegion.RowCount();
+                int row = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 sheet.Rows(2, row).Clear(XLClearOptions.Contents);
 
@@ -220,23 +210,26 @@ namespace konito_project.WorkBook {
             if (instance == null)
                 throw new CouldNotCreateModelInstanceException();
 
-            var properties = ModelType.GetProperties();
+            var properties = from prop in ModelType.GetProperties()
+                             select new {
+                                 Property = prop,
+                                 Attr = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().FirstOrDefault()
+                             } into attr
+                             where attr.Attr != null
+                             select attr;
 
-            foreach (var prop in properties) {
-                var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
-                var value = row.Cell(excelColumn.Order).GetValue<object>();
+            foreach (var item in properties) {
+                var prop = item.Property;
+                var value = row.Cell(item.Attr.Order).GetValue<object>();
 
                 if (prop.PropertyType == typeof(AccountType)) {
-                    var str = value.ToString();
-
-                    Enum.TryParse(str, out AccountType accountType);
-
-                    prop.SetValue(instance, accountType);
-                } else if(prop.PropertyType == typeof(int)) {
-                    prop.SetValue(instance, (int) ((double) value));
-                } else {
+                    prop.SetValue(instance, GetEnumValue<AccountType>(value));
+                } else if (prop.PropertyType == typeof(ContractType)) {
+                    prop.SetValue(instance, GetEnumValue<ContractType>(value));
+                } else if (prop.PropertyType == typeof(int)) {
+                    prop.SetValue(instance, (int)((double) value));
+                } else if (string.IsNullOrEmpty(value.ToString()) == false) {
                     prop.SetValue(instance, value);
-                    break;
                 }
             }
 
@@ -245,11 +238,17 @@ namespace konito_project.WorkBook {
         }
 
         protected virtual void InsertRow(IXLRow row, T data) {
-            var properties = ModelType.GetProperties();
+            var properties = from prop in ModelType.GetProperties()
+                             select new {
+                                 Property = prop,
+                                 Attr = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().FirstOrDefault()
+                             } into item
+                             where item.Attr != null
+                             select item;
 
-            foreach (var prop in properties) {
-                var excelColumn = prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().First();
-                Object value = prop.GetValue(data);
+            foreach (var item in properties) {
+                var excelColumn = item.Attr;
+                Object value = item.Property.GetValue(data);
 
                 switch (value) {
                     case string str:
@@ -262,7 +261,6 @@ namespace konito_project.WorkBook {
                         row.Cell(excelColumn.Order).SetValue(db);
                         break;
                     case DateTime dt:
-
                         if(dt != DateTime.MinValue) {
                             row.Cell(excelColumn.Order).SetValue(dt);
                         }
@@ -271,17 +269,27 @@ namespace konito_project.WorkBook {
                     case AccountType accountType:
                         row.Cell(excelColumn.Order).SetValue(accountType.ToString());
                         break;
+                    case ContractType contractType:
+                        row.Cell(excelColumn.Order).SetValue(contractType.ToString());
+                        break;
                     default:
-
-                        if(value == null) {
-                            row.Cell(excelColumn.Order).SetValue(value);
-                            continue;
+                        if(value != null) {
+                            throw new UnknownColumnTypeException();
                         }
 
-                        throw new UnknownColumnTypeException();
+                        row.Cell(excelColumn.Order).SetValue(value);
+                        break;
                 }
 
             }
+        }
+
+        private EnumType GetEnumValue<EnumType>(object obj) where EnumType: struct {
+            var str = obj.ToString();
+
+            Enum.TryParse(str, out EnumType accountType);
+
+            return accountType;
         }
 
         private T GetDataByPredicate(Func<IXLRangeRow, bool> pred) {
@@ -293,7 +301,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     return default(T);
@@ -316,7 +324,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     return;
@@ -341,7 +349,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     return default(T);
@@ -364,7 +372,7 @@ namespace konito_project.WorkBook {
                 if (sheet == null)
                     throw new WrongExcelFormatException();
 
-                int lastRow = sheet.Cell("A1").CurrentRegion.RowCount();
+                int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
 
                 if (lastRow == 1)
                     return;

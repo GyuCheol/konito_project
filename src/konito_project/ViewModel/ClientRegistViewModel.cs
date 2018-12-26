@@ -21,8 +21,8 @@ namespace konito_project.ViewModel {
         public ICommand SaveCommand => new ActionCommand(ClickSaveCommand);
         public Client Client { get; private set; }
         public string ClientId => $"{Client?.Id ?? 0:00000}";
-        public bool Purchase { get; set; }
-        public bool Sales { get; set; }
+        public bool Purchase { get; set; } = true;
+        public bool Sales { get; set; } = false;
 
         public ClientRegistViewModel(): base() {
             CurrentMode = RegistMode.Append;
@@ -38,16 +38,6 @@ namespace konito_project.ViewModel {
 
             if (Client == null)
                 throw new NotFoundClientException();
-        }
-
-        protected override void InitWorkbook() {
-            CurrentMode = RegistMode.Append;
-
-            Client = new Client() {
-                Id = workBook.GetNewRecordId()
-            };
-            Purchase = true;
-            Sales = false;
         }
         
         private void ClickSaveCommand() {

@@ -15,23 +15,30 @@ namespace konito_project.Utils {
         public static ValidateErrorHandler Validate(object data) {
             var type = data.GetType();
 
-            foreach (var prop in type.GetProperties()) {
-                var reuqiredProps = prop.GetCustomAttributes(typeof(RequiredAttribute), true).OfType<RequiredAttribute>();
+            var properties = from prop in type.GetProperties()
+                             select new {
+                                 Property = prop,
+                                 Attr = prop.GetCustomAttributes(typeof(RequiredAttribute), true).OfType<RequiredAttribute>().FirstOrDefault()
+                             } into item
+                             where item.Attr != null
+                             select item;
 
-                foreach (var reqAttr in reuqiredProps) {
-                    Type propType = prop.PropertyType;
+            foreach (var item in properties) {
+                var prop = item.Property;
+                var attr = item.Attr;
+                Type propType = prop.PropertyType;
 
-                    if(propType.Name == typeof(string).Name) {
-                        string value = prop.GetValue(data) as string;
+                if (propType == typeof(string)) {
+                    string value = prop.GetValue(data) as string;
 
-                        if (string.IsNullOrWhiteSpace(value))
-                            return new ValidateErrorHandler(true, reqAttr.Name);
+                    if (string.IsNullOrWhiteSpace(value)) {
+                        return new ValidateErrorHandler(true, attr.Name);
+                    }
+                } else if (propType == typeof(int)) {
+                    int value = (int)prop.GetValue(data);
 
-                    } else if (propType.Name == typeof(int).Name) {
-                        int value = (int) prop.GetValue(data);
-
-                        if (value == 0)
-                            return new ValidateErrorHandler(true, reqAttr.Name);
+                    if (value == 0) {
+                        return new ValidateErrorHandler(true, attr.Name);
                     }
                 }
             }

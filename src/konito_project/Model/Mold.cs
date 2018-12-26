@@ -10,15 +10,17 @@ namespace konito_project.Model {
     public class Mold {
         [Required("제번")]
         [ExcelColumn(1, "제번")]
-        public int ProductCode { get; set; }
+        public string ProductCode { get; set; }
 
         [ExcelColumn(2, "이미지ID")]
-        public int ImageId { get; set; }
+        public int ImgId { get; set; }
 
         [ExcelColumn(3, "수주처")]
+        [Required("수주처")]
         public int RequestedClientId { get; set; }
 
         [ExcelColumn(4, "설계 임직원ID")]
+        [Required("설계 임직원ID")]
         public int ArchitectEmployeeId { get; set; }
 
         [ExcelColumn(5, "금형비")]
@@ -61,10 +63,10 @@ namespace konito_project.Model {
         public string MoldingSize { get; set; }
 
         [ExcelColumn(18, "상코어")]
-        public string TopCoreMaterial { get; set; }
+        public string TopCore { get; set; }
 
         [ExcelColumn(19, "하코어")]
-        public string BottomCoreMaterial { get; set; }
+        public string BottomCore { get; set; }
 
         [ExcelColumn(20, "이슈")]
         public string Issue { get; set; }

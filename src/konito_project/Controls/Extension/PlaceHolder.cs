@@ -36,16 +36,17 @@ namespace konito_project.Controls.Extension {
                 throw new ArgumentException();
 
             //textBox.Template
-            textBox.Template = new PlaceHolderTemplate(GetText(textBox));
+            textBox.Template = new PlaceHolderTemplate(GetText(textBox), (Style) textBox.FindResource(typeof(TextBox)));
         }
 
         private class PlaceHolderTemplate: ControlTemplate {
             private string placeHoldText;
-
-            public PlaceHolderTemplate(string placeHoldText) : base(typeof(TextBox)) {
+            private Style style;
+            public PlaceHolderTemplate(string placeHoldText, Style style) : base(typeof(TextBox)) {
                 var elemFactory = new FrameworkElementFactory(typeof(Grid));
 
                 this.placeHoldText = placeHoldText;
+                this.style = style;
 
                 elemFactory.AppendChild(CreateInputTextBox());
                 elemFactory.AppendChild(CreateHoldPlaceTextBox());
@@ -56,7 +57,7 @@ namespace konito_project.Controls.Extension {
             private FrameworkElementFactory CreateInputTextBox() {
                 var inputTextBox = new FrameworkElementFactory(typeof(TextBox));
                 var textBinding = new Binding(nameof(TextBox.Text));
-                var style = new Style(typeof(TextBox));
+                var style = new Style(typeof(TextBox), this.style);
 
                 style.Setters.Add(new Setter(TextBox.BackgroundProperty, Brushes.Transparent));
                 style.Setters.Add(new Setter(Grid.ZIndexProperty, 2));
@@ -90,7 +91,7 @@ namespace konito_project.Controls.Extension {
                 placeHoldTextBox.SetValue(TextBox.TextProperty, placeHoldText);
                 placeHoldTextBox.SetValue(Grid.ZIndexProperty, 1);
 
-                var style = new Style(typeof(TextBox));
+                var style = new Style(typeof(TextBox), this.style);
                 var dataTrigger = new DataTrigger();
                 var triggerBinding = new Binding(nameof(TextBox.Text));
 

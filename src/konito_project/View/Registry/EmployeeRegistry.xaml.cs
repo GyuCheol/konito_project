@@ -14,14 +14,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace konito_project.View
-{
+namespace konito_project.View.Registry {
     /// <summary>
     /// Interaction logic for EmployeeRegister.xaml
     /// </summary>
-    public partial class EmployeeRegister : MetroWindow
+    public partial class EmployeeRegistry : MetroWindow
     {
-        public EmployeeRegister()
+        public EmployeeRegistry()
         {
             InitializeComponent();
             DataContext = new EmployeeRegistViewModel();

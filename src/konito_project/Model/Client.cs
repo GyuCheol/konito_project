@@ -36,31 +36,31 @@ namespace konito_project.Model {
         [ExcelColumn(8, "업태")]
         public string Business { get; set; }
 
-        [ExcelColumn(8, "종목")]
+        [ExcelColumn(9, "종목")]
         public string BusinessClassification { get; set; }
 
-        [ExcelColumn(9, "주소")]
+        [ExcelColumn(10, "주소")]
         public string Address1 { get; set; }
 
-        [ExcelColumn(10, "상세주소")]
+        [ExcelColumn(11, "상세주소")]
         public string Address2 { get; set; }
 
-        [ExcelColumn(11, "계좌은행")]
+        [ExcelColumn(12, "계좌은행")]
         [Required("계좌은행")]
         public string BankName { get; set; }
 
-        [ExcelColumn(12, "계좌번호")]
+        [ExcelColumn(13, "계좌번호")]
         [Required("계좌번호")]
         public string BankAccountCode { get; set; }
 
-        [ExcelColumn(13, "예금주명")]
+        [ExcelColumn(14, "예금주명")]
         [Required("예금주명")]
         public string BankAccountOwnerName { get; set; }
 
-        [ExcelColumn(14, "생성일")]
+        [ExcelColumn(15, "생성일")]
         public DateTime CreatedTime { get; set; }
 
-        [ExcelColumn(15, "최근 수정 시각")]
+        [ExcelColumn(16, "최근 수정 시각")]
         public DateTime LastestUpdatedTime { get; set; }
 
     }

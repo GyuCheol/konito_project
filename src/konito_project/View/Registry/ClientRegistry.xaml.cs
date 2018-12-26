@@ -13,15 +13,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static konito_project.ViewModel.ClientRegistViewModel;
 
-namespace konito_project.View {
+namespace konito_project.View.Registry {
     /// <summary>
-    /// Interaction logic for AccountRegister.xaml
+    /// Interaction logic for ClientRegister.xaml
     /// </summary>
-    public partial class AccountRegister : MetroWindow {
-        public AccountRegister() {
+    public partial class ClientRegistry : MetroWindow
+    {
+        public ClientRegistry()
+        {
             InitializeComponent();
-            DataContext = new AccountRegistViewModel();
+            DataContext = new ClientRegistViewModel();
         }
+
+        public ClientRegistry(int clientId) {
+            InitializeComponent();
+            DataContext = new ClientRegistViewModel(clientId);
+        }
+
     }
 }

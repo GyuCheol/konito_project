@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using konito_project.ViewModel;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace konito_project.View
-{
+namespace konito_project.View.Registry {
     /// <summary>
     /// Interaction logic for MoldDataRegister.xaml
     /// </summary>
-    public partial class MoldDataRegister : MetroWindow {
-        public MoldDataRegister()
+    public partial class MoldDataRegistry : MetroWindow {
+
+        public MoldDataRegistry()
         {
             InitializeComponent();
+            DataContext = new MoldRegistViewModel();
         }
     }
 }

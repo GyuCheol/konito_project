@@ -67,7 +67,7 @@ namespace konito_project.Tests.WorkbookAPI {
             workbook.AddRecord(client2);
 
             client1.CompanyName = "Test Company";
-            client2.CompanyName = "";
+            client2.CompanyName = null;
 
             workbook.EditRecordById(client1, client1.Id);
             workbook.EditRecordById(client2, client2.Id);
