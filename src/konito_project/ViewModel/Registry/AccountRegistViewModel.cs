@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace konito_project.ViewModel {
+namespace konito_project.ViewModel.Registry {
     public class AccountRegistViewModel: ViewModelBase {
         private AccountWorkBook workBook = new AccountWorkBook();
 

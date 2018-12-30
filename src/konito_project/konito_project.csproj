@@ -86,6 +86,7 @@
     <Compile Include="Attributes\ExcelColumnAttribute.cs" />
     <Compile Include="Attributes\RequiredAttribute.cs" />
     <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\ActionParamCommand.cs" />
     <Compile Include="Commands\NotifyWrapper.cs" />
     <Compile Include="Commands\WindowHandlerCommand.cs" />
     <Compile Include="Controls\Extension\DatePickerPlaceHolder.cs" />
@@ -98,7 +99,18 @@
     <Compile Include="Exceptions\UnknownColumnTypeException.cs" />
     <Compile Include="Model\ContractType.cs" />
     <Compile Include="Utils\Dialogs.cs" />
-    <Compile Include="ViewModel\MoldRegistViewModel.cs" />
+    <Compile Include="ViewModel\Query\ClientQueryViewModel.cs" />
+    <Compile Include="ViewModel\Query\MoldQueryViewModel.cs" />
+    <Compile Include="ViewModel\Registry\MoldRegistViewModel.cs" />
+    <Compile Include="View\Query\ClientQuery.xaml.cs">
+      <DependentUpon>ClientQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Query\EmployeeQuery.xaml.cs">
+      <DependentUpon>EmployeeQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Query\MoldQuery.xaml.cs">
+      <DependentUpon>MoldQuery.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkBook\AccountWorkBook.cs" />
     <Compile Include="WorkBook\ClientWorkBook.cs" />
     <Compile Include="WorkBook\EmployeeWorkBook.cs" />
@@ -117,9 +129,9 @@
     <Compile Include="WorkBook\MoldWorkBook.cs" />
     <Compile Include="WorkBook\WorkBookBase.cs" />
     <Compile Include="Utils\ValidateErrorHandler.cs" />
-    <Compile Include="ViewModel\AccountRegistViewModel.cs" />
-    <Compile Include="ViewModel\ClientRegistViewModel.cs" />
-    <Compile Include="ViewModel\EmployeeRegistViewModel.cs" />
+    <Compile Include="ViewModel\Registry\AccountRegistViewModel.cs" />
+    <Compile Include="ViewModel\Registry\ClientRegistViewModel.cs" />
+    <Compile Include="ViewModel\Registry\EmployeeRegistViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegistMode.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -143,6 +155,18 @@
       <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
     <Page Include="Resource\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Query\ClientQuery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Query\EmployeeQuery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Query\MoldQuery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,8 +229,6 @@
     <Resource Include="Assets\konito_icon.png" />
     <Resource Include="Assets\konito_logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\Query\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

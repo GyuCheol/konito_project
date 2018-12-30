@@ -1,4 +1,6 @@
-﻿using konito_project.ViewModel;
+﻿using konito_project.Model;
+using konito_project.ViewModel;
+using konito_project.ViewModel.Registry;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static konito_project.ViewModel.ClientRegistViewModel;
 
 namespace konito_project.View.Registry {
     /// <summary>
@@ -27,9 +28,9 @@ namespace konito_project.View.Registry {
             DataContext = new ClientRegistViewModel();
         }
 
-        public ClientRegistry(int clientId) {
+        public ClientRegistry(Client client) {
             InitializeComponent();
-            DataContext = new ClientRegistViewModel(clientId);
+            DataContext = new ClientRegistViewModel(client);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using konito_project.ViewModel;
+using konito_project.ViewModel.Registry;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;

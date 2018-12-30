@@ -17,13 +17,13 @@ namespace konito_project.Model {
 
         [ExcelColumn(3, "수주처")]
         [Required("수주처")]
-        public int RequestedClientId { get; set; }
+        public string RequestedClientName { get; set; }
 
-        [ExcelColumn(4, "설계 임직원ID")]
-        [Required("설계 임직원ID")]
-        public int ArchitectEmployeeId { get; set; }
+        [ExcelColumn(4, "설계 임직원")]
+        [Required("설계 임직원")]
+        public string ArchitectEmployeeName { get; set; }
 
-        [ExcelColumn(5, "금형비")]
+        [ExcelColumn(5, "금형비(외화)")]
         public int CostForMolding { get; set; }
 
         [ExcelColumn(6, "금형비(원화)")]

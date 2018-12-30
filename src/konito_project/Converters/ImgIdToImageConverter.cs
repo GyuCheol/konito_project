@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace konito_project.Converters {
-    public class ImgIdToImageConverter : IValueConverter {
+    public class ImgIdToImageConverter : MarkupExtension, IValueConverter {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             int? imgId = value as int?;
@@ -26,5 +27,8 @@ namespace konito_project.Converters {
             throw new NotImplementedException();
         }
 
+        public override object ProvideValue(IServiceProvider serviceProvider) {
+            return this;
+        }
     }
 }

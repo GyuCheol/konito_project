@@ -75,10 +75,13 @@ namespace konito_project.Model {
         [ExcelColumn(18, "입사일")]
         public DateTime EnteredDate { get; set; }
 
-        [ExcelColumn(19, "생성일")]
+        [ExcelColumn(19, "퇴사일")]
+        public DateTime? ResignationDate { get; set; }
+
+        [ExcelColumn(20, "생성일")]
         public DateTime CreatedTime { get; set; }
 
-        [ExcelColumn(20, "최근 수정 시각")]
+        [ExcelColumn(21, "최근 수정 시각")]
         public DateTime LastestUpdatedTime { get; set; }
     }
 

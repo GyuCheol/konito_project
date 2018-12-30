@@ -6,14 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:konito_project.View"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:vm="clr-namespace:konito_project.ViewModel"
+        xmlns:vm="clr-namespace:konito_project.ViewModel.Registry"
         xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:converters="clr-namespace:konito_project.Converters"
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:EmployeeRegistViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="임직원 정보" Height="900" Width="800">
+        Title="임직원 정보" Height="950" Width="800">
     
     <Grid Background="{StaticResource DisabledBackground}">
 
@@ -25,7 +25,7 @@
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-            Width="700" Height="810"
+            Width="700" Height="850"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -93,14 +93,19 @@
 
                                     <StackPanel>
                                         <Label Content="생년월일 :"/>
-                                        <DatePicker ex:DatePickerPlaceHolder.Text="생년월일 선택" Width="200" SelectedDate="{Binding CurrentEmployee.BirthDate}" />
+                                        <DatePicker Width="200" SelectedDate="{Binding CurrentEmployee.BirthDate}" />
                                     </StackPanel>
 
                                     <StackPanel>
                                         <Label Content="입사일 :"/>
-                                        <DatePicker ex:DatePickerPlaceHolder.Text="입사일 선택" Width="200" SelectedDate="{Binding CurrentEmployee.EnteredDate}"/>
+                                        <DatePicker Width="200" SelectedDate="{Binding CurrentEmployee.EnteredDate}"/>
                                     </StackPanel>
-                                    
+
+                                    <StackPanel>
+                                        <Label Content="퇴사일 :"/>
+                                        <DatePicker ex:DatePickerPlaceHolder.Text="퇴사한 경우에만 입력" Width="200" SelectedDate="{Binding CurrentEmployee.ResignationDate}"/>
+                                    </StackPanel>
+
                                     <StackPanel>
                                         <Label Content="직 책 : "/>
                                         <ComboBox Width="200" 

@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:konito_project.View"
         xmlns:commands="clr-namespace:konito_project.Commands"
-        xmlns:ViewModel="clr-namespace:konito_project.ViewModel"
+        xmlns:ViewModel="clr-namespace:konito_project.ViewModel.Registry"
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
@@ -17,7 +17,7 @@
 
     <Grid Background="{StaticResource DisabledBackground}">
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="650" Height="730"
+                Width="650" Height="750"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -52,7 +52,7 @@
                         </Style>
 
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                            <Setter Property="Width" Value="150"/>
+                            <Setter Property="Width" Value="120"/>
                             <Setter Property="Margin" Value="10"/>
                             <Setter Property="FontSize" Value="14"/>
                         </Style>
@@ -72,32 +72,32 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="거래처명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*거래처명 입력" Text="{Binding Client.CompanyName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*거래처명 입력" Text="{Binding CurrentClient.CompanyName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="대표자명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*대표자명 입력" Text="{Binding Client.OwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*대표자명 입력" Text="{Binding CurrentClient.OwnerName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="사업자번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*사업자번호 입력" Text="{Binding Client.CompanyCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*사업자번호 입력" Text="{Binding CurrentClient.CompanyCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌은행 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*계좌은행 입력" Text="{Binding Client.BankName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌은행 입력" Text="{Binding CurrentClient.BankName}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="계좌번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*계좌번호 입력" Text="{Binding Client.BankAccountCode}"/>
+                                    <TextBox ex:PlaceHolder.Text="*계좌번호 입력" Text="{Binding CurrentClient.BankAccountCode}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="예금주명 : "/>
-                                    <TextBox ex:PlaceHolder.Text="*예금주명 입력" Text="{Binding Client.BankAccountOwnerName}"/>
+                                    <TextBox ex:PlaceHolder.Text="*예금주명 입력" Text="{Binding CurrentClient.BankAccountOwnerName}"/>
                                 </StackPanel>
 
                             </StackPanel>
@@ -107,39 +107,39 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="전화번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding Client.ContactNumber}"/>
+                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding CurrentClient.ContactNumber}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="팩스번호 : "/>
-                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding Client.FaxNumber}"/>
+                                    <TextBox ex:PlaceHolder.Text="000-000-0000" Text="{Binding CurrentClient.FaxNumber}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="업태 : "/>
-                                    <TextBox ex:PlaceHolder.Text="업태 입력" Text="{Binding Client.Business}"/>
+                                    <TextBox ex:PlaceHolder.Text="업태 입력" Text="{Binding CurrentClient.Business}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="종목 : "/>
-                                    <TextBox ex:PlaceHolder.Text="종목 입력" Text="{Binding Client.BusinessClassification}"/>
+                                    <TextBox ex:PlaceHolder.Text="종목 입력" Text="{Binding CurrentClient.BusinessClassification}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="주소 : "/>
-                                    <TextBox ex:PlaceHolder.Text="주소 입력" Text="{Binding Client.Address1}"/>
+                                    <TextBox ex:PlaceHolder.Text="주소 입력" Text="{Binding CurrentClient.Address1}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="상세 주소 : "/>
-                                    <TextBox ex:PlaceHolder.Text="상세 주소 입력" Text="{Binding Client.Address2}"/>
+                                    <TextBox ex:PlaceHolder.Text="상세 주소 입력" Text="{Binding CurrentClient.Address2}"/>
                                 </StackPanel>
                             </StackPanel>
                         </GroupBox>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                            <Button Content="저장 하기" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
-                            <Button Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}"  Content="닫기"/>
+                            <Button Content="저 장" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
+                            <Button Content="닫 기" Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

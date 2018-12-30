@@ -227,7 +227,19 @@ namespace konito_project.WorkBook {
                 } else if (prop.PropertyType == typeof(ContractType)) {
                     prop.SetValue(instance, GetEnumValue<ContractType>(value));
                 } else if (prop.PropertyType == typeof(int)) {
-                    prop.SetValue(instance, (int)((double) value));
+
+                    if (string.IsNullOrEmpty(value.ToString()) == false) {
+                        prop.SetValue(instance, (int)((double)value));
+                    }
+
+                } else if (prop.PropertyType == typeof(string)) {
+
+                    if (string.IsNullOrEmpty(value.ToString()) == false) {
+                        prop.SetValue(instance, value);
+                    } else {
+                        prop.SetValue(instance, string.Empty);
+                    }
+
                 } else if (string.IsNullOrEmpty(value.ToString()) == false) {
                     prop.SetValue(instance, value);
                 }

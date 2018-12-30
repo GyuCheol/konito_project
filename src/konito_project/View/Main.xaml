@@ -11,7 +11,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance ViewModel:MainViewModel}"
-        Title="KONITO" Height="500" Width="1000"
+        Title="KONITO" Height="530" Width="1000"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 
     <Grid Background="{StaticResource DisabledBackground}">
@@ -40,7 +40,7 @@
         </Grid.Resources>
         
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="800" Height="410"
+                Width="800" Height="430"
                 Background="White" BorderBrush="Gray" BorderThickness="1">
             <Grid>
 
@@ -75,22 +75,22 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="1" Header="기초 자료 현황">
+                    <GroupBox Grid.Column="1" Header="기초 자료 조회">
                         <StackPanel>
-                            <Button Content="금형 목록"/>
-                            <Button Content="거래처 목록"/>
-                            <Button Content="직원 목록"/>
+                            <Button Command="{Binding MoldQueryCommand}" Content="금형 자료 조회"/>
+                            <Button Command="{Binding ClientQueryCommand}" Content="거래처 자료 조회"/>
+                            <Button Command="{Binding EmployeeQueryCommand}" Content="임직원 자료 조회"/>
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Grid.Column="2" Header="자료 생성">
+                    <GroupBox Grid.Column="2" Header="실적 자료 관리">
                         <StackPanel>
-                            <Button Content="매입 세금계산서 입력"/>
-                            <Button Content="업체별 지급/수금 내역 입력"/>
-                            <Button Content="매입 거래명세서 입력"/>
-                            <Button Content="매출 세금계산서 입력"/>
+                            <Button Content="매입 세금계산서"/>
+                            <Button Content="업체별 지급/수금 내역"/>
+                            <Button Content="매입 거래명세서"/>
+                            <Button Content="매출 세금계산서"/>
                             <Button Content="급여 대장"/>
-                            <Button Content="출근 대장 입력"/>
+                            <Button Content="출근 대장"/>
                         </StackPanel>
                     </GroupBox>
 

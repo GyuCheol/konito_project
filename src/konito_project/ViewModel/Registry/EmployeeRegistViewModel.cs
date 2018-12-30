@@ -15,7 +15,7 @@ using System.Windows.Media;
 using konito_project.Utils;
 using System.Windows;
 
-namespace konito_project.ViewModel {
+namespace konito_project.ViewModel.Registry {
     public class EmployeeRegistViewModel : ViewModelBase {
         private RegistMode CurrentMode;
         private OpenFileDialog dialog = Dialogs.OpenDialogImage_JpgPng;

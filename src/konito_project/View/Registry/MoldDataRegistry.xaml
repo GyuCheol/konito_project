@@ -8,7 +8,7 @@
         xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:local="clr-namespace:konito_project.View"
         xmlns:ex="clr-namespace:konito_project.Controls.Extension" 
-        xmlns:vm="clr-namespace:konito_project.ViewModel"
+        xmlns:vm="clr-namespace:konito_project.ViewModel.Registry"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MoldRegistViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
@@ -89,15 +89,13 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label>수주처 :</Label>
                                 <ComboBox ItemsSource="{Binding ClientList}" 
-                                          DisplayMemberPath="CompanyName"
-                                          SelectedItem="{Binding SelectedClient}"/>
+                                          SelectedItem="{Binding CurrentMold.RequestedClientName}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <Label>설계 임직원 :</Label>
                                 <ComboBox ItemsSource="{Binding EmployeeList}" 
-                                          DisplayMemberPath="DisplayName"
-                                          SelectedItem="{Binding SelectedEmployee}"/>
+                                          SelectedItem="{Binding CurrentMold.ArchitectEmployeeName}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
@@ -216,8 +214,8 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Command="{Binding SaveCommand}">저장</Button>
-                        <Button Command="{x:Static commands:UtilCommands.CloseCommand}">닫기</Button>
+                        <Button Command="{Binding SaveCommand}">저 장</Button>
+                        <Button Command="{x:Static commands:UtilCommands.CloseCommand}">닫 기</Button>
                     </StackPanel>
 
                 </Grid>

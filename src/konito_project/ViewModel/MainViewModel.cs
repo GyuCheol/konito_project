@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using static konito_project.ViewModel.ClientRegistViewModel;
 using konito_project.View.Registry;
+using konito_project.View.Query;
 
 namespace konito_project.ViewModel {
 
@@ -20,11 +20,16 @@ namespace konito_project.ViewModel {
         public ICommand AccountRegisterCommand => new ActionCommand(() => new AccountRegistry().ShowDialog());
         public ICommand ClientRegisterCommand => new ActionCommand(() => new ClientRegistry().ShowDialog());
         public ICommand EmployeeRegisterCommand => new ActionCommand(() => new EmployeeRegistry().ShowDialog());
+        public ICommand MoldQueryCommand => new ActionCommand(() => new MoldQuery().ShowDialog());
+        public ICommand ClientQueryCommand => new ActionCommand(() => new ClientQuery().ShowDialog());
+        public ICommand EmployeeQueryCommand => new ActionCommand(() => new EmployeeQuery().ShowDialog());
 
         public MainViewModel(): base() {}
 
         protected override void InitWorkbook() {
             ExcelManager.CreateAllWorkBooks();
+
+            //AccessKeyManager.Register(, )
         }
         
     }

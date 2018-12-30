@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:konito_project.View"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:commds="clr-namespace:konito_project.Commands"
-        xmlns:ViewModel="clr-namespace:konito_project.ViewModel" 
+        xmlns:ViewModel="clr-namespace:konito_project.ViewModel.Registry" 
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         x:Name="window"
         mc:Ignorable="d"

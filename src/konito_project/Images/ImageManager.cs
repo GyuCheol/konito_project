@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,12 +14,19 @@ namespace konito_project.Images {
         public static readonly string IMG_DIR_NAME = "./img/";
 
         static ImageManager() {
-            if(Directory.Exists(IMG_DIR_NAME) == false) {
-                Directory.CreateDirectory(IMG_DIR_NAME);
+            try {
+                if(Directory.Exists(IMG_DIR_NAME) == false) {
+                    Directory.CreateDirectory(IMG_DIR_NAME);
+                }
+            } catch (Exception e) {
+                Debug.WriteLine(e.StackTrace);
             }
         }
 
         public static BitmapSource GetImage(int id) {
+            if (id == 0)
+                return null;
+
             string filePath = Directory.GetFiles(IMG_DIR_NAME, $"{id}.*").FirstOrDefault();
 
             if (filePath == null)

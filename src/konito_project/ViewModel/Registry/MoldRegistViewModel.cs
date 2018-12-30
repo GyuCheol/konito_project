@@ -15,18 +15,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace konito_project.ViewModel {
+namespace konito_project.ViewModel.Registry {
     public class MoldRegistViewModel : ViewModelBase {
         private RegistMode mode;
         private MoldWorkBook workBook = new MoldWorkBook();
-        private OpenFileDialog dialog = Utils.Dialogs.OpenDialogImage_JpgPng;
+        private OpenFileDialog dialog = Dialogs.OpenDialogImage_JpgPng;
 
         public Mold CurrentMold { get; private set; }
-        public ImageSource Image { get; private set; } = ImageManager.DEFAULT_IMAGE;
-        public ObservableCollection<Client> ClientList { get; private set; }
-        public ObservableCollection<Employee> EmployeeList { get; private set; }
-        public Client SelectedClient { get; set; }
-        public Employee SelectedEmployee { get; set; }
+        public ImageSource Image { get; private set; }
+        public ObservableCollection<string> ClientList { get; private set; }
+        public ObservableCollection<string> EmployeeList { get; private set; }
         public ICommand SaveCommand => new ActionCommand(SaveMoldData);
         public ICommand RegistMoldImageCommand => new ActionCommand(RegistMoldImage);
 
@@ -38,25 +36,26 @@ namespace konito_project.ViewModel {
                 Prototype = DateTime.Today,
                 UpdatedPrototype = DateTime.Today
             };
+            Image = ImageManager.DEFAULT_IMAGE;
         }
 
-        public MoldRegistViewModel(string productCode): base() {
+        public MoldRegistViewModel(Mold moldItem): base() {
             mode = RegistMode.Edit;
-            CurrentMold = workBook.GetDataByStrKeyOrNull(productCode);
+            CurrentMold = moldItem;
+
+            if (CurrentMold.ImgId != 0)
+                Image = ImageManager.GetImage(CurrentMold.ImgId);
         }
 
         protected override void InitWorkbook() {
             ClientWorkBook clientWorkBook = new ClientWorkBook();
             EmployeeWorkBook empWorkBook = new EmployeeWorkBook();
 
-            ClientList = new ObservableCollection<Client>(clientWorkBook.GetAllRecords().OrderBy(x => x.CompanyName));
-            EmployeeList = new ObservableCollection<Employee>(empWorkBook.GetAllRecords().OrderBy(x => x.DisplayName));
+            ClientList = new ObservableCollection<string>(clientWorkBook.GetAllRecords().OrderBy(x => x.CompanyName).Select(x => x.CompanyName));
+            EmployeeList = new ObservableCollection<string>(empWorkBook.GetAllRecords().OrderBy(x => x.DisplayName).Select(x => x.DisplayName));
         }
 
         private void SaveMoldData() {
-            CurrentMold.ArchitectEmployeeId = SelectedEmployee?.Id ?? 0;
-            CurrentMold.RequestedClientId = SelectedClient?.Id ?? 0;
-
             ValidateErrorHandler validate = CurrentMold.ValidateRequired();
 
             if (validate.HasProblem == true) {
@@ -64,7 +63,7 @@ namespace konito_project.ViewModel {
                 return;
             }
 
-            if (workBook.FindDataByStrKeyOrDefault(CurrentMold.ProductCode) != null) {
+            if (mode == RegistMode.Append && workBook.FindDataByStrKeyOrDefault(CurrentMold.ProductCode) != null) {
                 System.Windows.MessageBox.Show($"'{CurrentMold.ProductCode}'은 이미 등록된 제번입니다!", "에러", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -78,6 +77,7 @@ namespace konito_project.ViewModel {
                     System.Windows.MessageBox.Show("신규 금형이 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case RegistMode.Edit:
+                    workBook.EditRecordByStrKey(CurrentMold, CurrentMold.ProductCode);
                     System.Windows.MessageBox.Show("금형 정보가 수정되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
             }

@@ -1,4 +1,6 @@
-﻿using konito_project.ViewModel;
+﻿using konito_project.Model;
+using konito_project.ViewModel;
+using konito_project.ViewModel.Registry;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
@@ -20,10 +22,15 @@ namespace konito_project.View.Registry {
     /// </summary>
     public partial class MoldDataRegistry : MetroWindow {
 
-        public MoldDataRegistry()
-        {
+        public MoldDataRegistry() {
             InitializeComponent();
             DataContext = new MoldRegistViewModel();
         }
+
+        public MoldDataRegistry(Mold moldItem) {
+            InitializeComponent();
+            DataContext = new MoldRegistViewModel(moldItem);
+        }
+
     }
 }
