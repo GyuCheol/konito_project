@@ -10,7 +10,7 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -18,9 +18,19 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="255"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
             </Grid.ColumnDefinitions>
 
+            <Grid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Margin" Value="0 5 0 5"/>
+                </Style>
+            </Grid.Resources>
+            
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="Bold" Text="연도 : "/>
                 <ComboBox x:Name="cmbYear" Margin="5" Width="100" SelectionChanged="DateChanged"/>
@@ -28,7 +38,11 @@
                 <ComboBox x:Name="cmbMonth" Margin="5" Width="50" SelectionChanged="DateChanged"/>
             </StackPanel>
 
-            <TextBlock x:Name="tbHeader" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Right" Margin="5" FontSize="22" FontWeight="Bold" Text="Test"/>
+            <Button Grid.Column="1" Content="◀" Click="YearDown_Click"/>
+            <Button Grid.Column="2" Content="◁" Click="MonthDown_Click"/>
+            <TextBlock x:Name="tbHeader" Grid.Column="3" VerticalAlignment="Center" TextAlignment="Center" Margin="5" FontSize="20" FontWeight="Bold" Text="Date Text(YYYY년 M월)"/>
+            <Button Grid.Column="4" Content="▷" Click="MonthUp_Click"/>
+            <Button Grid.Column="5" Content="▶" Click="YearUp_Click"/>
         </Grid>
 
         <Grid x:Name="gridHeader" Grid.Row="1">

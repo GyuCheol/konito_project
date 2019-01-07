@@ -25,7 +25,7 @@ namespace konito_project.ViewModel {
         public ICommand MoldQueryCommand => new ActionCommand(() => new MoldQuery().ShowDialog());
         public ICommand ClientQueryCommand => new ActionCommand(() => new ClientQuery().ShowDialog());
         public ICommand EmployeeQueryCommand => new ActionCommand(() => new EmployeeQuery().ShowDialog());
-        public ICommand WorkingCalendarCommand => new ActionCommand(() => new WoringTimeInput().ShowDialog());
+        public ICommand WorkingCalendarCommand => new ActionCommand(() => new WorkingTimeInput().ShowDialog());
 
         public MainViewModel(): base() {}
 

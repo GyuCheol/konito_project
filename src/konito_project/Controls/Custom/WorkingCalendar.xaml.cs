@@ -20,14 +20,22 @@ namespace konito_project.Controls.Custom {
     public partial class WorkingCalendar : UserControl {
         public static readonly DependencyProperty DateProperty = DependencyProperty.RegisterAttached("Date", typeof(DateTime), typeof(WorkingCalendar), new PropertyMetadata(OnChangedProperty));
         private static string[] WEEK_DAYS = { "일", "월", "화", "수", "목", "금", "토" };
+        private static Brush[] WEEK_DAY_BRUSHES = { Brushes.Red, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Blue };
+        private static readonly Thickness[] BORDER_WIDTH_LIST = {
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1, 1, 0, 1),
+            new Thickness(1)
+        };
 
         public DateTime Date {
             get { return (DateTime) GetValue(DateProperty); }
             set { SetValue(DateProperty, value); }
         }
-
-        
-        
+     
         private static void OnChangedProperty(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             var workingCalendar = d as WorkingCalendar;
             var dateTime = (DateTime) e.NewValue;
@@ -48,11 +56,50 @@ namespace konito_project.Controls.Custom {
             InitComoboboxes();
         }
 
+        private FrameworkElement CreateWeekDayHeader(int week, string text) {
+            var container = new Border();
+            var textBlock = new TextBlock();
+
+            container.HorizontalAlignment = HorizontalAlignment.Stretch;
+            container.VerticalAlignment = VerticalAlignment.Stretch;
+            container.BorderThickness = BORDER_WIDTH_LIST[week];
+            container.BorderBrush = Brushes.LightGray;
+
+            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            textBlock.VerticalAlignment= VerticalAlignment.Center;
+            textBlock.Text = text;
+            textBlock.Foreground = WEEK_DAY_BRUSHES[week];
+            container.Child = textBlock;
+
+            Grid.SetRow(container, 0);
+            Grid.SetColumn(container, week);
+
+            return container;
+        }
+
         private void InitHeader() {
+            for (int w = 0; w < 7; w++) {
+                gridHeader.Children.Add(CreateWeekDayHeader(w, WEEK_DAYS[w]));
+            }
+        }
 
+        private void RefreshCalendar() {
+            gridCalendar.Children.Clear();
 
-            for (int i = 0; i < 7; i++) {
+            DateTime curDate = Date;
+            int month = curDate.Month;
+            int row = 0;
 
+            while (curDate.Month == month) {
+                int w = (int) curDate.DayOfWeek;
+
+                //gridCalendar.Children.Add(CreateWeekDayHeader(row, w, curDate.Day.ToString()));
+
+                if (curDate.DayOfWeek == DayOfWeek.Saturday) {
+                    row++;
+                }
+
+                curDate = curDate.AddDays(1);
             }
 
         }
@@ -68,12 +115,30 @@ namespace konito_project.Controls.Custom {
             }
         }
 
-        private void RefreshCalendar() {
-
-        }
-
         private void DateChanged(object sender, SelectionChangedEventArgs e) {
+
+            if (cmbYear.SelectedItem == null || cmbMonth.SelectedItem == null) {
+                return;
+            }
+
             SetValue(DateProperty, new DateTime((int) cmbYear.SelectedItem, (int) cmbMonth.SelectedItem, 1));
         }
+
+        private void YearDown_Click(object sender, RoutedEventArgs e) {
+            SetValue(DateProperty, Date.AddYears(-1));
+        }
+
+        private void YearUp_Click(object sender, RoutedEventArgs e) {
+            SetValue(DateProperty, Date.AddYears(1));
+        }
+
+        private void MonthDown_Click(object sender, RoutedEventArgs e) {
+            SetValue(DateProperty, Date.AddMonths(-1));
+        }
+
+        private void MonthUp_Click(object sender, RoutedEventArgs e) {
+            SetValue(DateProperty, Date.AddMonths(1));
+        }
+
     }
 }

@@ -17,8 +17,8 @@ namespace konito_project.View.ResultInput {
     /// <summary>
     /// Interaction logic for WoringTimeInput.xaml
     /// </summary>
-    public partial class WoringTimeInput : MetroWindow {
-        public WoringTimeInput() {
+    public partial class WorkingTimeInput : MetroWindow {
+        public WorkingTimeInput() {
             InitializeComponent();
         }
     }
