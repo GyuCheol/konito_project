@@ -14,9 +14,9 @@ using static konito_project.Utils.HelperMethods;
 
 namespace konito_project.ViewModel.Registry {
 
-    public class ClientRegistViewModel: ViewModelBase {
+    public class ClientRegistryViewModel: ViewModelBase {
         private RegistMode CurrentMode;
-        private ClientWorkBook workBook = new ClientWorkBook();
+        private WorkBookManager<Client> workBook = ExcelManager.ClientWorkBook;
 
         public ICommand SaveCommand => new ActionCommand(ClickSaveCommand);
         public Client CurrentClient { get; private set; }
@@ -24,14 +24,14 @@ namespace konito_project.ViewModel.Registry {
         public bool Purchase { get; set; } = true;
         public bool Sales { get; set; } = false;
 
-        public ClientRegistViewModel(): base() {
+        public ClientRegistryViewModel(): base() {
             CurrentMode = RegistMode.Append;
             CurrentClient = new Client() {
                 Id = workBook.GetNewRecordId()
             };
         }
 
-        public ClientRegistViewModel(Client client): base() {
+        public ClientRegistryViewModel(Client client): base() {
             CurrentMode = RegistMode.Edit;
             // Find client data
             CurrentClient = client;

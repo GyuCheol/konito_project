@@ -10,7 +10,7 @@
         xmlns:ex="clr-namespace:konito_project.Controls.Extension" 
         xmlns:vm="clr-namespace:konito_project.ViewModel.Registry"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:MoldRegistViewModel}"
+        d:DataContext="{d:DesignInstance vm:MoldRegistryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         Title="금형 정보 등록" Height="850" Width="900">
     

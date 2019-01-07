@@ -12,11 +12,15 @@ using System.Threading.Tasks;
 
 namespace konito_project.WorkBook {
 
-    public abstract class WorkBookBase<T>: IWorkBookInitializer where T: class {
-        public abstract string WorkBookPath { get; }
+    public class WorkBookManager<T>: IWorkBookInitializer where T: class {
+        public string WorkBookPath { get; private set; }
         public Type ModelType { get; } = typeof(T);
         public virtual int KeyColumn => 1;
         public string MainSheetName => "data";
+
+        public WorkBookManager(string workBookPath) {
+            WorkBookPath = workBookPath;
+        }
 
         public T GetDataByIdOrNull(int id) {
             return GetDataByPredicate(r => r.Cell(KeyColumn).GetValue<int>() == id);

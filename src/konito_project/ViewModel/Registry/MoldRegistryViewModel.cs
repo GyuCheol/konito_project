@@ -16,9 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace konito_project.ViewModel.Registry {
-    public class MoldRegistViewModel : ViewModelBase {
+    public class MoldRegistryViewModel : ViewModelBase {
         private RegistMode mode;
-        private MoldWorkBook workBook = new MoldWorkBook();
+        private WorkBookManager<Mold> workBook = ExcelManager.MoldWorkBook;
         private OpenFileDialog dialog = Dialogs.OpenDialogImage_JpgPng;
 
         public Mold CurrentMold { get; private set; }
@@ -28,7 +28,7 @@ namespace konito_project.ViewModel.Registry {
         public ICommand SaveCommand => new ActionCommand(SaveMoldData);
         public ICommand RegistMoldImageCommand => new ActionCommand(RegistMoldImage);
 
-        public MoldRegistViewModel(): base() {
+        public MoldRegistryViewModel(): base() {
             mode = RegistMode.Append;
             CurrentMold = new Mold() {
                 DesignedDate = DateTime.Today,
@@ -39,7 +39,7 @@ namespace konito_project.ViewModel.Registry {
             Image = ImageManager.DEFAULT_IMAGE;
         }
 
-        public MoldRegistViewModel(Mold moldItem): base() {
+        public MoldRegistryViewModel(Mold moldItem): base() {
             mode = RegistMode.Edit;
             CurrentMold = moldItem;
 
@@ -48,8 +48,8 @@ namespace konito_project.ViewModel.Registry {
         }
 
         protected override void InitWorkbook() {
-            ClientWorkBook clientWorkBook = new ClientWorkBook();
-            EmployeeWorkBook empWorkBook = new EmployeeWorkBook();
+            WorkBookManager<Client> clientWorkBook = ExcelManager.ClientWorkBook;
+            WorkBookManager<Employee> empWorkBook = ExcelManager.EmployeeWorkBook;
 
             ClientList = new ObservableCollection<string>(clientWorkBook.GetAllRecords().OrderBy(x => x.CompanyName).Select(x => x.CompanyName));
             EmployeeList = new ObservableCollection<string>(empWorkBook.GetAllRecords().OrderBy(x => x.DisplayName).Select(x => x.DisplayName));

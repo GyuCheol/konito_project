@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace konito_project.Tests.WorkbookAPI {
     [TestClass]
     public class ClientWorkBookTest {
-        private ClientWorkBook workbook = new ClientWorkBook();
+        private WorkBookManager<Client> workbook = ExcelManager.ClientWorkBook;
 
         [TestInitialize]
         public void Init() {
@@ -67,7 +67,7 @@ namespace konito_project.Tests.WorkbookAPI {
             workbook.AddRecord(client2);
 
             client1.CompanyName = "Test Company";
-            client2.CompanyName = null;
+            client2.CompanyName = string.Empty;
 
             workbook.EditRecordById(client1, client1.Id);
             workbook.EditRecordById(client2, client2.Id);

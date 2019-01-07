@@ -22,7 +22,7 @@ namespace konito_project.View.Registry {
     public partial class AccountRegistry : MetroWindow {
         public AccountRegistry() {
             InitializeComponent();
-            DataContext = new AccountRegistViewModel();
+            DataContext = new AccountRegistryViewModel();
         }
     }
 }

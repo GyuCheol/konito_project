@@ -7,6 +7,9 @@ using System.Windows.Input;
 
 namespace konito_project.Commands {
     public class ActionParamCommand<T> : ICommand where T : class {
+
+        // This event doesn't use.
+        #pragma warning disable 67
         public event EventHandler CanExecuteChanged;
 
         private Action<T> action;

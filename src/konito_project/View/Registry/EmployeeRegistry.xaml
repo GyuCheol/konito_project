@@ -11,7 +11,7 @@
         xmlns:converters="clr-namespace:konito_project.Converters"
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:EmployeeRegistViewModel}"
+        d:DataContext="{d:DesignInstance vm:EmployeeRegistryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         Title="임직원 정보" Height="950" Width="800">
     

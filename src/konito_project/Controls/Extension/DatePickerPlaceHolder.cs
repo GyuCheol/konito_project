@@ -13,6 +13,20 @@ namespace konito_project.Controls.Extension {
         public static DependencyProperty TextProperty = DependencyProperty.RegisterAttached("Text",
             typeof(string), typeof(DatePickerPlaceHolder), new FrameworkPropertyMetadata(PropertyChangedCallback));
 
+        public static string GetText(DatePicker dtp) {
+            if (dtp == null)
+                throw new ArgumentException();
+
+            return dtp.GetValue(TextProperty) as string;
+        }
+
+        public static void SetText(DatePicker dtp, string placeHoldText) {
+            if (dtp == null)
+                throw new ArgumentException();
+
+            dtp.SetValue(TextProperty, placeHoldText);
+        }
+
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             var dtp = d as DatePicker;
 
@@ -52,20 +66,6 @@ namespace konito_project.Controls.Extension {
             }
 
             return null;
-        }
-
-        public static string GetText(DatePicker dtp) {
-            if (dtp == null)
-                throw new ArgumentException();
-
-            return dtp.GetValue(TextProperty) as string;
-        }
-
-        public static void SetText(DatePicker dtp, string placeHoldText) {
-            if (dtp == null)
-                throw new ArgumentException();
-
-            dtp.SetValue(TextProperty, placeHoldText);
         }
 
     }

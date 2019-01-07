@@ -16,11 +16,11 @@ using konito_project.Utils;
 using System.Windows;
 
 namespace konito_project.ViewModel.Registry {
-    public class EmployeeRegistViewModel : ViewModelBase {
+    public class EmployeeRegistryViewModel : ViewModelBase {
         private RegistMode CurrentMode;
         private OpenFileDialog dialog = Dialogs.OpenDialogImage_JpgPng;
-        private EmployeeWorkBook workbook = new EmployeeWorkBook();
-        
+        private WorkBookManager<Employee> workBook = ExcelManager.EmployeeWorkBook;
+
         public IEnumerable<string> Position => new string[] { "인턴", "사원", "대리", "과장", "차장", "부장", "팀장", "대표" };
         public Employee CurrentEmployee { get; private set; }
         public ImageSource Image { get; private set; } = ImageManager.DEFAULT_IMAGE;
@@ -30,20 +30,19 @@ namespace konito_project.ViewModel.Registry {
         public ICommand ImageRegisterCommand => new ActionCommand(RegistNewImage);
         public ICommand SaveCommand => new ActionCommand(ClickSaveCommand);
 
-        public EmployeeRegistViewModel(): base() {
+        public EmployeeRegistryViewModel(): base() {
             CurrentMode = RegistMode.Append;
             CurrentEmployee = new Employee() {
-                Id = workbook.GetNewRecordId(),
+                Id = workBook.GetNewRecordId(),
                 Position = Position.First(),
                 BirthDate = DateTime.Now,
                 EnteredDate = DateTime.Now
             };
         }
         
-        public EmployeeRegistViewModel(int empId): base() {
+        public EmployeeRegistryViewModel(Employee employee): base() {
             CurrentMode = RegistMode.Edit;
-
-            throw new NotImplementedException();
+            CurrentEmployee = employee;
         }
         
         private void RegistNewImage() {
@@ -72,10 +71,11 @@ namespace konito_project.ViewModel.Registry {
             switch (CurrentMode) {
                 case RegistMode.Append:
                     CurrentEmployee.CreatedTime = DateTime.Now;
-                    workbook.AddRecord(CurrentEmployee);
+                    workBook.AddRecord(CurrentEmployee);
                     System.Windows.MessageBox.Show("신규 임직원이 등록되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 case RegistMode.Edit:
+                    workBook.EditRecordById(CurrentEmployee, CurrentEmployee.Id);
                     System.Windows.MessageBox.Show("임직원 정보가 수정되었습니다!", "확인", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
             }

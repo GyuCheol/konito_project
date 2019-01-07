@@ -11,7 +11,7 @@
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         x:Name="window"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance ViewModel:AccountRegistViewModel}"
+        d:DataContext="{d:DesignInstance ViewModel:AccountRegistryViewModel}"
         Title="매입/매출 계정" Height="550" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
 

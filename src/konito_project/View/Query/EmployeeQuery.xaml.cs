@@ -1,4 +1,6 @@
-﻿using System;
+﻿using konito_project.ViewModel.Query;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +18,10 @@ namespace konito_project.View.Query {
     /// <summary>
     /// Interaction logic for EmployeeQuery.xaml
     /// </summary>
-    public partial class EmployeeQuery : Window {
+    public partial class EmployeeQuery : MetroWindow {
         public EmployeeQuery() {
             InitializeComponent();
+            DataContext = new EmpQueryViewModel();
         }
     }
 }

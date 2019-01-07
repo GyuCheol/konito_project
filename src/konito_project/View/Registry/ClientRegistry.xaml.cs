@@ -20,17 +20,10 @@ namespace konito_project.View.Registry {
     /// <summary>
     /// Interaction logic for ClientRegister.xaml
     /// </summary>
-    public partial class ClientRegistry : MetroWindow
-    {
-        public ClientRegistry()
-        {
+    public partial class ClientRegistry : MetroWindow {
+        public ClientRegistry(object dataContext) {
             InitializeComponent();
-            DataContext = new ClientRegistViewModel();
-        }
-
-        public ClientRegistry(Client client) {
-            InitializeComponent();
-            DataContext = new ClientRegistViewModel(client);
+            DataContext = dataContext;
         }
 
     }

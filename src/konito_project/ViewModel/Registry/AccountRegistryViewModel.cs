@@ -13,8 +13,8 @@ using System.Windows;
 using System.Windows.Input;
 
 namespace konito_project.ViewModel.Registry {
-    public class AccountRegistViewModel: ViewModelBase {
-        private AccountWorkBook workBook = new AccountWorkBook();
+    public class AccountRegistryViewModel: ViewModelBase {
+        private WorkBookManager<Account> workBook = ExcelManager.AccountWorkBook;
 
         public ObservableCollection<NotifyWrapper<Account>> PurchaseList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
         public ObservableCollection<NotifyWrapper<Account>> SalesList { get; private set; } = new ObservableCollection<NotifyWrapper<Account>>();
@@ -44,7 +44,7 @@ namespace konito_project.ViewModel.Registry {
         private string purchaseText { get; set; }
         private string salesText { get; set; }
 
-        public AccountRegistViewModel(): base() {}
+        public AccountRegistryViewModel(): base() {}
 
         protected override void InitWorkbook() {
             InitList();

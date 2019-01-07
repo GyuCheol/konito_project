@@ -22,14 +22,9 @@ namespace konito_project.View.Registry {
     /// </summary>
     public partial class MoldDataRegistry : MetroWindow {
 
-        public MoldDataRegistry() {
+        public MoldDataRegistry(object dataContext) {
             InitializeComponent();
-            DataContext = new MoldRegistViewModel();
-        }
-
-        public MoldDataRegistry(Mold moldItem) {
-            InitializeComponent();
-            DataContext = new MoldRegistViewModel(moldItem);
+            DataContext = dataContext;
         }
 
     }

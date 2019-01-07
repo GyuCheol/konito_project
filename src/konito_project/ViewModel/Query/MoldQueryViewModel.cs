@@ -1,6 +1,7 @@
 ﻿using konito_project.Commands;
 using konito_project.Model;
 using konito_project.View.Registry;
+using konito_project.ViewModel.Registry;
 using konito_project.WorkBook;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows.Input;
 namespace konito_project.ViewModel.Query {
 
     public class MoldQueryViewModel : ViewModelBase {
-        private MoldWorkBook workBook = new MoldWorkBook();
+        private WorkBookManager<Mold> workBook = ExcelManager.MoldWorkBook;
         private List<Mold> CacheMoldList;
         
         public ObservableCollection<Mold> MoldList { get; private set; }
@@ -47,18 +48,18 @@ namespace konito_project.ViewModel.Query {
             }
         }
 
-        private void EditItem(Mold item) {
-            new MoldDataRegistry(item).ShowDialog();
-            //Search();
+        private void EditItem(Mold mold) {
+            new MoldDataRegistry(new MoldRegistryViewModel(mold)).ShowDialog();
         }
 
-        private void RemoveItem(Mold item) {
-            if (MessageBox.Show($"'{item.ProductCode} {item.ProductName}'를 삭제하시겠습니까?", "확인", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+        private void RemoveItem(Mold mold) {
+            if (MessageBox.Show($"'{mold.ProductCode} {mold.ProductName}'를 삭제하시겠습니까?", "확인", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) {
                 return;
+            }
 
-            CacheMoldList.Remove(item);
-            MoldList.Remove(item);
-            workBook.RemoveRecordByStrKey(item.ProductCode);
+            CacheMoldList.Remove(mold);
+            MoldList.Remove(mold);
+            workBook.RemoveRecordByStrKey(mold.ProductCode);
         }
     }
 }

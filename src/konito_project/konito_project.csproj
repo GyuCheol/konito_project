@@ -89,6 +89,9 @@
     <Compile Include="Commands\ActionParamCommand.cs" />
     <Compile Include="Commands\NotifyWrapper.cs" />
     <Compile Include="Commands\WindowHandlerCommand.cs" />
+    <Compile Include="Controls\Custom\WorkingCalendar.xaml.cs">
+      <DependentUpon>WorkingCalendar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Extension\DatePickerPlaceHolder.cs" />
     <Compile Include="Controls\Extension\Numeric.cs" />
     <Compile Include="Controls\Extension\PlaceHolder.cs" />
@@ -100,8 +103,9 @@
     <Compile Include="Model\ContractType.cs" />
     <Compile Include="Utils\Dialogs.cs" />
     <Compile Include="ViewModel\Query\ClientQueryViewModel.cs" />
+    <Compile Include="ViewModel\Query\EmpQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\MoldQueryViewModel.cs" />
-    <Compile Include="ViewModel\Registry\MoldRegistViewModel.cs" />
+    <Compile Include="ViewModel\Registry\MoldRegistryViewModel.cs" />
     <Compile Include="View\Query\ClientQuery.xaml.cs">
       <DependentUpon>ClientQuery.xaml</DependentUpon>
     </Compile>
@@ -111,9 +115,10 @@
     <Compile Include="View\Query\MoldQuery.xaml.cs">
       <DependentUpon>MoldQuery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ResultInput\WoringTimeInput.xaml.cs">
+      <DependentUpon>WoringTimeInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkBook\AccountWorkBook.cs" />
-    <Compile Include="WorkBook\ClientWorkBook.cs" />
-    <Compile Include="WorkBook\EmployeeWorkBook.cs" />
     <Compile Include="WorkBook\ExcelManager.cs" />
     <Compile Include="Exceptions\NotFoundClientException.cs" />
     <Compile Include="Exceptions\WrongExcelFormatException.cs" />
@@ -126,12 +131,11 @@
     <Compile Include="Commands\UtilCommands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
     <Compile Include="WorkBook\IWorkBookInitializer.cs" />
-    <Compile Include="WorkBook\MoldWorkBook.cs" />
-    <Compile Include="WorkBook\WorkBookBase.cs" />
+    <Compile Include="WorkBook\WorkBookManager.cs" />
     <Compile Include="Utils\ValidateErrorHandler.cs" />
-    <Compile Include="ViewModel\Registry\AccountRegistViewModel.cs" />
-    <Compile Include="ViewModel\Registry\ClientRegistViewModel.cs" />
-    <Compile Include="ViewModel\Registry\EmployeeRegistViewModel.cs" />
+    <Compile Include="ViewModel\Registry\AccountRegistryViewModel.cs" />
+    <Compile Include="ViewModel\Registry\ClientRegistryViewModel.cs" />
+    <Compile Include="ViewModel\Registry\EmployeeRegistryViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegistMode.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -154,6 +158,10 @@
     <Compile Include="View\Registry\MoldDataRegistry.xaml.cs">
       <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Custom\WorkingCalendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resource\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Registry\MoldDataRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ResultInput\WoringTimeInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

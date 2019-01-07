@@ -90,7 +90,7 @@
                             <Button Content="매입 거래명세서"/>
                             <Button Content="매출 세금계산서"/>
                             <Button Content="급여 대장"/>
-                            <Button Content="출근 대장"/>
+                            <Button Command="{Binding WorkingCalendarCommand}" Content="출근 대장"/>
                         </StackPanel>
                     </GroupBox>
 
