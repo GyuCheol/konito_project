@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:konito_project.ViewModel.Query"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:EmpQueryViewModel}"
-        Title="EmployeeQuery" Height="650" Width="800"
+        Title="임직원 목록 조회" Height="650" Width="800"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png">
     <Grid Background="{StaticResource DisabledBackground}">
 
