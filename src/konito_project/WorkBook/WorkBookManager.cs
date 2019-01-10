@@ -2,6 +2,7 @@
 using konito_project.Attributes;
 using konito_project.Exceptions;
 using konito_project.Model;
+using konito_project.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,13 +14,16 @@ using System.Threading.Tasks;
 namespace konito_project.WorkBook {
 
     public class WorkBookManager<T>: IWorkBookInitializer where T: class {
-        public string WorkBookPath { get; private set; }
+        public string WorkBookPath { get; protected set; }
+        public string MainSheetName { get; protected set; }
         public Type ModelType { get; } = typeof(T);
         public virtual int KeyColumn => 1;
-        public string MainSheetName => "data";
 
-        public WorkBookManager(string workBookPath) {
+        public WorkBookManager() { }
+
+        public WorkBookManager(string workBookPath, string sheetName) {
             WorkBookPath = workBookPath;
+            MainSheetName = sheetName;
         }
 
         public T GetDataByIdOrNull(int id) {
@@ -151,7 +155,7 @@ namespace konito_project.WorkBook {
             }
         }
 
-        public void InitWorkBook() {
+        public virtual void InitWorkBook() {
             
             if (File.Exists(WorkBookPath)) {
 
@@ -227,9 +231,11 @@ namespace konito_project.WorkBook {
                 var value = row.Cell(item.Attr.Order).GetValue<object>();
 
                 if (prop.PropertyType == typeof(AccountType)) {
-                    prop.SetValue(instance, GetEnumValue<AccountType>(value));
+                    prop.SetValue(instance, value.ToString().ConvertAccountTypeFromStr());
                 } else if (prop.PropertyType == typeof(ContractType)) {
                     prop.SetValue(instance, GetEnumValue<ContractType>(value));
+                } else if (prop.PropertyType == typeof(TaxType)) {
+                    prop.SetValue(instance, GetEnumValue<TaxType>(value));
                 } else if (prop.PropertyType == typeof(int)) {
 
                     if (string.IsNullOrEmpty(value.ToString()) == false) {
@@ -283,10 +289,9 @@ namespace konito_project.WorkBook {
 
                         break;
                     case AccountType accountType:
-                        row.Cell(excelColumn.Order).SetValue(accountType.ToString());
-                        break;
                     case ContractType contractType:
-                        row.Cell(excelColumn.Order).SetValue(contractType.ToString());
+                    case TaxType taxType:
+                        row.Cell(excelColumn.Order).SetValue(value.ToString());
                         break;
                     default:
                         if(value != null) {

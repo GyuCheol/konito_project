@@ -9,7 +9,7 @@ namespace konito_project.Model {
 
     public class Client {
 
-        public string TypeName => AccountType == AccountType.Purchase ? "매입" : "매출";
+        public string TypeName => AccountType.ToString();
 
         [ExcelColumn(1, "순번")]
         public int Id { get; set; }

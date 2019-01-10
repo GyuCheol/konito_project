@@ -12,6 +12,18 @@ namespace konito_project.Utils {
 
     public static class HelperMethods {
 
+        public static AccountType ConvertAccountTypeFromStr(this string str) {
+
+            switch (str) {
+                case AccountType.PurchaseText:
+                    return AccountType.Purchase;
+                case AccountType.SalesText:
+                    return AccountType.Sales;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
         public static ValidateErrorHandler Validate(object data) {
             var type = data.GetType();
 

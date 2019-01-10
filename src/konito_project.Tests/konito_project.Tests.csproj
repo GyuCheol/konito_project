@@ -74,6 +74,8 @@
     <Compile Include="WorkbookAPI\AccountWorkBookTest.cs" />
     <Compile Include="WorkbookAPI\ClientWorkBookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkbookAPI\TradingSalesWorkBookTest.cs" />
+    <Compile Include="WorkbookAPI\TradingPurchaseWorkBookTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
