@@ -101,6 +101,8 @@
     <Compile Include="Exceptions\CouldNotOpenWorkBookException.cs" />
     <Compile Include="Exceptions\UnknownColumnTypeException.cs" />
     <Compile Include="Model\ContractType.cs" />
+    <Compile Include="Model\TaxType.cs" />
+    <Compile Include="Model\Trading.cs" />
     <Compile Include="Utils\Dialogs.cs" />
     <Compile Include="ViewModel\Query\ClientQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\EmpQueryViewModel.cs" />
@@ -114,6 +116,9 @@
     </Compile>
     <Compile Include="View\Query\MoldQuery.xaml.cs">
       <DependentUpon>MoldQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResultInput\PurchaseInput.xaml.cs">
+      <DependentUpon>PurchaseInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ResultInput\WorkingTimeInput.xaml.cs">
       <DependentUpon>WorkingTimeInput.xaml</DependentUpon>
@@ -131,6 +136,7 @@
     <Compile Include="Commands\UtilCommands.cs" />
     <Compile Include="Utils\HelperMethods.cs" />
     <Compile Include="WorkBook\IWorkBookInitializer.cs" />
+    <Compile Include="WorkBook\TradingWorkBook.cs" />
     <Compile Include="WorkBook\WorkBookManager.cs" />
     <Compile Include="Utils\ValidateErrorHandler.cs" />
     <Compile Include="ViewModel\Registry\AccountRegistryViewModel.cs" />
@@ -195,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Registry\MoldDataRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ResultInput\PurchaseInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

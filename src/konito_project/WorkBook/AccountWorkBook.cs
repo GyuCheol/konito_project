@@ -15,7 +15,7 @@ namespace konito_project.WorkBook {
         
         public override int KeyColumn => 2;
 
-        public AccountWorkBook() : base("./db/계정_정보.xlsx") {
+        public AccountWorkBook() : base("./db/계정_정보.xlsx", "데이터") {
 
         }
 
