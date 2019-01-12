@@ -89,6 +89,9 @@
     <Compile Include="Commands\ActionParamCommand.cs" />
     <Compile Include="Commands\NotifyWrapper.cs" />
     <Compile Include="Commands\WindowHandlerCommand.cs" />
+    <Compile Include="Controls\Custom\SummaryButton.xaml.cs">
+      <DependentUpon>SummaryButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Custom\WorkingCalendar.xaml.cs">
       <DependentUpon>WorkingCalendar.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,7 @@
     <Compile Include="ViewModel\Query\EmpQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\MoldQueryViewModel.cs" />
     <Compile Include="ViewModel\Registry\MoldRegistryViewModel.cs" />
+    <Compile Include="ViewModel\ResultInput\SalesSummaryViewModel.cs" />
     <Compile Include="View\Query\ClientQuery.xaml.cs">
       <DependentUpon>ClientQuery.xaml</DependentUpon>
     </Compile>
@@ -117,8 +121,8 @@
     <Compile Include="View\Query\MoldQuery.xaml.cs">
       <DependentUpon>MoldQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ResultInput\PurchaseInput.xaml.cs">
-      <DependentUpon>PurchaseInput.xaml</DependentUpon>
+    <Compile Include="View\ResultInput\PurchaseSalesInput.xaml.cs">
+      <DependentUpon>PurchaseSalesInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ResultInput\WorkingTimeInput.xaml.cs">
       <DependentUpon>WorkingTimeInput.xaml</DependentUpon>
@@ -164,6 +168,10 @@
     <Compile Include="View\Registry\MoldDataRegistry.xaml.cs">
       <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Custom\SummaryButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Custom\WorkingCalendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,7 +212,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResultInput\PurchaseInput.xaml">
+    <Page Include="View\ResultInput\PurchaseSalesInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

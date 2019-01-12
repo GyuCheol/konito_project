@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace konito_project.View.ResultInput
 {
     /// <summary>
-    /// Interaction logic for PurchaseInput.xaml
+    /// Interaction logic for PurchaseSalesInput.xaml
     /// </summary>
-    public partial class PurchaseInput : MetroWindow
+    public partial class PurchaseSalesInput : MetroWindow
     {
-        public PurchaseInput()
+        public PurchaseSalesInput()
         {
             InitializeComponent();
         }

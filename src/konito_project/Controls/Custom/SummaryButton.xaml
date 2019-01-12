@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="konito_project.Controls.Custom.SummaryButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:konito_project.Controls.Custom"
+             mc:Ignorable="d" 
+             Width="163" Height="110" MaxWidth="163" MaxHeight="110"
+             x:Name="uc"
+             >
+
+    <Grid x:Name="root" 
+          Background="{Binding BackgroundBrush, UpdateSourceTrigger=PropertyChanged}"
+          >
+
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="{Binding ForegroundBrush, UpdateSourceTrigger=PropertyChanged}" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontSize" Value="11" />
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               Content="12월" 
+               HorizontalAlignment="Center"
+               Padding="0 5 0 0"
+               />
+        
+        <Label Grid.Row="1" 
+               Content="(00건)" 
+               HorizontalAlignment="Center" 
+               FontSize="8"
+               Padding="0 0 0 5"
+               />
+        
+        <Border Grid.Row="2" Height="1" 
+                Background="{Binding ForegroundBrush}"
+                Margin="5 0 5 0"
+                />
+        
+        <Grid Grid.Row="3"
+              VerticalAlignment="Center"
+              >
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" 
+                   Content="매입총액 : 123,456,000" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   />
+            
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0 0 0 5">
+                <Label Content="- 총 공급가액 : 123,456" Padding="15 2 15 3" />
+                <Label Content="- 총 세액 : 123,456" Padding="15 2 15 3" />
+            </StackPanel>
+            
+        </Grid>
+        
+    </Grid>
+    
+</UserControl>
