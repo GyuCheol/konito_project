@@ -18,11 +18,14 @@ namespace konito_project.View.ResultInput
     /// <summary>
     /// Interaction logic for PurchaseSalesInput.xaml
     /// </summary>
-    public partial class PurchaseSalesInput : MetroWindow
-    {
-        public PurchaseSalesInput()
-        {
+    public partial class PurchaseSalesInput : MetroWindow {
+        public PurchaseSalesInput() {
             InitializeComponent();
         }
+
+        public PurchaseSalesInput(object dataContext) : this() {
+            DataContext = dataContext;
+        }
+
     }
 }

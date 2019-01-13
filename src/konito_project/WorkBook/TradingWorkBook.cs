@@ -11,10 +11,17 @@ using System.Threading.Tasks;
 
 namespace konito_project.WorkBook {
     public class TradingWorkBook : WorkBookManager<Trading> {
-        
+        private AccountType accountType;
+
         public TradingWorkBook(int year, AccountType accountType, int month) {
-            WorkBookPath = $"./db/{accountType}실적/{year}.xlsx";
+            this.accountType = accountType;
+            ChangeYear(year);
             ChangeMonth(month);
+        }
+
+        public void ChangeYear(int year) {
+            WorkBookPath = $"./db/{accountType}실적/{year}.xlsx";
+            InitWorkBook();
         }
 
         public void ChangeMonth(int month) {

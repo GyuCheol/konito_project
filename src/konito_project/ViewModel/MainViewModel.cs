@@ -13,6 +13,8 @@ using konito_project.View.Registry;
 using konito_project.View.Query;
 using konito_project.ViewModel.Registry;
 using konito_project.View.ResultInput;
+using konito_project.ViewModel.ResultInput;
+using konito_project.Model;
 
 namespace konito_project.ViewModel {
 
@@ -26,7 +28,7 @@ namespace konito_project.ViewModel {
         public ICommand ClientQueryCommand => new ActionCommand(() => new ClientQuery().ShowDialog());
         public ICommand EmployeeQueryCommand => new ActionCommand(() => new EmployeeQuery().ShowDialog());
         public ICommand WorkingCalendarCommand => new ActionCommand(() => new WorkingTimeInput().ShowDialog());
-        public ICommand PurchaseTaxCommand => new ActionCommand(() => new PurchaseSalesInput().ShowDialog());
+        public ICommand PurchaseTaxCommand => new ActionCommand(() => new PurchaseSalesInput(new SalesSummaryViewModel(AccountType.Purchase)).ShowDialog());
         public MainViewModel(): base() {}
 
         protected override void InitWorkbook() {

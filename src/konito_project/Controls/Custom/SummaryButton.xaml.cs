@@ -1,4 +1,5 @@
-﻿using System;
+﻿using konito_project.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,9 +19,41 @@ namespace konito_project.Controls.Custom
 {
     public partial class SummaryButton : UserControl {
 
+        public class Data {
+            public string Header { get; set;  }
+            public int TradingCount { get; set; }
+            public AccountType AccountType { get; set; }
+            public int TotalPrice { get; set; }
+            public int TotalTax { get; set; }
+            public int TotalAmount => TotalPrice + TotalTax;
+        }
+
         private static readonly SolidColorBrush HoverColorBrush = new SolidColorBrush(Color.FromRgb(135, 199, 217));
         private static readonly SolidColorBrush DefaultColorBrush = new SolidColorBrush(Color.FromRgb(156, 209, 224));
         private static readonly SolidColorBrush WhiteColorBrush = new SolidColorBrush(Colors.White);
+
+        public static readonly DependencyProperty ForegroundBrushProperty =
+            DependencyProperty.Register(
+                "ForegroundBrush",
+                typeof(SolidColorBrush),
+                typeof(SummaryButton),
+                new PropertyMetadata(WhiteColorBrush)
+            );
+
+        public static readonly DependencyProperty BackgroundBrushProperty =
+            DependencyProperty.Register(
+                "BackgroundBrush",
+                typeof(SolidColorBrush),
+                typeof(SummaryButton),
+                new PropertyMetadata(DefaultColorBrush)
+            );
+
+        public static readonly DependencyProperty SummaryDataProperty =
+            DependencyProperty.Register(
+                "SummaryData",
+                typeof(Data),
+                typeof(SummaryButton)
+            );
 
         #region DP
         //xaml에서 커맨드 바인딩 가능하게끔 종속성 속성 정의 (외부에서 Command 주입 가능)
@@ -36,30 +69,20 @@ namespace konito_project.Controls.Custom
             set { SetValue(CommandProperty, value); }
         }
 
-        public static readonly DependencyProperty ForegroundBrushProperty =
-            DependencyProperty.Register(
-                "ForegroundBrush",
-                typeof(SolidColorBrush),
-                typeof(SummaryButton),
-                new PropertyMetadata(WhiteColorBrush)
-            );
-
         public SolidColorBrush ForegroundBrush {
             get { return (SolidColorBrush)GetValue(ForegroundBrushProperty); }
             set { SetValue(ForegroundBrushProperty, value); }
         }
 
-        public static readonly DependencyProperty BackgroundBrushProperty =
-            DependencyProperty.Register(
-                "BackgroundBrush",
-                typeof(SolidColorBrush),
-                typeof(SummaryButton),
-                new PropertyMetadata(DefaultColorBrush)
-            );
-
         public SolidColorBrush BackgroundBrush {
             get { return (SolidColorBrush)GetValue(BackgroundBrushProperty); }
             set { SetValue(BackgroundBrushProperty, value); }
+        }
+
+
+        public Data SummaryData {
+            get { return (Data)GetValue(SummaryDataProperty); }
+            set { SetValue(SummaryDataProperty, value); }
         }
         #endregion
 
@@ -79,15 +102,7 @@ namespace konito_project.Controls.Custom
             root.MouseLeave += (s, e) => { HandlingMouseMoveEvent(false); };
 
             //종속성 속성으로 정의한 Command 사용
-            root.MouseDown += (s, e) => { if (Command != null) { Command.Execute(null); } };
-
-            //버블링 허용 (root Grid 위에 놓여진 컨트롤 클릭해도 root 까지 이벤트 이어나가도록)
-            foreach (var o in LogicalTreeHelper.GetChildren(root)) {
-                if (o is UIElement) {
-                    ((UIElement)o).MouseDown += (s, e) => { e.Handled = false; };
-                }
-            }
-
+            root.PreviewMouseDown += (s, e) => { if (Command != null) { Command.Execute(null); } };
         }
 
         //마우스 움직임에 따라 컨트롤 색상 변경 (종속성 속성에 의해 색상 변경 자동 반영됨)

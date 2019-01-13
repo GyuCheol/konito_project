@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:konito_project.View.ResultInput"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:cc="clr-namespace:konito_project.Controls.Custom"
+        xmlns:vm="clr-namespace:konito_project.ViewModel.ResultInput"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:SalesSummaryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         Title="PurchaseSalesInput" Height="690" Width="848">
 
@@ -47,10 +49,10 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="0" />
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="1" />
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="2" />
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="3" />
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="0" SummaryData="{Binding Data[0]}" />
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="1" SummaryData="{Binding Data[1]}"/>
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="2" SummaryData="{Binding Data[2]}"/>
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="3" SummaryData="{Binding Data[3]}"/>
 
                         <cc:SummaryButton Grid.Row="1" Grid.Column="0" />
                         <cc:SummaryButton Grid.Row="1" Grid.Column="1" />
