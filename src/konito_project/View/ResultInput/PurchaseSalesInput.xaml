@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:SalesSummaryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="PurchaseSalesInput" Height="690" Width="848">
+        Title="PurchaseSalesInput" Height="613.5" Width="848">
 
     <Grid Background="{StaticResource DisabledBackground}">
 
@@ -19,15 +19,20 @@
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Margin" Value="5"/>
             </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="#FF41B1E1" />
+            </Style>
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="700" Height="500"
+                Width="700" Height="520"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
@@ -35,8 +40,81 @@
                 <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
 
                 <Grid Grid.Row="1">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Margin="10 0 0 0">
+                        
+                        <Button Content="◀" 
+                                Background="White"
+                                BorderThickness="0"
+                                Foreground="#FF41B1E1"
+                                Command="{Binding PrevCommand}"
+                                CommandParameter="-1"
+                                />
+                        <Label Content="{Binding Year, UpdateSourceTrigger=PropertyChanged}"
+                               ContentStringFormat="{}{0}년"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               />
+                        <Button Content="▶" 
+                                Background="White"
+                                BorderThickness="0"
+                                Foreground="#FF41B1E1"
+                                Command="{Binding NextCommand}"
+                                CommandParameter="1"
+                                />
+                    </StackPanel>
+                    
+                    <Grid Grid.Column="1"
+                          Margin="0 0 12 0">
 
-                    <Grid Margin="10 10 10 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Vertical"
+                                    >
+                            <Label Content="123456789" 
+                                   ContentStringFormat="연간 매입총액 : \{0:N0}"
+                                   HorizontalAlignment="Right"
+                                   Padding="0"
+                                   FontSize="17"
+                                   />
+                            <Label Content="1020" 
+                                   ContentStringFormat="(연간 매입건수 : {0:N0}건)"
+                                   HorizontalAlignment="Right"
+                                   Padding="0"
+                                   FontSize="13"
+                                   />
+                        </StackPanel>
+                        
+                        <Label Grid.Row="1" 
+                               Content="(단위 : 원)" 
+                               Padding="0 7 0 0"
+                               FontSize="10"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Right"
+                               Foreground="#FF41B1E1"
+                               />
+
+                    </Grid>
+                    
+                </Grid>
+                
+                <Grid Grid.Row="2">
+
+                    <Grid Margin="10 0 10 5">
+                        
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
@@ -54,22 +132,22 @@
                         <cc:SummaryButton Grid.Row="0" Grid.Column="2" SummaryData="{Binding Data[2]}"/>
                         <cc:SummaryButton Grid.Row="0" Grid.Column="3" SummaryData="{Binding Data[3]}"/>
 
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="0" />
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="1" />
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="2" />
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="3" />
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="0" SummaryData="{Binding Data[4]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="1" SummaryData="{Binding Data[5]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="2" SummaryData="{Binding Data[6]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="3" SummaryData="{Binding Data[7]}"/>
 
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="0" />
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="1" />
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="2" />
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="3" />
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="0" SummaryData="{Binding Data[8]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="1" SummaryData="{Binding Data[9]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="2" SummaryData="{Binding Data[10]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="3" SummaryData="{Binding Data[11]}"/>
 
                     </Grid>
 
                 </Grid>
 
-                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Command="{Binding SaveCommand}" Content="닫기"/>
+                <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Margin="0 0 10 10" Content="닫기"/>
                 </StackPanel>
 
             </Grid>

@@ -27,5 +27,8 @@ namespace konito_project.View.ResultInput
             DataContext = dataContext;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Close();
+        }
     }
 }
