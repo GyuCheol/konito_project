@@ -13,6 +13,10 @@ using System.Windows.Input;
 namespace konito_project.ViewModel.ResultInput {
 
     public class SalesSummaryViewModel : ViewModelBase {
+
+        public ICommand PrevCommand => new ActionParamCommand<string>(ChangeYearCommand);
+        public ICommand NextCommand => new ActionParamCommand<string>(ChangeYearCommand);
+
         public ObservableCollection<SummaryButton.Data> Data { get; private set; } = new ObservableCollection<SummaryButton.Data>();
         public int Year {
             get => year;
@@ -22,6 +26,7 @@ namespace konito_project.ViewModel.ResultInput {
                 RefreshSummaryData();
             }
         }
+
         private TradingWorkBook workBook;
         private int year;
         private AccountType accountType;
@@ -33,18 +38,25 @@ namespace konito_project.ViewModel.ResultInput {
             Year = DateTime.Now.Year;
         }
 
+        private void ChangeYearCommand(string param) {
+            Year += int.Parse(param);
+            NotifyChanged("Year");
+        }
+
         private void RefreshSummaryData() {
             Data.Clear();
 
             for (int m = 1; m <= 12; m++) {
                 workBook.ChangeMonth(m);
+                IEnumerable<Trading> trs = workBook.GetAllRecords();
+                int recordCount = trs.Count();
 
                 Data.Add(new SummaryButton.Data() {
                     AccountType = accountType,
                     Header = $"{m}월",
-                    TradingCount = workBook.GetRecordCount(),
-                    TotalPrice = 100,
-                    TotalTax = 100
+                    TradingCount = recordCount,
+                    TotalPrice = (recordCount > 0) ? trs.Sum(tr => tr.Price) : 0,
+                    TotalTax = (recordCount > 0 ) ? trs.Average(tr => tr.Tax) : 0
                 });
             }
 

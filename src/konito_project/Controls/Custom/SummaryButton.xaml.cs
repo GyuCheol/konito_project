@@ -24,12 +24,12 @@ namespace konito_project.Controls.Custom
             public int TradingCount { get; set; }
             public AccountType AccountType { get; set; }
             public int TotalPrice { get; set; }
-            public int TotalTax { get; set; }
-            public int TotalAmount => TotalPrice + TotalTax;
+            public double TotalTax { get; set; }
+            public double TotalAmount => TotalPrice - (TotalPrice * TotalTax);
         }
 
-        private static readonly SolidColorBrush HoverColorBrush = new SolidColorBrush(Color.FromRgb(135, 199, 217));
-        private static readonly SolidColorBrush DefaultColorBrush = new SolidColorBrush(Color.FromRgb(156, 209, 224));
+        private static readonly SolidColorBrush HoverColorBrush = new SolidColorBrush(Color.FromRgb(94, 189, 230));
+        private static readonly SolidColorBrush DefaultColorBrush = new SolidColorBrush(Color.FromRgb(65, 177, 225));
         private static readonly SolidColorBrush WhiteColorBrush = new SolidColorBrush(Colors.White);
 
         public static readonly DependencyProperty ForegroundBrushProperty =

@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              Width="163" Height="110" MaxWidth="163" MaxHeight="110"
              x:Name="uc"
+             Margin="0 3 0 3"
              >
 
     <Grid x:Name="root" 
@@ -31,13 +32,15 @@
         <Label Grid.Row="0" 
                Content="{Binding SummaryData.Header, UpdateSourceTrigger=PropertyChanged}"
                HorizontalAlignment="Center"
+               FontSize="13"
                Padding="0 5 0 0"
                />
         
         <Label Grid.Row="1" 
-               Content="(00건)" 
+               Content="{Binding SummaryData.TradingCount}"
+               ContentStringFormat="({0}건)"
                HorizontalAlignment="Center" 
-               FontSize="8"
+               FontSize="9"
                Padding="0 0 0 5"
                />
         
@@ -56,14 +59,24 @@
             </Grid.RowDefinitions>
             
             <Label Grid.Row="0" 
-                   Content="매입총액 : 123,456,000" 
+                   Content="{Binding SummaryData.TotalAmount}" 
+                   ContentStringFormat="매입총액 : {0:N0}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   FontSize="11.5"
                    />
             
             <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0 0 0 5">
-                <Label Content="- 총 공급가액 : 123,456" Padding="15 2 15 3" />
-                <Label Content="- 총 세액 : 123,456" Padding="15 2 15 3" />
+                <Label 
+                    Content="{Binding SummaryData.TotalPrice}" 
+                    ContentStringFormat="- 총 공급가액 : {0:N0}" 
+                    Padding="15 0 15 1" 
+                    />
+                <Label 
+                    Content="{Binding SummaryData.TotalTax}" 
+                    ContentStringFormat="- 총 세액 : {0:0%}"
+                    Padding="15 2 15 3" 
+                    />
             </StackPanel>
             
         </Grid>
