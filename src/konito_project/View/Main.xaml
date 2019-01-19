@@ -86,9 +86,9 @@
                     <GroupBox Grid.Column="2" Header="실적 자료 관리">
                         <StackPanel>
                             <Button Command="{Binding PurchaseTaxCommand}" Content="매입 세금계산서"/>
+                            <Button Command="{Binding SalesTaxCommand}" Content="매출 세금계산서"/>
                             <Button Content="업체별 지급/수금 내역"/>
                             <Button Content="매입 거래명세서"/>
-                            <Button Content="매출 세금계산서"/>
                             <Button Content="급여 대장"/>
                             <Button Command="{Binding WorkingCalendarCommand}" Content="출근 대장"/>
                         </StackPanel>

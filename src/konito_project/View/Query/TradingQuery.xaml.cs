@@ -13,22 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace konito_project.View.ResultInput
-{
+namespace konito_project.View.Query {
     /// <summary>
-    /// Interaction logic for PurchaseSalesInput.xaml
+    /// Interaction logic for TradingQuery.xaml
     /// </summary>
-    public partial class PurchaseSalesInput : MetroWindow {
-        public PurchaseSalesInput() {
+    public partial class TradingQuery : MetroWindow {
+        public TradingQuery(object context) {
             InitializeComponent();
-        }
-
-        public PurchaseSalesInput(object dataContext) : this() {
-            DataContext = dataContext;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            Close();
+            this.DataContext = context;
         }
     }
 }

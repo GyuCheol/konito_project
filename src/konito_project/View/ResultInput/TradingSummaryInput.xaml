@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="konito_project.View.ResultInput.PurchaseSalesInput"
+﻿<controls:MetroWindow x:Class="konito_project.View.ResultInput.TradingSummaryInput"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,9 +8,9 @@
         xmlns:cc="clr-namespace:konito_project.Controls.Custom"
         xmlns:vm="clr-namespace:konito_project.ViewModel.ResultInput"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:SalesSummaryViewModel}"
+        d:DataContext="{d:DesignInstance vm:TradingSummaryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="PurchaseSalesInput" Height="613.5" Width="848">
+        Title="Trading Summary" Height="613.5" Width="848">
 
     <Grid Background="{StaticResource DisabledBackground}">
 
@@ -84,13 +84,13 @@
                         <StackPanel Grid.Row="0"
                                     Orientation="Vertical"
                                     >
-                            <Label Content="123456789" 
+                            <Label Content="{Binding TotalPrice}" 
                                    ContentStringFormat="연간 매입총액 : \{0:N0}"
                                    HorizontalAlignment="Right"
                                    Padding="0"
                                    FontSize="17"
                                    />
-                            <Label Content="1020" 
+                            <Label Content="{Binding TotalTradingCount}" 
                                    ContentStringFormat="(연간 매입건수 : {0:N0}건)"
                                    HorizontalAlignment="Right"
                                    Padding="0"
@@ -127,27 +127,27 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="0" SummaryData="{Binding Data[0]}" />
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="1" SummaryData="{Binding Data[1]}"/>
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="2" SummaryData="{Binding Data[2]}"/>
-                        <cc:SummaryButton Grid.Row="0" Grid.Column="3" SummaryData="{Binding Data[3]}"/>
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="0" Command="{Binding ShowDetailCommand}" CommandParameter="1" SummaryData="{Binding Data[0]}" />
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="1" Command="{Binding ShowDetailCommand}" CommandParameter="2" SummaryData="{Binding Data[1]}"/>
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="2" Command="{Binding ShowDetailCommand}" CommandParameter="3" SummaryData="{Binding Data[2]}"/>
+                        <cc:SummaryButton Grid.Row="0" Grid.Column="3" Command="{Binding ShowDetailCommand}" CommandParameter="4" SummaryData="{Binding Data[3]}"/>
 
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="0" SummaryData="{Binding Data[4]}"/>
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="1" SummaryData="{Binding Data[5]}"/>
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="2" SummaryData="{Binding Data[6]}"/>
-                        <cc:SummaryButton Grid.Row="1" Grid.Column="3" SummaryData="{Binding Data[7]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="0" Command="{Binding ShowDetailCommand}" CommandParameter="5" SummaryData="{Binding Data[4]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="1" Command="{Binding ShowDetailCommand}" CommandParameter="6" SummaryData="{Binding Data[5]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="2" Command="{Binding ShowDetailCommand}" CommandParameter="7" SummaryData="{Binding Data[6]}"/>
+                        <cc:SummaryButton Grid.Row="1" Grid.Column="3" Command="{Binding ShowDetailCommand}" CommandParameter="8" SummaryData="{Binding Data[7]}"/>
 
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="0" SummaryData="{Binding Data[8]}"/>
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="1" SummaryData="{Binding Data[9]}"/>
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="2" SummaryData="{Binding Data[10]}"/>
-                        <cc:SummaryButton Grid.Row="2" Grid.Column="3" SummaryData="{Binding Data[11]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="0" Command="{Binding ShowDetailCommand}" CommandParameter="9" SummaryData="{Binding Data[8]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="1" Command="{Binding ShowDetailCommand}" CommandParameter="10" SummaryData="{Binding Data[9]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="2" Command="{Binding ShowDetailCommand}" CommandParameter="11" SummaryData="{Binding Data[10]}"/>
+                        <cc:SummaryButton Grid.Row="2" Grid.Column="3" Command="{Binding ShowDetailCommand}" CommandParameter="12" SummaryData="{Binding Data[11]}"/>
 
                     </Grid>
 
                 </Grid>
 
                 <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Margin="0 0 10 10" Content="닫기"/>
+                    <Button Margin="0 0 10 10" Content="닫기" Click="Button_Click_1"/>
                 </StackPanel>
 
             </Grid>

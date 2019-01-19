@@ -28,7 +28,8 @@ namespace konito_project.ViewModel {
         public ICommand ClientQueryCommand => new ActionCommand(() => new ClientQuery().ShowDialog());
         public ICommand EmployeeQueryCommand => new ActionCommand(() => new EmployeeQuery().ShowDialog());
         public ICommand WorkingCalendarCommand => new ActionCommand(() => new WorkingTimeInput().ShowDialog());
-        public ICommand PurchaseTaxCommand => new ActionCommand(() => new PurchaseSalesInput(new SalesSummaryViewModel(AccountType.Purchase)).ShowDialog());
+        public ICommand PurchaseTaxCommand => new ActionCommand(() => new TradingSummaryInput(new TradingSummaryViewModel(AccountType.Purchase)).ShowDialog());
+        public ICommand SalesTaxCommand => new ActionCommand(() => new TradingSummaryInput(new TradingSummaryViewModel(AccountType.Sales)).ShowDialog());
         public MainViewModel(): base() {}
 
         protected override void InitWorkbook() {

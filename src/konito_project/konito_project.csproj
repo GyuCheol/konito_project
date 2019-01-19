@@ -110,8 +110,9 @@
     <Compile Include="ViewModel\Query\ClientQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\EmpQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\MoldQueryViewModel.cs" />
+    <Compile Include="ViewModel\Query\TradingQueryViewModel.cs" />
     <Compile Include="ViewModel\Registry\MoldRegistryViewModel.cs" />
-    <Compile Include="ViewModel\ResultInput\SalesSummaryViewModel.cs" />
+    <Compile Include="ViewModel\ResultInput\TradingSummaryViewModel.cs" />
     <Compile Include="View\Query\ClientQuery.xaml.cs">
       <DependentUpon>ClientQuery.xaml</DependentUpon>
     </Compile>
@@ -121,8 +122,11 @@
     <Compile Include="View\Query\MoldQuery.xaml.cs">
       <DependentUpon>MoldQuery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ResultInput\PurchaseSalesInput.xaml.cs">
-      <DependentUpon>PurchaseSalesInput.xaml</DependentUpon>
+    <Compile Include="View\Query\TradingQuery.xaml.cs">
+      <DependentUpon>TradingQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ResultInput\TradingSummaryInput.xaml.cs">
+      <DependentUpon>TradingSummaryInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ResultInput\WorkingTimeInput.xaml.cs">
       <DependentUpon>WorkingTimeInput.xaml</DependentUpon>
@@ -192,6 +196,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Query\TradingQuery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Registry\AccountRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,7 +220,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ResultInput\PurchaseSalesInput.xaml">
+    <Page Include="View\ResultInput\TradingSummaryInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
