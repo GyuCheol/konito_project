@@ -21,21 +21,14 @@ namespace konito_project.Controls.Custom {
         public static readonly DependencyProperty DateProperty = DependencyProperty.RegisterAttached("Date", typeof(DateTime), typeof(WorkingCalendar), new PropertyMetadata(OnChangedProperty));
         private static string[] WEEK_DAYS = { "일", "월", "화", "수", "목", "금", "토" };
         private static Brush[] WEEK_DAY_BRUSHES = { Brushes.Red, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Blue };
-        private static readonly Thickness[] BORDER_WIDTH_LIST = {
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1, 1, 0, 1),
-            new Thickness(1)
-        };
 
         public DateTime Date {
             get { return (DateTime) GetValue(DateProperty); }
             set { SetValue(DateProperty, value); }
         }
-     
+
+        private string[,] map = new string[7, 7];
+
         private static void OnChangedProperty(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             var workingCalendar = d as WorkingCalendar;
             var dateTime = (DateTime) e.NewValue;
@@ -44,9 +37,14 @@ namespace konito_project.Controls.Custom {
                 throw new ArgumentException();
             }
 
-            workingCalendar.tbHeader.Text = $"{dateTime:yyyy년 M월}";
+            if (dateTime.Year < 2018 || dateTime.Year > DateTime.Now.Year ) {
+                workingCalendar.SetValue(DateProperty, e.OldValue);
+                return;
+            }
+
             workingCalendar.cmbYear.SelectedItem = dateTime.Year;
             workingCalendar.cmbMonth.SelectedItem = dateTime.Month;
+            
             workingCalendar.RefreshCalendar();
         }
 
@@ -56,44 +54,81 @@ namespace konito_project.Controls.Custom {
             InitComoboboxes();
         }
 
-        private FrameworkElement CreateWeekDayHeader(int week, string text) {
+        private Thickness GetItemThickness(int x, int y) {
+            double left = 1;
+            double right = 0;
+            double top = 1;
+            double bottom = 0;
+
+            if (map[y, x] != string.Empty) {
+                if (x == 6) {
+                    right = 1;
+                }
+
+                if (y == 6) {
+                    bottom = 1;
+                }
+            } else {
+
+                if (y != 1 && map[y - 1, x] == string.Empty) {
+                    top = 0;
+                }
+
+                if (y != 1 && (x == 0 || map[y, x - 1] == string.Empty)) {
+                    left = 0;
+                }
+
+            }
+            
+            return new Thickness(left, top, right, bottom);
+        }
+
+        private FrameworkElement CreateWeekDayHeader(int x, int y) {
             var container = new Border();
             var textBlock = new TextBlock();
 
             container.HorizontalAlignment = HorizontalAlignment.Stretch;
             container.VerticalAlignment = VerticalAlignment.Stretch;
-            container.BorderThickness = BORDER_WIDTH_LIST[week];
+            container.BorderThickness = GetItemThickness(x, y);
             container.BorderBrush = Brushes.LightGray;
 
             textBlock.HorizontalAlignment = HorizontalAlignment.Center;
             textBlock.VerticalAlignment= VerticalAlignment.Center;
-            textBlock.Text = text;
-            textBlock.Foreground = WEEK_DAY_BRUSHES[week];
+            textBlock.Text = map[y, x];
+            textBlock.Foreground = WEEK_DAY_BRUSHES[x];
             container.Child = textBlock;
 
-            Grid.SetRow(container, 0);
-            Grid.SetColumn(container, week);
+            Grid.SetRow(container, y);
+            Grid.SetColumn(container, x);
 
             return container;
         }
 
         private void InitHeader() {
             for (int w = 0; w < 7; w++) {
-                gridHeader.Children.Add(CreateWeekDayHeader(w, WEEK_DAYS[w]));
+                map[0, w] = WEEK_DAYS[w];
+                gridCalendar.Children.Add(CreateWeekDayHeader(w, 0));
             }
         }
 
         private void RefreshCalendar() {
-            gridCalendar.Children.Clear();
+
+            gridCalendar.Children.RemoveRange(7, gridCalendar.Children.Count - 7);
 
             DateTime curDate = Date;
             int month = curDate.Month;
-            int row = 0;
+            int row = 1;
+
+            for (int y = 1; y < 7; y++) {
+                for (int x = 0; x < 7; x++) {
+                    map[y, x] = string.Empty;
+                }
+            }
 
             while (curDate.Month == month) {
                 int w = (int) curDate.DayOfWeek;
 
-                //gridCalendar.Children.Add(CreateWeekDayHeader(row, w, curDate.Day.ToString()));
+                map[row, w] = curDate.Day.ToString();
 
                 if (curDate.DayOfWeek == DayOfWeek.Saturday) {
                     row++;
@@ -102,6 +137,11 @@ namespace konito_project.Controls.Custom {
                 curDate = curDate.AddDays(1);
             }
 
+            for (int y = 1; y < 7; y++) {
+                for (int x = 0; x < 7; x++) {
+                    gridCalendar.Children.Add(CreateWeekDayHeader(x, y));
+                }
+            }
         }
 
         private void InitComoboboxes() {
@@ -113,15 +153,15 @@ namespace konito_project.Controls.Custom {
             for (int month = 1; month <= 12; month++) {
                 cmbMonth.Items.Add(month);
             }
+
+            cmbYear.SelectionChanged += DateChanged;
+            cmbMonth.SelectionChanged += DateChanged;
         }
 
         private void DateChanged(object sender, SelectionChangedEventArgs e) {
-
-            if (cmbYear.SelectedItem == null || cmbMonth.SelectedItem == null) {
-                return;
+            if (DateTime.TryParse($"{cmbYear.SelectedItem}-{cmbMonth.SelectedItem}-01", out DateTime date)) {
+                SetValue(DateProperty, date);
             }
-
-            SetValue(DateProperty, new DateTime((int) cmbYear.SelectedItem, (int) cmbMonth.SelectedItem, 1));
         }
 
         private void YearDown_Click(object sender, RoutedEventArgs e) {

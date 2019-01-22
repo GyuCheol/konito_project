@@ -3,7 +3,8 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:konito_project.Controls.Custom"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -11,13 +12,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="5 0 5 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="255"/>
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="35"/>
                 <ColumnDefinition Width="*"/>
@@ -31,21 +30,26 @@
                 </Style>
             </Grid.Resources>
             
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="Bold" Text="연도 : "/>
-                <ComboBox x:Name="cmbYear" Margin="5" Width="100" SelectionChanged="DateChanged"/>
-                <TextBlock VerticalAlignment="Center" FontSize="17" FontWeight="Bold" Text="월 : "/>
-                <ComboBox x:Name="cmbMonth" Margin="5" Width="50" SelectionChanged="DateChanged"/>
+            <Button Grid.Column="0" Click="YearDown_Click" Content="{iconPacks:MaterialLight Kind=ChevronDoubleLeft}" />
+            <Button Grid.Column="1" Click="MonthDown_Click" Content="{iconPacks:MaterialLight Kind=ChevronLeft}"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </StackPanel.Resources>
+                <ComboBox x:Name="cmbYear" Margin="0 10 5 10" Width="130" />
+                <TextBlock Text="년"/>
+                <ComboBox x:Name="cmbMonth" Margin="10 10 5 10" Width="80" />
+                <TextBlock Text="월"/>
             </StackPanel>
-
-            <Button Grid.Column="1" Content="◀" Click="YearDown_Click"/>
-            <Button Grid.Column="2" Content="◁" Click="MonthDown_Click"/>
-            <TextBlock x:Name="tbHeader" Grid.Column="3" VerticalAlignment="Center" TextAlignment="Center" Margin="5" FontSize="20" FontWeight="Bold" Text="Date Text(YYYY년 M월)"/>
-            <Button Grid.Column="4" Content="▷" Click="MonthUp_Click"/>
-            <Button Grid.Column="5" Content="▶" Click="YearUp_Click"/>
+            <Button Grid.Column="3" Click="MonthUp_Click" Content="{iconPacks:MaterialLight Kind=ChevronRight}"/>
+            <Button Grid.Column="4" Click="YearUp_Click" Content="{iconPacks:MaterialLight Kind=ChevronDoubleRight}"/>
         </Grid>
 
-        <Grid x:Name="gridHeader" Grid.Row="1">
+        <Grid x:Name="gridCalendar" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -55,10 +59,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        </Grid>
 
-        <Grid x:Name="gridCalendar" Grid.Row="2">
             <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -67,16 +70,6 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
         </Grid>
-
     </Grid>
 </UserControl>
