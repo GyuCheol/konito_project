@@ -18,14 +18,14 @@ namespace konito_project.ViewModel.ResultInput {
 
         public ICommand PrevCommand => new ActionParamCommand<string>(ChangeYearCommand);
         public ICommand NextCommand => new ActionParamCommand<string>(ChangeYearCommand);
-        public ICommand ShowDetailCommand => new ActionParamCommand<object>(ShowMonthDetail);
+        public ICommand ShowDetailCommand => new ActionParamCommand<string>(ShowMonthDetail);
 
         public ObservableCollection<SummaryButton.Data> Data { get; private set; } = new ObservableCollection<SummaryButton.Data>();
         public int Year {
             get => year;
             set {
                 year = value;
-                workBook.ChangeYear(value);
+                workbook.ChangeYear(value);
                 RefreshSummaryData();
             }
         }
@@ -33,21 +33,21 @@ namespace konito_project.ViewModel.ResultInput {
         public int TotalPrice { get; set; }
         public int TotalTradingCount { get; set; }
 
-        private TradingWorkBook workBook;
+        private TradingWorkBook workbook;
         private int year;
         private AccountType accountType;
 
         public TradingSummaryViewModel(AccountType accountType) {
-            workBook = new TradingWorkBook(DateTime.Now.Year, accountType, DateTime.Now.Month);
+            workbook = new TradingWorkBook(DateTime.Now.Year, accountType, DateTime.Now.Month);
 
             this.accountType = accountType;
             Year = DateTime.Now.Year;
         }
 
         //SummaryButton의 CommandParameter(월)를 받아 처리
-        private void ShowMonthDetail(object param) {
-            int month = (int) param;
-            new TradingQuery(new TradingQueryViewModel(year, month)).ShowDialog();
+        private void ShowMonthDetail(string param) {
+            int month = int.Parse(param);
+            new TradingQuery(new TradingQueryViewModel(year, month, accountType)).ShowDialog();
         }
 
         private void ChangeYearCommand(string param) {
@@ -57,10 +57,12 @@ namespace konito_project.ViewModel.ResultInput {
 
         private void RefreshSummaryData() {
             Data.Clear();
+            TotalPrice = 0;
+            TotalTradingCount = 0;
 
             for (int m = 1; m <= 12; m++) {
-                workBook.ChangeMonth(m);
-                IEnumerable<Trading> trs = workBook.GetAllRecords();
+                workbook.ChangeMonth(m);
+                IEnumerable<Trading> trs = workbook.GetAllRecords();
                 int recordCount = trs.Count();
                 int price = (recordCount > 0) ? trs.Sum(tr => tr.Price) : 0;
                 double tax = (recordCount > 0) ? trs.Average(tr => tr.Tax) : 0;
@@ -75,6 +77,8 @@ namespace konito_project.ViewModel.ResultInput {
                 TotalPrice += (tax > 0) ? (int) (price - (price * tax)) : price;
             }
 
+            NotifyChanged("TotalPrice");
+            NotifyChanged("TotalTradingCount");
         }
 
     }

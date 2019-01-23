@@ -125,6 +125,9 @@
     <Compile Include="View\Query\TradingQuery.xaml.cs">
       <DependentUpon>TradingQuery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Registry\TradingRegistry.xaml.cs">
+      <DependentUpon>TradingRegistry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ResultInput\TradingSummaryInput.xaml.cs">
       <DependentUpon>TradingSummaryInput.xaml</DependentUpon>
     </Compile>
@@ -217,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Registry\MoldDataRegistry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Registry\TradingRegistry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

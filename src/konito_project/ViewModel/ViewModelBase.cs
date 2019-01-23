@@ -18,7 +18,7 @@ namespace konito_project.ViewModel {
         }
 
         protected void NotifyChanged(string propName) {
-            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName));
+            if (PropertyChanged != null) { PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propName)); }
         }
 
         protected virtual void InitWorkbook() { }

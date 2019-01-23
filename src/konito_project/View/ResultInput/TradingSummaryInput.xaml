@@ -84,13 +84,13 @@
                         <StackPanel Grid.Row="0"
                                     Orientation="Vertical"
                                     >
-                            <Label Content="{Binding TotalPrice}" 
+                            <Label Content="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" 
                                    ContentStringFormat="연간 매입총액 : \{0:N0}"
                                    HorizontalAlignment="Right"
                                    Padding="0"
                                    FontSize="17"
                                    />
-                            <Label Content="{Binding TotalTradingCount}" 
+                            <Label Content="{Binding TotalTradingCount, UpdateSourceTrigger=PropertyChanged}" 
                                    ContentStringFormat="(연간 매입건수 : {0:N0}건)"
                                    HorizontalAlignment="Right"
                                    Padding="0"

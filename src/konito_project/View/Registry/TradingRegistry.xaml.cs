@@ -13,18 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace konito_project.View.Query {
+namespace konito_project.View.Registry {
     /// <summary>
-    /// Interaction logic for TradingQuery.xaml
+    /// Interaction logic for TradingRegisry.xaml
     /// </summary>
-    public partial class TradingQuery : MetroWindow {
-        public TradingQuery(object context) {
+    public partial class TradingRegistry : MetroWindow {
+        public TradingRegistry() {
             InitializeComponent();
-            this.DataContext = context;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            Close();
         }
     }
 }

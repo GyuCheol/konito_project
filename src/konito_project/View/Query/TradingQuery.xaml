@@ -9,13 +9,24 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:TradingQueryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="TradingQuery" Height="650" Width="1100"
+        Title="TradingQuery" Height="680" Width="1100"
         >
 
     <Grid Background="{StaticResource DisabledBackground}">
 
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="#FF41B1E1" />
+            </Style>
+        </Grid.Resources>
+
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="1000" Height="520"
+                Width="1000" Height="560"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -24,6 +35,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
@@ -31,35 +43,80 @@
                 <StackPanel Grid.Row="1" Orientation="Vertical"
                             HorizontalAlignment="Center">
                     
-                    <StackPanel Grid.Column="0"
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal"
-                            Margin="10 0 0 0">
 
-                        <Label Content="{Binding Date}"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               />
+                    <Label Content="{Binding Date}"
+                           HorizontalAlignment="Center"
+                           Padding="0 0 0 5"
+                           FontSize="23"
+                           />
 
-                    </StackPanel>
+                    <Label Content="{Binding TotalPrice}" 
+                           ContentStringFormat="연간 매입총액 : \{0:N0}"
+                           Padding="0"
+                           FontSize="17"
+                           />
 
-                    <Label Content="{Binding Data.TotalPrice}" 
-                                   ContentStringFormat="연간 매입총액 : \{0:N0}"
-                                   Padding="0"
-                                   FontSize="17"
-                                   />
-                    
-                    <Label Content="{Binding Data.TradingCount}" 
-                                   ContentStringFormat="(연간 매입건수 : {0:N0}건)"
-                                   HorizontalAlignment="Center"
-                                   Padding="0"
-                                   FontSize="13"
-                                   />
+                    <Label Content="{Binding TotalTradingCount}" 
+                           ContentStringFormat="(연간 매입건수 : {0:N0}건)"
+                           HorizontalAlignment="Center"
+                           Padding="0"
+                           FontSize="13"
+                           />
 
                 </StackPanel>
 
+                <Grid Grid.Row="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" 
+                            Content="추가" 
+                            Width="70" 
+                            HorizontalAlignment="Right" 
+                            Margin="5 5 10 0" 
+                            Background="#FF41B1E1"
+                            Foreground="White"
+                            Command="{Binding AddCommand}"
+                            />
+                    
+                    <Border Grid.Row="1" Margin="10" BorderBrush="Gray" BorderThickness="1">
+                        
+                        <DataGrid VerticalScrollBarVisibility="Visible" 
+                                  ItemsSource="{Binding TradingList}"
+                                  AutoGenerateColumns="False" SelectionMode="Single"
+                                  IsReadOnly="True" GridLinesVisibility="All">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="80" Header="거래일자" Binding="{Binding Date, StringFormat=\{0:yy.MM.dd\}}"/>
+                                <DataGridTextColumn Width="150" Header="거래처명" Binding="{Binding CompanyName}"/>
+                                <DataGridTextColumn Width="150" Header="품명" Binding="{Binding ProductName}"/>
+                                <DataGridTextColumn Width="100" Header="공급가액" Binding="{Binding Price, StringFormat=\{0:#\,##0\}}"/>
+                                <DataGridTextColumn Width="80" Header="세율" Binding="{Binding Tax, StringFormat=\{0:0%\}}"/>
+                                <DataGridTextColumn Width="80" Header="구분" Binding="{Binding TaxType}"/>
+                                <DataGridTextColumn Width="*" Header="비고" Binding="{Binding Memo}"/>
+                                <DataGridTemplateColumn Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                                                <Button Width="70" Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding}" Content="수 정"/>
+                                                <Button Width="70" Command="{Binding Path=DataContext.RemoveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding}" Content="삭 제"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        
+                    </Border>
+
+                </Grid>
+                
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Width="150" Content="닫 기" Margin="0 0 0 10" Click="Button_Click"/>
+                </StackPanel>
+                
             </Grid>
           
         </Border>
