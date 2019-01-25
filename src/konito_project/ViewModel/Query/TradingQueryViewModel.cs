@@ -3,6 +3,7 @@ using konito_project.Controls.Custom;
 using konito_project.Model;
 using konito_project.View.Query;
 using konito_project.View.Registry;
+using konito_project.ViewModel.Registry;
 using konito_project.WorkBook;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,6 @@ namespace konito_project.ViewModel.Query {
 
     public class TradingQueryViewModel : ViewModelBase {
 
-        public ICommand DateChangeCommand => new ActionParamCommand<object>(ChangeDate);
         public ICommand AddCommand => new ActionCommand(AddTrading);
         public ICommand EditCommand => new ActionParamCommand<Trading>(EditTrading);
         public ICommand RemoveCommand => new ActionParamCommand<Trading>(RemoveTrading);
@@ -32,19 +32,25 @@ namespace konito_project.ViewModel.Query {
 
         public string Date { get { return $"{Year}년 {Month}월"; } private set { } }
 
+        private AccountType currentAccountType;
         private TradingWorkBook workbook;
 
         public TradingQueryViewModel(int year, int month, AccountType accountType) {
+            this.Year = year;
+            this.Month = month;
             workbook = new TradingWorkBook(year, accountType, month);
-            SetDate(year, month);
+            currentAccountType = accountType;
+            RefreshData();
         }
 
         private void AddTrading() {
-            new TradingRegistry().ShowDialog();
+            new TradingRegistry(new TradingRegistryViewModel(Year, Month, currentAccountType)).ShowDialog();
+            RefreshData();
         }
 
         private void EditTrading(Trading tr) {
-            new TradingRegistry().ShowDialog();
+            new TradingRegistry(new TradingRegistryViewModel(tr, currentAccountType)).ShowDialog();
+            RefreshData();
         }
 
         private void RemoveTrading(Trading tr) {
@@ -53,16 +59,11 @@ namespace konito_project.ViewModel.Query {
             }
             TradingList.Remove(tr);
             workbook.RemoveRecordById(tr.Id);
+            RefreshData(); 
         }
 
         //Date 바꾸고 해당 연도, 월에 맞는 데이터 가져와 출력.
-        private void SetDate(int year, int month) {
-            this.Year = year;
-            this.Month = month;
-
-            workbook.ChangeYear(year);
-            workbook.ChangeMonth(month);
-
+        private void RefreshData() {
             TradingList = new ObservableCollection<Trading>(workbook.GetAllRecords());
             TotalTradingCount = TradingList.Count();
             TotalPrice = 0;
@@ -79,21 +80,8 @@ namespace konito_project.ViewModel.Query {
             NotifyChanged("TotalTradingCount");
             NotifyChanged("TotalPrice");
             NotifyChanged("Tradings");
+            NotifyChanged("TradingList");
         }
-
-        private void ChangeDate(object param) {
-            int increseMonth = (int)param;
-            if (increseMonth > 0) {
-                Month = (Month == 12) ? 1 : Month + 1;
-                Year += 1;
-            }
-            else {
-                Month = (Month == 1) ? 12 : Month - 1;
-                Year -= 1;
-            }
-            SetDate(Year, Month);
-        }
-
 
     }
 

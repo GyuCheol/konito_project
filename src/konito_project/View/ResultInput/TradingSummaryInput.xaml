@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:TradingSummaryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="Trading Summary" Height="613.5" Width="848">
+        Title="Trading Summary" Height="727.5" Width="989">
 
     <Grid Background="{StaticResource DisabledBackground}">
 
@@ -26,7 +26,7 @@
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="700" Height="520"
+                Width="780" Height="520"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -40,18 +40,18 @@
                 <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
 
                 <Grid Grid.Row="1">
-                    
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Grid.Column="0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal"
                                 Margin="10 0 0 0">
-                        
+
                         <Button Content="◀" 
                                 Background="White"
                                 BorderThickness="0"
@@ -72,7 +72,7 @@
                                 CommandParameter="1"
                                 />
                     </StackPanel>
-                    
+
                     <Grid Grid.Column="1"
                           Margin="0 0 12 0">
 
@@ -85,19 +85,19 @@
                                     Orientation="Vertical"
                                     >
                             <Label Content="{Binding TotalPrice, UpdateSourceTrigger=PropertyChanged}" 
-                                   ContentStringFormat="연간 매입총액 : \{0:N0}"
+                                   ContentStringFormat="연간 거래총액 : \{0:N0}"
                                    HorizontalAlignment="Right"
                                    Padding="0"
                                    FontSize="17"
                                    />
                             <Label Content="{Binding TotalTradingCount, UpdateSourceTrigger=PropertyChanged}" 
-                                   ContentStringFormat="(연간 매입건수 : {0:N0}건)"
+                                   ContentStringFormat="(연간 거래건수 : {0:N0}건)"
                                    HorizontalAlignment="Right"
                                    Padding="0"
                                    FontSize="13"
                                    />
                         </StackPanel>
-                        
+
                         <Label Grid.Row="1" 
                                Content="(단위 : 원)" 
                                Padding="0 7 0 0"
@@ -108,13 +108,13 @@
                                />
 
                     </Grid>
-                    
+
                 </Grid>
-                
+
                 <Grid Grid.Row="2">
 
                     <Grid Margin="10 0 10 5">
-                        
+
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />

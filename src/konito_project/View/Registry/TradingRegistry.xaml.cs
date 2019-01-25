@@ -18,8 +18,13 @@ namespace konito_project.View.Registry {
     /// Interaction logic for TradingRegisry.xaml
     /// </summary>
     public partial class TradingRegistry : MetroWindow {
-        public TradingRegistry() {
+        public TradingRegistry(object context) {
             InitializeComponent();
+            this.DataContext = context;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Close();
         }
     }
 }

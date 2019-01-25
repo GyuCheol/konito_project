@@ -51,13 +51,13 @@
                            />
 
                     <Label Content="{Binding TotalPrice}" 
-                           ContentStringFormat="연간 매입총액 : \{0:N0}"
+                           ContentStringFormat="연간 거래총액 : \{0:N0}"
                            Padding="0"
                            FontSize="17"
                            />
 
                     <Label Content="{Binding TotalTradingCount}" 
-                           ContentStringFormat="(연간 매입건수 : {0:N0}건)"
+                           ContentStringFormat="(연간 거래건수 : {0:N0}건)"
                            HorizontalAlignment="Center"
                            Padding="0"
                            FontSize="13"
@@ -93,7 +93,7 @@
                                 <DataGridTextColumn Width="150" Header="거래처명" Binding="{Binding CompanyName}"/>
                                 <DataGridTextColumn Width="150" Header="품명" Binding="{Binding ProductName}"/>
                                 <DataGridTextColumn Width="100" Header="공급가액" Binding="{Binding Price, StringFormat=\{0:#\,##0\}}"/>
-                                <DataGridTextColumn Width="80" Header="세율" Binding="{Binding Tax, StringFormat=\{0:0%\}}"/>
+                                <DataGridTextColumn Width="80" Header="세율" Binding="{Binding Tax, StringFormat=\{0:0.0%\}}"/>
                                 <DataGridTextColumn Width="80" Header="구분" Binding="{Binding TaxType}"/>
                                 <DataGridTextColumn Width="*" Header="비고" Binding="{Binding Memo}"/>
                                 <DataGridTemplateColumn Width="Auto">

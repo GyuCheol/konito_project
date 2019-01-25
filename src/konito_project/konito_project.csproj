@@ -112,6 +112,7 @@
     <Compile Include="ViewModel\Query\MoldQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\TradingQueryViewModel.cs" />
     <Compile Include="ViewModel\Registry\MoldRegistryViewModel.cs" />
+    <Compile Include="ViewModel\Registry\TradingRegistryViewModel.cs" />
     <Compile Include="ViewModel\ResultInput\TradingSummaryViewModel.cs" />
     <Compile Include="View\Query\ClientQuery.xaml.cs">
       <DependentUpon>ClientQuery.xaml</DependentUpon>

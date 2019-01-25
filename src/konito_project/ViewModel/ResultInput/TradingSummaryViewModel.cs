@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace konito_project.ViewModel.ResultInput {
@@ -48,6 +49,7 @@ namespace konito_project.ViewModel.ResultInput {
         private void ShowMonthDetail(string param) {
             int month = int.Parse(param);
             new TradingQuery(new TradingQueryViewModel(year, month, accountType)).ShowDialog();
+            RefreshSummaryData();
         }
 
         private void ChangeYearCommand(string param) {
@@ -71,14 +73,15 @@ namespace konito_project.ViewModel.ResultInput {
                     Header = $"{m}월",
                     TradingCount = recordCount,
                     TotalPrice = price,
-                    TotalTax = tax 
+                    TotalTax = tax
                 });
                 TotalTradingCount += recordCount;
-                TotalPrice += (tax > 0) ? (int) (price - (price * tax)) : price;
+                TotalPrice += (tax > 0) ? (int)(price - (price * tax)) : price;
             }
 
             NotifyChanged("TotalPrice");
             NotifyChanged("TotalTradingCount");
+            NotifyChanged("Data");
         }
 
     }

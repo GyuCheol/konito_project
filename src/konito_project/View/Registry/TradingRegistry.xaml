@@ -8,8 +8,9 @@
         xmlns:ex="clr-namespace:konito_project.Controls.Extension"
         xmlns:commands="clr-namespace:konito_project.Commands"
         xmlns:local="clr-namespace:konito_project.View.Registry"
+        x:Name="window"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance vm:EmployeeRegistryViewModel}"
+        d:DataContext="{d:DesignInstance vm:TradingRegistryViewModel}"
         Title="TradingRegisry" Height="550" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         >
@@ -24,7 +25,7 @@
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-            Width="600" Height="450"
+            Width="600" Height="500"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -54,6 +55,12 @@
                             <Setter Property="VerticalAlignment" Value="Center"/>
                         </Style>
 
+                        <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource {x:Type DatePicker}}">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                        </Style>
+
+
                         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="FontWeight" Value="Normal"/>
@@ -73,49 +80,45 @@
 
                     <StackPanel Orientation="Vertical">
 
-                        <GroupBox Header="급여 정보">
+                        <GroupBox Header="거래내역">
                             <StackPanel Orientation="Vertical">
 
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="계약 구분 : "/>
-                                    <RadioButton IsChecked="{Binding WorkHourly}" Margin="0,0,20,0" Content="시급제"/>
-                                    <RadioButton IsChecked="{Binding AnnualSalary}" Content="연봉제"/>
+                                    <Label Content="거래일자 : "/>
+                                    <DatePicker Width="230" Text="{Binding CurrentTrading.Date}" DisplayDate="{Binding CurrentTrading.Date, StringFormat=\{yy.MM.dd\}}" />
                                 </StackPanel>
 
                                 <StackPanel>
-                                    <Label Content="급여 (시급/연봉) : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.Salary}"/>
+                                    <Label Content="거래처명 : "/>
+                                    <TextBox Width="230" TextAlignment="Left" Text="{Binding CurrentTrading.CompanyName}"/>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <Label Content="품명 : "/>
+                                    <TextBox Width="230" TextAlignment="Left" Text="{Binding CurrentTrading.ProductName}"/>
+                                </StackPanel>
+
+                                <StackPanel>
+                                    <Label Content="공급가액 : "/>
+                                    <TextBox Width="230" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentTrading.Price}"/>
                                     <TextBlock Text=" (원)"/>
                                 </StackPanel>
 
                                 <StackPanel>
-                                    <Label Content="갑근세 : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.IncomeTax}"/>
-                                    <TextBlock Text=" (원)"/>
+                                    <Label Content="세울(%) "/>
+                                    <TextBox Width="230" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="3" Text="{Binding DisplayTax}"/>
+                                    <TextBlock Text=" (%)"/>
                                 </StackPanel>
 
                                 <StackPanel>
-                                    <Label Content="주민세 : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.ResidenceTax}"/>
-                                    <TextBlock Text=" (원)"/>
+                                    <Label Content="구분 : "/>
+                                    <RadioButton IsChecked="{Binding IsTax}" Margin="0,0,20,0" Content="과세" GroupName="1"/>
+                                    <RadioButton IsChecked="{Binding IsSmallTax}" Content="영세" GroupName="1"/>
                                 </StackPanel>
 
                                 <StackPanel>
-                                    <Label Content="국민연금 : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.NationalPension}"/>
-                                    <TextBlock Text=" (원)"/>
-                                </StackPanel>
-
-                                <StackPanel>
-                                    <Label Content="건강보험 : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.HealthInsurance}"/>
-                                    <TextBlock Text=" (원)"/>
-                                </StackPanel>
-
-                                <StackPanel>
-                                    <Label Content="고용보험 : "/>
-                                    <TextBox Width="200" TextAlignment="Right" ex:Numeric.IsNumeric="true" MaxLength="9" Text="{Binding CurrentEmployee.EmploymentInsurance}"/>
-                                    <TextBlock Text=" (원)"/>
+                                    <Label Content="비고 : "/>
+                                    <TextBox Width="230" Height="70" AcceptsReturn="True" Text="{Binding CurrentTrading.Memo}" />
                                 </StackPanel>
 
                             </StackPanel>
@@ -127,8 +130,8 @@
                                     <Setter Property="Width" Value="150"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <Button Content="저장 하기" Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=window}"/>
-                            <Button Command="{x:Static commands:UtilCommands.CloseCommand}" CommandParameter="{Binding ElementName=window}"  Content="닫기"/>
+                            <Button Content="저장 하기" Command="{Binding SaveCommand}" />
+                            <Button Content="닫기" Click="Button_Click"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
