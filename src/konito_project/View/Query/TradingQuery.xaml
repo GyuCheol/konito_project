@@ -9,8 +9,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:TradingQueryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="TradingQuery" Height="680" Width="1100"
-        >
+        Title="{Binding Title}" Height="680" Width="1100">
 
     <Grid Background="{StaticResource DisabledBackground}">
 

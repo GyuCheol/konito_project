@@ -31,15 +31,17 @@ namespace konito_project.ViewModel.Query {
         public int TotalPrice { get; set; }
 
         public string Date { get { return $"{Year}년 {Month}월"; } private set { } }
+        public string Title { get; set; }
 
         private AccountType currentAccountType;
         private TradingWorkBook workbook;
 
         public TradingQueryViewModel(int year, int month, AccountType accountType) {
-            this.Year = year;
-            this.Month = month;
+            Year = year;
+            Month = month;
             workbook = new TradingWorkBook(year, accountType, month);
             currentAccountType = accountType;
+            Title = $"{accountType} 거래실적 조회 ({year}년 {month}월)";
             RefreshData();
         }
 

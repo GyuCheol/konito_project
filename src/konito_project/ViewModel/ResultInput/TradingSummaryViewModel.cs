@@ -33,6 +33,7 @@ namespace konito_project.ViewModel.ResultInput {
 
         public int TotalPrice { get; set; }
         public int TotalTradingCount { get; set; }
+        public string Title { get; set; }
 
         private TradingWorkBook workbook;
         private int year;
@@ -40,6 +41,7 @@ namespace konito_project.ViewModel.ResultInput {
 
         public TradingSummaryViewModel(AccountType accountType) {
             workbook = new TradingWorkBook(DateTime.Now.Year, accountType, DateTime.Now.Month);
+            Title = $"{accountType} 거래실적 입력";
 
             this.accountType = accountType;
             Year = DateTime.Now.Year;
@@ -62,19 +64,23 @@ namespace konito_project.ViewModel.ResultInput {
             TotalPrice = 0;
             TotalTradingCount = 0;
 
+            var dict = workbook.GetAllRecordsFromAllSheets();
+
             for (int m = 1; m <= 12; m++) {
-                workbook.ChangeMonth(m);
-                IEnumerable<Trading> trs = workbook.GetAllRecords();
-                int recordCount = trs.Count();
-                int price = (recordCount > 0) ? trs.Sum(tr => tr.Price) : 0;
-                double tax = (recordCount > 0) ? trs.Average(tr => tr.Tax) : 0;
+                var month = $"{m}월";
+                var list = dict[month];
+                int recordCount = list.Count;
+                int price = (recordCount > 0) ? list.Sum(tr => tr.Price) : 0;
+                double tax = (recordCount > 0) ? list.Average(tr => tr.Tax) : 0;
+
                 Data.Add(new SummaryButton.Data() {
                     AccountType = accountType,
-                    Header = $"{m}월",
+                    Header = month,
                     TradingCount = recordCount,
                     TotalPrice = price,
                     TotalTax = tax
                 });
+
                 TotalTradingCount += recordCount;
                 TotalPrice += (tax > 0) ? (int)(price - (price * tax)) : price;
             }

@@ -61,9 +61,29 @@ namespace konito_project.WorkBook {
                     yield break;
 
                 for (int row = 2; row <= lastRow; row++) {
-                    yield return CovertToDataFromRow(sheet.Row(row));
+                    yield return ConvertToDataFromRow(sheet.Row(row));
                 }
             }            
+        }
+        
+        public Dictionary<string, List<T>> GetAllRecordsFromAllSheets() {
+            using (var stream = new FileStream(WorkBookPath, FileMode.Open, FileAccess.Read))
+            using (var workBook = new XLWorkbook(stream)) {
+                var dict = new Dictionary<string, List<T>>();
+
+                foreach (var sheet in workBook.Worksheets) {
+                    int lastRow = sheet.Column(1).LastCellUsed().WorksheetRow().RowNumber();
+                    var list = new List<T>();
+
+                    for (int row = 2; row <= lastRow; row++) {
+                        list.Add(ConvertToDataFromRow(sheet.Row(row)));
+                    }
+                    
+                    dict.Add(sheet.Name, list);
+                }
+
+                return dict;
+            }
         }
 
         public void RemoveRecordById(int id) {
@@ -212,7 +232,7 @@ namespace konito_project.WorkBook {
 
         protected virtual void InitExcel(XLWorkbook workbook) { }
 
-        protected virtual T CovertToDataFromRow(IXLRow row) {
+        protected virtual T ConvertToDataFromRow(IXLRow row) {
             var instance = Activator.CreateInstance(ModelType) as T;
 
             if (instance == null)
@@ -332,7 +352,7 @@ namespace konito_project.WorkBook {
                 if (foundRow == null)
                     return default(T);
 
-                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
+                return ConvertToDataFromRow(sheet.Row(foundRow.RowNumber()));
             }
         }
 
@@ -380,7 +400,7 @@ namespace konito_project.WorkBook {
                 if (foundRow == null)
                     return default(T);
 
-                return CovertToDataFromRow(sheet.Row(foundRow.RowNumber()));
+                return ConvertToDataFromRow(sheet.Row(foundRow.RowNumber()));
             }
         }
 

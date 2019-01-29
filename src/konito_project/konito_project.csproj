@@ -106,6 +106,7 @@
     <Compile Include="Model\ContractType.cs" />
     <Compile Include="Model\TaxType.cs" />
     <Compile Include="Model\Trading.cs" />
+    <Compile Include="Model\WorkingTime.cs" />
     <Compile Include="Utils\Dialogs.cs" />
     <Compile Include="ViewModel\Query\ClientQueryViewModel.cs" />
     <Compile Include="ViewModel\Query\EmpQueryViewModel.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="View\Registry\MoldDataRegistry.xaml.cs">
       <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WorkBook\WorkingTimeWorkBook.cs" />
     <Page Include="Controls\Custom\SummaryButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

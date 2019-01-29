@@ -19,9 +19,11 @@ namespace konito_project.Controls.Custom {
     /// </summary>
     public partial class WorkingCalendar : UserControl {
         public static readonly DependencyProperty DateProperty = DependencyProperty.RegisterAttached("Date", typeof(DateTime), typeof(WorkingCalendar), new PropertyMetadata(OnChangedProperty));
+        private static readonly Thickness ContainerPadding = new Thickness(5);
+        private static readonly SolidColorBrush HeaderBackground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
         private static string[] WEEK_DAYS = { "일", "월", "화", "수", "목", "금", "토" };
         private static Brush[] WEEK_DAY_BRUSHES = { Brushes.Red, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Blue };
-
+        
         public DateTime Date {
             get { return (DateTime) GetValue(DateProperty); }
             set { SetValue(DateProperty, value); }
@@ -91,9 +93,44 @@ namespace konito_project.Controls.Custom {
             container.VerticalAlignment = VerticalAlignment.Stretch;
             container.BorderThickness = GetItemThickness(x, y);
             container.BorderBrush = Brushes.LightGray;
+            container.Background = HeaderBackground;
 
             textBlock.HorizontalAlignment = HorizontalAlignment.Center;
             textBlock.VerticalAlignment= VerticalAlignment.Center;
+            textBlock.Text = map[y, x];
+            textBlock.FontWeight = FontWeights.Bold;
+            textBlock.Foreground = WEEK_DAY_BRUSHES[x];
+            container.Child = textBlock;
+
+            Grid.SetRow(container, y);
+            Grid.SetColumn(container, x);
+
+            return container;
+        }
+
+        private FrameworkElement CreateContentsItem(int x, int y) {
+            var container = new Border();
+            var textBlock = new TextBlock();
+
+            container.HorizontalAlignment = HorizontalAlignment.Stretch;
+            container.VerticalAlignment = VerticalAlignment.Stretch;
+            container.BorderThickness = GetItemThickness(x, y);
+            container.BorderBrush = Brushes.LightGray;
+            container.Background = Brushes.White;
+            container.Padding = ContainerPadding;
+            container.Cursor = Cursors.Hand;
+
+            // 현재 선택, 마우스 커서 Hover, 내부 컨텐츠 등.
+            container.MouseEnter += (sender, e) => {
+                container.Background = Brushes.Gray;
+            };
+
+            container.MouseLeave += (sender, e) => {
+                container.Background = Brushes.White;
+            };
+
+            textBlock.HorizontalAlignment = HorizontalAlignment.Left;
+            textBlock.VerticalAlignment = VerticalAlignment.Top;
             textBlock.Text = map[y, x];
             textBlock.Foreground = WEEK_DAY_BRUSHES[x];
             container.Child = textBlock;
@@ -139,7 +176,7 @@ namespace konito_project.Controls.Custom {
 
             for (int y = 1; y < 7; y++) {
                 for (int x = 0; x < 7; x++) {
-                    gridCalendar.Children.Add(CreateWeekDayHeader(x, y));
+                    gridCalendar.Children.Add(CreateContentsItem(x, y));
                 }
             }
         }

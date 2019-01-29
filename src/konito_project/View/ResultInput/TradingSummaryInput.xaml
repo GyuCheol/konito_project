@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:TradingSummaryViewModel}"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="Trading Summary" Height="727.5" Width="989">
+        Title="{Binding Title}" Height="727.5" Width="989">
 
     <Grid Background="{StaticResource DisabledBackground}">
 
