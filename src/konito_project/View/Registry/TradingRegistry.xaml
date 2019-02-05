@@ -11,12 +11,11 @@
         x:Name="window"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:TradingRegistryViewModel}"
-        Title="TradingRegisry" Height="550" Width="700"
+        Title="TradingRegisry" Height="700" Width="700"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
         >
 
     <Grid Background="{StaticResource DisabledBackground}">
-
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Margin" Value="10"/>
@@ -25,7 +24,7 @@
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-            Width="600" Height="500"
+            Width="600" Height="550"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>
@@ -87,15 +86,20 @@
                                     <Label Content="거래일자 : "/>
                                     <DatePicker Width="230" Text="{Binding CurrentTrading.Date}" DisplayDate="{Binding CurrentTrading.Date, StringFormat=\{yy.MM.dd\}}" />
                                 </StackPanel>
+                                
+                                <StackPanel>
+                                    <Label Content="계정명 : "/>
+                                    <ComboBox Width="230" ItemsSource="{Binding AccountList}" Text="{Binding CurrentTrading.Account}"/>
+                                </StackPanel>
 
                                 <StackPanel>
                                     <Label Content="거래처명 : "/>
-                                    <TextBox Width="230" TextAlignment="Left" Text="{Binding CurrentTrading.CompanyName}"/>
+                                    <ComboBox Width="230" IsEditable="True" ItemsSource="{Binding CompanyNameList}" Text="{Binding CurrentTrading.CompanyName}"/>
                                 </StackPanel>
 
                                 <StackPanel>
                                     <Label Content="품명 : "/>
-                                    <TextBox Width="230" TextAlignment="Left" Text="{Binding CurrentTrading.ProductName}"/>
+                                    <ComboBox Width="230" Text="{Binding CurrentTrading.ProductName}" IsEditable="True" ItemsSource="{Binding ProductNameList}"/>
                                 </StackPanel>
 
                                 <StackPanel>
@@ -113,7 +117,8 @@
                                 <StackPanel>
                                     <Label Content="구분 : "/>
                                     <RadioButton IsChecked="{Binding IsTax}" Margin="0,0,20,0" Content="과세" GroupName="1"/>
-                                    <RadioButton IsChecked="{Binding IsSmallTax}" Content="영세" GroupName="1"/>
+                                    <RadioButton IsChecked="{Binding IsSmallTax}" Margin="0,0,20,0" Content="영세" GroupName="1"/>
+                                    <RadioButton IsChecked="{Binding IsTaxFree}" Content="비과세" GroupName="1"/>
                                 </StackPanel>
 
                                 <StackPanel>

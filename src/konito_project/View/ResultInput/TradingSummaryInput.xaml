@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:konito_project.View.ResultInput"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:cc="clr-namespace:konito_project.Controls.Custom"
@@ -52,7 +53,7 @@
                                 Orientation="Horizontal"
                                 Margin="10 0 0 0">
 
-                        <Button Content="◀" 
+                        <Button Content="{iconPacks:MaterialLight Kind=ChevronDoubleLeft}"
                                 Background="White"
                                 BorderThickness="0"
                                 Foreground="#FF41B1E1"
@@ -64,7 +65,7 @@
                                VerticalAlignment="Center"
                                FontSize="20"
                                />
-                        <Button Content="▶" 
+                        <Button Content="{iconPacks:MaterialLight Kind=ChevronDoubleRight}"
                                 Background="White"
                                 BorderThickness="0"
                                 Foreground="#FF41B1E1"
@@ -146,8 +147,8 @@
 
                 </Grid>
 
-                <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Margin="0 0 10 10" Content="닫기" Click="Button_Click_1"/>
+                <StackPanel Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button Width="150" Content="닫기" Click="Button_Click_1"/>
                 </StackPanel>
 
             </Grid>

@@ -31,17 +31,20 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0" Source="/konito_project;component/Assets/konito_logo.png"/>
 
-                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                    <Label Height="30" Width="100" Content="검색 키워드 : "/>
-                    <TextBox Height="30" Width="350" Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button x:Name="btnSearch" Width="100" IsDefault="True" Command="{Binding SearchCommand}" Content="검색"/>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="30" Width="100" Content="검색 키워드 : "/>
+                        <TextBox Height="30" Width="350" Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button x:Name="btnSearch" Width="100" IsDefault="True" Command="{Binding SearchCommand}" Content="검색"/>
+                    </StackPanel>
+                    <TextBlock Margin="100 0 0 0" Text="※ 검색 기준 : 품번, 수주처, 설계 임직원, 품명"/>
                 </StackPanel>
 
                 <Border Grid.Row="2" Margin="5" BorderBrush="Gray" BorderThickness="1">

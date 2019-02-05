@@ -36,11 +36,15 @@ namespace konito_project.Model {
         [ExcelColumn(7, "적요")]
         public AccountType AccountType { get; set; }
 
+        [Required("계정")]
+        [ExcelColumn(8, "계정")]
+        public string Account { get; set; }
+
         [Required("구분")]
-        [ExcelColumn(8, "구분")]
+        [ExcelColumn(9, "구분")]
         public TaxType TaxType { get; set; }
 
-        [ExcelColumn(9, "비고")]
+        [ExcelColumn(10, "비고")]
         public string Memo { get; set; }
 
     }

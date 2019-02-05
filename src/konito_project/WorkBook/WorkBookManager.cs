@@ -255,7 +255,7 @@ namespace konito_project.WorkBook {
                 } else if (prop.PropertyType == typeof(ContractType)) {
                     prop.SetValue(instance, GetEnumValue<ContractType>(value));
                 } else if (prop.PropertyType == typeof(TaxType)) {
-                    prop.SetValue(instance, GetEnumValue<TaxType>(value));
+                    prop.SetValue(instance, value.ToString().ConvertTaxTypeFromStr());
                 } else if (prop.PropertyType == typeof(int)) {
 
                     if (string.IsNullOrEmpty(value.ToString()) == false) {

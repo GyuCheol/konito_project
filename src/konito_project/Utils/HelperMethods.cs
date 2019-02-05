@@ -13,12 +13,24 @@ namespace konito_project.Utils {
     public static class HelperMethods {
 
         public static AccountType ConvertAccountTypeFromStr(this string str) {
-
             switch (str) {
                 case AccountType.PurchaseText:
                     return AccountType.Purchase;
                 case AccountType.SalesText:
                     return AccountType.Sales;
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
+        public static TaxType ConvertTaxTypeFromStr(this string str) {
+            switch (str) {
+                case TaxType.TaxText:
+                    return TaxType.Tax;
+                case TaxType.TaxSmallText:
+                    return TaxType.TaxSmall;
+                case TaxType.TaxFreeText:
+                    return TaxType.TaxFree;
                 default:
                     throw new ArgumentException();
             }

@@ -108,9 +108,9 @@
 
                                     <StackPanel>
                                         <Label Content="직 책 : "/>
-                                        <ComboBox Width="200" 
+                                        <ComboBox Width="200" IsEditable="True"
                                                   ItemsSource="{Binding Position}"
-                                                  SelectedItem="{Binding CurrentEmployee.Position}"
+                                                  Text="{Binding CurrentEmployee.Position}"
                                                   />
                                     </StackPanel>
 
