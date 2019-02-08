@@ -95,6 +95,9 @@
     <Compile Include="Controls\Custom\WorkingCalendar.xaml.cs">
       <DependentUpon>WorkingCalendar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Custom\WorkingEmployeeCard.xaml.cs">
+      <DependentUpon>WorkingEmployeeCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Extension\DatePickerPlaceHolder.cs" />
     <Compile Include="Controls\Extension\Numeric.cs" />
     <Compile Include="Controls\Extension\PlaceHolder.cs" />
@@ -178,11 +181,16 @@
       <DependentUpon>MoldDataRegistry.xaml</DependentUpon>
     </Compile>
     <Compile Include="WorkBook\WorkingTimeWorkBook.cs" />
+    <Compile Include="WorkBook\YearMonthlyWorkBook.cs" />
     <Page Include="Controls\Custom\SummaryButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Custom\WorkingCalendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Custom\WorkingEmployeeCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

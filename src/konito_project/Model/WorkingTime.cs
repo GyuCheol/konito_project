@@ -29,5 +29,20 @@ namespace konito_project.Model {
         [ExcelColumn(7, "퇴근시간")]
         public DateTime QuittingTime { get; set; }
 
+        [ExcelColumn(8, "근무시간")]
+        public TimeSpan WorkTime { get; set; }
+
+        [ExcelColumn(9, "추가근무시간")]
+        public TimeSpan OverWorkTime { get; set; }
+
+        [ExcelColumn(10, "특별근무시간")]
+        public TimeSpan WeekendWorkTime { get; set; }
+
+        [ExcelColumn(11, "휴가유무")]
+        public string Holiday { get; set; }
+
+        [ExcelColumn(12, "출장유무")]
+        public string BusinessTrip { get; set; }
+
     }
 }

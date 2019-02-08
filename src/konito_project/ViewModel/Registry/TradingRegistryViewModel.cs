@@ -40,7 +40,7 @@ namespace konito_project.ViewModel.Registry {
             AccountList = new ObservableCollection<string>(ExcelManager.AccountWorkBook.GetAllRecords().Where(x => x.AccountType == CurrentAccountType).Select(x => x.Name).OrderBy(x => x));
             ProductNameList = new ObservableCollection<string>(ExcelManager.MoldWorkBook.GetAllRecords().Select(x => x.ProductName).OrderBy(x => x));
 
-            workBook = new TradingWorkBook(DateTime.Now.Year, CurrentAccountType, DateTime.Now.Month);
+            workBook = new TradingWorkBook(DateTime.Now.Year, DateTime.Now.Month, CurrentAccountType);
         }
 
         public TradingRegistryViewModel(int year, int month, AccountType acType) : this(acType) {
@@ -51,7 +51,7 @@ namespace konito_project.ViewModel.Registry {
                 AccountType = acType
             };
 
-            workBook = new TradingWorkBook(year, CurrentAccountType, month);
+            workBook = new TradingWorkBook(year, month, CurrentAccountType);
 
         }
 

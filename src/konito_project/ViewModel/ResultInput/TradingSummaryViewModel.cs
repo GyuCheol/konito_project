@@ -40,7 +40,7 @@ namespace konito_project.ViewModel.ResultInput {
         private AccountType accountType;
 
         public TradingSummaryViewModel(AccountType accountType) {
-            workbook = new TradingWorkBook(DateTime.Now.Year, accountType, DateTime.Now.Month);
+            workbook = new TradingWorkBook(DateTime.Now.Year, DateTime.Now.Month, accountType);
             Title = $"{accountType} 거래실적 입력";
 
             this.accountType = accountType;

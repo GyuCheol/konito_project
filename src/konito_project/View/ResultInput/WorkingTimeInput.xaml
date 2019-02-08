@@ -10,7 +10,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/konito_project;component/Assets/konito_icon.png"
-        Title="출근 대장 입력" Height="650" Width="1000">
+        Title="출근 대장 입력" Height="850" Width="1000">
     <Grid Background="{StaticResource DisabledBackground}">
 
         <Grid.Resources>
@@ -21,7 +21,7 @@
         </Grid.Resources>
 
         <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                Width="900" Height="550"
+                Width="900" Height="750"
             Background="White" BorderBrush="Gray" BorderThickness="1">
 
             <Grid>

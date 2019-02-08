@@ -11,7 +11,7 @@ namespace konito_project.Tests.WorkbookAPI {
 
     [TestClass]
     public class TradingSalesWorkBookTest {
-        private TradingWorkBook workBook = new TradingWorkBook(2019, AccountType.Sales, 1);
+        private TradingWorkBook workBook = new TradingWorkBook(2019, 1, AccountType.Sales);
 
         [TestInitialize]
         public void InitWorkBook() {

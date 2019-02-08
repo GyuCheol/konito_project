@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace konito_project.WorkBook {
 
-    public class WorkBookManager<T>: IWorkBookInitializer where T: class {
+    public class WorkBookManager<T>: IWorkBookInitializer 
+        where T: class {
+
         public string WorkBookPath { get; protected set; }
         public string MainSheetName { get; protected set; }
         public Type ModelType { get; } = typeof(T);

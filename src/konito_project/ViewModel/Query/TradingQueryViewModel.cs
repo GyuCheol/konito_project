@@ -39,7 +39,7 @@ namespace konito_project.ViewModel.Query {
         public TradingQueryViewModel(int year, int month, AccountType accountType) {
             Year = year;
             Month = month;
-            workbook = new TradingWorkBook(year, accountType, month);
+            workbook = new TradingWorkBook(year, month, accountType);
             currentAccountType = accountType;
             Title = $"{accountType} 거래실적 조회 ({year}년 {month}월)";
             RefreshData();

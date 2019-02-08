@@ -10,56 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace konito_project.WorkBook {
-    public class TradingWorkBook : WorkBookManager<Trading> {
+    public class TradingWorkBook : YearMonthlyWorkBook<Trading> {
         private AccountType accountType;
 
-        public TradingWorkBook(int year, AccountType accountType, int month) {
+        protected override string DefaultPath => $"./db/{accountType}실적";
+
+        public TradingWorkBook(int year, int month, AccountType accountType) {
             this.accountType = accountType;
             ChangeYear(year);
             ChangeMonth(month);
         }
 
-        public void ChangeYear(int year) {
-            WorkBookPath = $"./db/{accountType}실적/{year}.xlsx";
-            InitWorkBook();
-        }
-
-        public void ChangeMonth(int month) {
-            MainSheetName = $"{month}월";
-        }
-
         public int GetTotalyPrice() => GetAllRecords().Sum(x => x.Price);
-
-        public override void InitWorkBook()
-        {
-            if (File.Exists(WorkBookPath)) {
-
-                if (CanUseWorkBook() == false) {
-                    throw new CouldNotOpenWorkBookException(WorkBookPath);
-                }
-
-                return;
-            }
-
-            using (var workbook = new XLWorkbook()) {
-
-                var attributes = from prop in ModelType.GetProperties()
-                                    select prop.GetCustomAttributes(typeof(ExcelColumnAttribute), false).OfType<ExcelColumnAttribute>().FirstOrDefault() into attr
-                                    where attr != null
-                                    select attr;
-
-                for (int month = 1; month <= 12; month++) {
-                    var worksheet = workbook.Worksheets.Add($"{month}월");
-
-                    foreach (var attr in attributes) {
-                        worksheet.Cell(1, attr.Order).SetValue(attr.HeaderName);
-                    }
-                }
-
-                workbook.SaveAs(WorkBookPath);
-                InitExcel(workbook);
-            }
-        }
 
     }
 }
